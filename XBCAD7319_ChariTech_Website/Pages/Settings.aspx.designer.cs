@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace XBCAD7319_ChariTech_Website
+namespace XBCAD7319_ChariTech_Website.Pages
 {
 
 
-    public partial class About
+    public partial class Settings
     {
     }
 }

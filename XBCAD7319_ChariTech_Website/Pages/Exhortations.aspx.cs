@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace XBCAD7319_ChariTech_Website
+namespace XBCAD7319_ChariTech_Website.Pages
 {
-    public partial class About : Page
+    public partial class Exhortations : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
