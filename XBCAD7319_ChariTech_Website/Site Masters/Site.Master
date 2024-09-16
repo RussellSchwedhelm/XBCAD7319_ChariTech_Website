@@ -30,7 +30,7 @@
             <div class="container d-flex justify-content-between align-items-center">
                 <ul class="navbar-nav flex-grow-1 justify-content-center d-flex align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link" runat="server" href="~/Pages/">Home</a>
+                        <a class="nav-link" runat="server" href="~/Pages/Home">Home</a>
                     </li>
                     <li class="nav-item separator">|</li>
                     <li class="nav-item">
@@ -69,7 +69,6 @@
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
             </footer>
