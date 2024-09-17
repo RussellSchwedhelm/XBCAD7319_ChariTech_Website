@@ -90,3 +90,322 @@ footer {
     pointer-events: none; /* Prevent selection or interaction */
     user-select: none; /* Prevent text selection */
 }
+/* Main container layout */
+.main-container {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 20px;
+    height: 83.5vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Exhortations section */
+.exhortations {
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ecclesial News section - reuse styles */
+.ecclesial-news {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Reuse exhortation styles*/
+.news-item {
+    font-size: 16px;
+    padding-left: 10px;
+    color: #333;
+    background-color: #e6e6e6; /* Slightly darker than the section background */
+    border-radius: 5px;
+    margin-bottom: 10px; /* Space between items */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Ensure the button fits cleanly */
+}
+
+.news-info {
+    flex-grow: 1;
+    padding-right: 10px; /* Space for the play button */
+}
+
+    .news-info p {
+        margin: 0; /* Remove margin to squish the content closer */
+        font-size: 14px; /* Smaller font for a compact look */
+    }
+
+/* Adjust news play button to match item height and go full width to the right */
+.news-play-button {
+    background-color: #FFA500; /* Orange background for news play button */
+    border: none;
+    cursor: pointer;
+    font-size: 19px;
+    border-top-right-radius: 5px; /* Match the bevel of the item */
+    border-bottom-right-radius: 5px;
+    height: 60px;
+    width: 60px; /* Adjust width to ensure it's larger but not too wide */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0;
+    margin-left: auto; /* Push the button to the far right */
+}
+
+    .news-play-button:hover {
+        background-color: #FF8C00; /* Slightly darker orange on hover */
+    }
+
+/* Remove vertical scrollbar and make items fit */
+.news-list {
+    max-height: auto; /* Remove height restriction */
+    overflow-y: hidden; /* Remove vertical scroll */
+}
+
+
+/* Next Sunday section */
+.next-sunday {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align the heading at the top */
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    height: 100%; /* Take the full height of the section */
+}
+
+    .next-sunday h2 {
+        margin-bottom: 20px; /* Space between the heading and the content */
+        text-align: center;
+        width: 100%;
+    }
+
+    .next-sunday p {
+        margin: 5px 0; /* Small margin between paragraphs */
+        text-align: center;
+    }
+
+    .next-sunday button {
+        margin-top: 5px; /* Space above the button */
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .next-sunday button:hover {
+            background-color: #555;
+        }
+
+    /* Ensure the content is vertically centered */
+    .next-sunday .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+        height: 100%; /* Make content take the full height */
+        width: 100%;
+    }
+
+
+/* Prayer Requests section */
+.prayer-requests {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+}
+
+/* Donations section */
+.donations {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+}
+
+/* Styling for the sections */
+.section {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/*Home Page Styles*/
+/* Exhortation item styling */
+.exhortation-item {
+    font-size: 16px;
+    padding-left: 10px;
+    color: #333;
+    background-color: #e6e6e6; /* Slightly darker than the section background */
+    border-radius: 5px;
+    margin-bottom: 10px; /* Space between items */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Ensure the button fits cleanly */
+}
+
+/* Exhortation text styling */
+.exhortation-info {
+    flex-grow: 1;
+    padding-right: 10px; /* Space for the play button */
+}
+
+    .exhortation-info p {
+        margin: 0; /* Remove margin to squish the content closer */
+        font-size: 14px; /* Smaller font for more compact look */
+    }
+
+/* Adjust play button to match item height and go full width to the right */
+.play-button {
+    background-color: #4CAF50;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-top-right-radius: 5px; /* Match the bevel of the item */
+    border-bottom-right-radius: 5px;
+    height: 60px;
+    width: 60px; /* Adjust width to ensure it's larger but not too wide */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0;
+    margin-left: auto; /* Push the button to the far right */
+}
+
+    .play-button:hover {
+        background-color: #45a049;
+    }
+
+/* Remove vertical scrollbar and make items fit */
+.exhortations-list {
+    max-height: auto; /* Remove height restriction */
+    overflow-y: hidden; /* Remove vertical scroll */
+}
+
+/* Make the details link look like plain text */
+.details-link {
+    color: inherit; /* Use the default text color */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer; /* Still a clickable link */
+    margin-right: 10px;
+}
+
+/* Prayer Requests section */
+.prayer-requests {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align the heading at the top */
+    align-items: center;
+    text-align: center; /* Center the heading */
+    padding: 20px; /* Add padding for breathing space */
+    height: 100%; /* Ensure the section takes full height */
+}
+
+    .prayer-requests h2 {
+        margin-bottom: 20px; /* Space between heading and list */
+        text-align: center;
+        width: 100%;
+    }
+
+    .prayer-requests ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Center items vertically */
+        align-items: center; /* Center items horizontally */
+        height: 100%; /* Make the list take full height of the section */
+        gap: 0; /* Remove any spacing between items */
+    }
+
+    .prayer-requests li {
+        padding: 0; /* Remove spacing between list items */
+        font-size: 16px;
+        width: 50%; /* Adjust width to fit within two columns */
+        text-align: center; /* Center the text within each item */
+    }
+
+@media (min-width: 768px) {
+    .prayer-requests ul {
+        flex-direction: row; /* Switch to two columns on larger screens */
+        flex-wrap: wrap;
+    }
+
+    .prayer-requests li {
+        width: 45%; /* Adjust width for two columns layout */
+        margin-bottom: 10px; /* Add a bit of space between rows */
+    }
+}
+
+/* Donations section */
+.donations {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align the heading at the top */
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    height: 100%; /* Take the full height of the section */
+}
+
+    .donations h2 {
+        margin-bottom: 30px; /* Space between the heading and the content */
+        text-align: center;
+        width: 100%;
+    }
+
+/* Donation grid layout for 2-column donation structure */
+.donation-grid {
+    align-items: center;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 20px; /* Space between items */
+    width: 100%; /* Full width */
+}
+
+.section-heading {
+    text-align: center; /* Center the text */
+    width: 100%;
+}
+/* Progress bar styling */
+.progress-bar {
+    width: 100%;
+    background-color: #e0e0e0; /* Light grey background */
+    border-radius: 5px;
+    height: 10px;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    background-color: #555; /* Darker grey for the progress color */
+    border-radius: 5px;
+}
+
+/* Responsive design for stacking columns on smaller screens */
+@media (max-width: 768px) {
+    .donation-grid {
+        grid-template-columns: 1fr; /* Stack all into one column */
+    }
+}
