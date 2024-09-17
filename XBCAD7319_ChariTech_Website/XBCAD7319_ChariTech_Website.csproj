@@ -124,7 +124,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\book_icon.jpg" />
     <Content Include="Images\notification.png" />
     <Content Include="Pages\About.aspx" />
     <Content Include="Pages\BibleCourses.aspx" />
