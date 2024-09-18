@@ -409,3 +409,186 @@ footer {
         grid-template-columns: 1fr; /* Stack all into one column */
     }
 }
+/* Dashboard-specific container */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Section Styling */
+.section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+    /* Section Headings */
+    .section h4 {
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+/* Form Inputs */
+.upload-form input,
+.notification-form input,
+.notification-form textarea,
+.dropdown select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* File Upload Styling */
+.file-upload {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+    .file-upload i {
+        font-size: 24px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+/* Donation Editable Section */
+.donation-editable {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.donation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #ececec;
+    border-radius: 5px;
+}
+
+    .donation-item i {
+        cursor: pointer;
+    }
+
+/* Button Styling */
+.buttons-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+    color: #fff;
+}
+
+.publish-btn {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.accept-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.deny-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Calendar Section Styling */
+.calendar {
+    margin-top: 20px;
+}
+
+    .calendar input {
+        margin-bottom: 10px;
+    }
+
+/* Prayer Requests List */
+.prayer-requests-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+    .prayer-requests-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+.fa-check-circle {
+    color: #28a745;
+}
+
+.fa-times-circle {
+    color: #dc3545;
+}
+
+.ecclesial-news-upload {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+.prayer-requests-review {
+    grid-column: 1;
+    grid-row: 4 / 7;
+    display: flex;
+    flex-direction: column;
+}
+
+.online-donations {
+    grid-column: 2;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+.notifications {
+    grid-column: 2;
+    grid-row: 4 / 7;
+    display: flex;
+    flex-direction: column;
+}
+
+.next-sunday-modi {
+    grid-column: 3;
+    grid-row: 1 / 6;
+    display: flex;
+    flex-direction: column;
+}
+
+.bible-course-upload {
+    grid-column: 3;
+    grid-row: 6;
+    display: flex;
+    flex-direction: column;
+}

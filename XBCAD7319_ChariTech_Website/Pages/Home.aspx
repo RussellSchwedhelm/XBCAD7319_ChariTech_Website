@@ -67,20 +67,20 @@
             <h4>Donations</h4>
             <div class="donation-grid">
                 <!-- Row 1: Blue Bag and Red Bag -->
-                <div class="donation-item">Blue Bag - General</div>
-                <div class="donation-item">Red Bag - Welfare</div>
+                <div>Blue Bag - General</div>
+                <div>Red Bag - Welfare</div>
 
                 <!-- Row 2: Rondebosch Food Drive and progress bar -->
-                <div class="donation-item">Rondebosch Food Drive</div>
-                <div class="donation-item">
+                <div>Rondebosch Food Drive</div>
+                <div>
                     <div class="progress-bar">
                         <div class="progress" style="width: 60%;"></div> <!-- Adjust width for progress -->
                     </div>
                 </div>
 
                 <!-- Row 3: New Hymn Books and progress bar -->
-                <div class="donation-item">New Hymn Books</div>
-                <div class="donation-item">
+                <div>New Hymn Books</div>
+                <div>
                     <div class="progress-bar">
                         <div class="progress" style="width: 45%;"></div> <!-- Adjust width for progress -->
                     </div>
@@ -90,3 +90,4 @@
     </div>
 
 </asp:Content>
+

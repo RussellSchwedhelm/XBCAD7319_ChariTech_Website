@@ -1,87 +1,101 @@
 ﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Dashboard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <!-- Main Container -->
-    <div class="main-container">
-        
+    <div class="main-container dashboard-container">
         <!-- Ecclesial Newsletter Upload Section -->
         <div class="section ecclesial-news-upload">
-            <h3>Ecclesial Newsletter Upload</h3>
-            <form>
-                <label for="newsletter-date">Date:</label>
-                <input type="date" id="newsletter-date" name="newsletter-date">
-                
-                <label for="newsletter-title">Title:</label>
-                <input type="text" id="newsletter-title" name="newsletter-title" placeholder="Enter title here">
-                
-                <label for="newsletter-file">Upload File:</label>
-                <input type="file" id="newsletter-file" name="newsletter-file">
-                
-                <button type="submit">Upload</button>
-            </form>
-        </div>
-
-        <!-- Online Donations Section -->
-        <div class="section online-donations">
-            <h3>Online Donations</h3>
-            <div>
-                <label>Blue Bag (General):</label>
-                <input type="text" value="Blue Bag" readonly>
-                
-                <label>Red Bag (Welfare):</label>
-                <input type="text" value="Red Bag" readonly>
-
-                <label>Rondebosch Food Drive:</label>
-                <input type="text" value="2156 / 5200" readonly>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 40%;"></div>
-                </div>
-
-                <label>New Hymn Books:</label>
-                <input type="text" value="400 / 800" readonly>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 50%;"></div>
+            <h4>Ecclesial Newsletter Upload</h4>
+            <div class="upload-form">
+                <label for="date">Date</label>
+                <input type="text" id="date" placeholder="--/--/----">
+                <label for="title">Title</label>
+                <input type="text" id="title" placeholder="-----------------------">
+                <div class="file-upload">
+                    <i class="fa fa-upload"></i>
+                    <p>Drag and Drop Here Or Browse For a File</p>
                 </div>
             </div>
         </div>
 
+        <!-- Online Donations Section -->
+        <div class="section online-donations">
+            <h4>Online Donations</h4>
+            <div class="donation-editable">
+                <div class="donation-item">
+                    Blue Bag <span>General</span> <i class="fa fa-edit"></i>
+                </div>
+                <div class="donation-item">
+                    Red Bag <span>Welfare</span> <i class="fa fa-edit"></i>
+                </div>
+                <div class="donation-item">
+                    Rondebosch Food Drive <span>2156 / 5200</span> <i class="fa fa-edit"></i>
+                </div>
+                <div class="donation-item">
+                    New Hymn Books <span>400 / 800</span> <i class="fa fa-edit"></i>
+                </div>
+            </div>
+            <div class="buttons-group">
+                <button class="btn cancel-btn">Cancel</button>
+                <button class="btn publish-btn">Publish Changes</button>
+            </div>
+        </div>
+
         <!-- Next Sunday Section -->
-        <div class="section next-sunday">
-            <h3>Next Sunday - 01-01-2024</h3>
+        <div class="section next-sunday-modi">
+            <h4>Next Sunday - 01-01-2024</h4>
             <p><strong>Presiding:</strong> James Dean</p>
             <p><strong>Exhortation:</strong> Phil Dunphy</p>
             <p><strong>On The Door:</strong> John Doe</p>
+            <div class="calendar">
+                <input type="date" id="next-sunday-date">
+                <button class="btn save-btn">Save Sunday Information</button>
+            </div>
         </div>
 
         <!-- Prayer Request Review Section -->
-        <div class="section prayer-request-review">
-            <h3>Prayer Request Review - 01-01-2024</h3>
-            <ul>
-                <li>Emily Johnson <span class="action-button">✘</span></li>
-                <li>Michael Smith <span class="action-button">✔</span></li>
-                <li>Olivia Brown <span class="action-button">✘</span></li>
-                <li>Benjamin Davis <span class="action-button">✔</span></li>
-                <li>Sophia Martinez <span class="action-button">✔</span></li>
-                <li>Jacob Wilson <span class="action-button">✔</span></li>
-                <li>Isabella Thompson <span class="action-button">✔</span></li>
-                <li>Ethan Garcia <span class="action-button">✘</span></li>
+        <div class="section prayer-requests-review">
+            <h4>Prayer Request Review - 01-01-2024</h4>
+            <ul class="prayer-requests-list">
+                <li>Emily Johnson <i class="fa fa-times-circle"></i></li>
+                <li>Michael Smith <i class="fa fa-check-circle"></i></li>
+                <li>Olivia Brown <i class="fa fa-times-circle"></i></li>
+                <li>Benjamin Davis <i class="fa fa-check-circle"></i></li>
+                <li>Sophia Martinez <i class="fa fa-check-circle"></i></li>
+                <li>Jacob Wilson <i class="fa fa-check-circle"></i></li>
+                <li>Isabella Thompson <i class="fa fa-check-circle"></i></li>
+                <li>Ethan Garcia <i class="fa fa-times-circle"></i></li>
             </ul>
-            <button class="accept-all">Accept All</button>
-            <button class="deny-all">Deny All</button>
+            <div class="buttons-group">
+                <button class="btn accept-btn">Accept All</button>
+                <button class="btn deny-btn">Deny All</button>
+            </div>
+        </div>
+
+        <!-- Notifications Section -->
+        <div class="section notifications">
+            <h4>Create Notification</h4>
+            <div class="notification-form">
+                <label for="notification-date">Date</label>
+                <input type="text" id="notification-date" placeholder="--/--/----">
+                <label for="notification-title">Title</label>
+                <input type="text" id="notification-title" placeholder="-----------------------">
+                <textarea placeholder="Enter notification text"></textarea>
+                <div class="dropdown">
+                    <label for="destination-filters">Destination Filters</label>
+                    <select id="destination-filters">
+                        <option>None</option>
+                    </select>
+                </div>
+            </div>
+            <div class="buttons-group">
+                <button class="btn cancel-btn">Cancel</button>
+                <button class="btn publish-btn">Publish Notification</button>
+            </div>
         </div>
 
         <!-- Upload Bible Course Section -->
-        <div class="section upload-bible-course">
-            <h3>Upload Bible Course</h3>
-            <form>
-                <label for="bible-course-date">Date:</label>
-                <input type="date" id="bible-course-date" name="bible-course-date">
-
-                <label for="bible-course-title">Title:</label>
-                <input type="text" id="bible-course-title" name="bible-course-title" placeholder="Enter course title">
-                
-                <button type="submit">Upload</button>
-            </form>
+        <div class="section bible-course-upload">
+            <button class="btn save-btn">Upload Bible Course</button>
         </div>
-
     </div>
 </asp:Content>
