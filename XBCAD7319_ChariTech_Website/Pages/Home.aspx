@@ -3,23 +3,23 @@
 
     <!-- Main Container -->
     <div class="main-container">
-    <!-- Exhortations Section -->
-    <div class="section exhortations">
-        <h3 class="section-heading">Exhortations</h3>
-        <div class="exhortations-list">
-            <!-- Repeat this block for each exhortation dynamically -->
-            <div class="exhortation-item">
-                <div class="exhortation-info">
-                    <p class="title">Talk Title | 01-01-2024</p>
-                    <p class="description">Brief Talk Description</p>
-                </div>
-                <div class="exhortation-actions">
-                    <a href="#" class="details-link">Details ></a>
-                    <button class="play-button">▶</button>
+        <!-- Exhortations Section -->
+        <div class="section exhortations">
+            <h3 class="section-heading">Exhortations</h3>
+            <div class="exhortations-list">
+                <!-- Repeat this block for each exhortation dynamically -->
+                <div class="exhortation-item">
+                    <div class="exhortation-info">
+                        <p class="title">Talk Title | 01-01-2024</p>
+                        <p class="description">Brief Talk Description</p>
+                    </div>
+                    <div class="exhortation-actions">
+                        <a href="#" class="details-link">Details ></a>
+                        <button class="play-button">▶</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <!-- Ecclesial News Section -->
         <div class="section ecclesial-news">
