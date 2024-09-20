@@ -104,10 +104,114 @@ footer {
 /* Exhortations section */
 .exhortations {
     grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+/*Exhortation Page Start */
+.exhortationSelect {
+    grid-column: 1 / 1;
     grid-row: 1 / 4;
     display: flex;
     flex-direction: column;
 }
+
+.exhortationDisplay {
+    grid-column: 2 / 4;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+.audio-player {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.audio-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.speaker {
+    font-weight: bold;
+}
+
+.date {
+    color: #888;
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+}
+
+.play-button2 {
+    background-color: #BFBFBF;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* Space between button and progress bar */
+}
+
+    .play-button:hover {
+        background-color: #45a049;
+    }
+
+.progress-container {
+    flex-grow: 1; /* Allow the progress bar to take up remaining space */
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    width: 50%; /* Adjust this dynamically with JavaScript */
+    background-color: #4CAF50;
+    border-radius: 5px;
+}
+
+.timestamps {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px; /* Space between progress bar and timestamps */
+}
+
+.current-time, .total-time {
+    font-size: 12px;
+    color: #555;
+}
+
+/*Exhortation Page End*/
+
+
+
 
 /* Ecclesial News section - reuse styles */
 .ecclesial-news {
