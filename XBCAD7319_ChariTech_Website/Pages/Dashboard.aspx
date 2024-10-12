@@ -4,7 +4,7 @@
     <div class="main-container dashboard-container">
         <!-- Ecclesial Newsletter Upload Section -->
         <div class="section ecclesial-news-upload">
-            <h3>Ecclesial Newsletter Upload</h3>
+            <h3 class="section-heading">Ecclesial Newsletter Upload</h3>
             <div class="upload-form">                
                 <label for="date">Date</label>
                 <input type="date" id="date">
@@ -21,22 +21,20 @@
 
         <!-- Online Donations Section -->
         <div class="section online-donations">
-            <h3>Online Donations</h3>
-            <div class="donation-editable">
-                <div class="donation-item">
+            <h3 class="section-heading">Online Donations</h3>
+            <div class="donation-editable" style="align-items: center; vertical-align:central; height:100%">
+                <div>
                     Blue Bag <span>General</span> <i class="fa fa-edit"></i>
-                </div>
-                <div class="donation-item">
                     Red Bag <span>Welfare</span> <i class="fa fa-edit"></i>
                 </div>
-                <div class="donation-item">
-                    Rondebosch Food Drive <span>2156 / 5200</span> <i class="fa fa-edit"></i>
+                <div>
+                    Rondebosch Food Drive: <span>2156 / 5200</span> <i class="fa fa-edit"></i>
                 </div>
-                <div class="donation-item">
-                    New Hymn Books <span>400 / 800</span> <i class="fa fa-edit"></i>
+                <div>
+                    New Hymn Books: <span>400 / 800</span> <i class="fa fa-edit"></i>
                 </div>
             </div>
-            <div class="buttons-group">
+            <div style="align-self: center">
                 <button class="btn cancel-btn">Cancel</button>
                 <button class="btn publish-btn">Publish Changes</button>
             </div>
@@ -44,7 +42,7 @@
 
         <!-- Next Sunday Section -->
         <div class="section next-sunday-modi">
-            <h3>Next Sunday - 01-01-2024</h3>
+            <h3 class="section-heading">Next Sunday<br>01-01-2024</h3>
             <p><strong>Presiding:</strong> James Dean</p>
             <p><strong>Exhortation:</strong> Phil Dunphy</p>
             <p><strong>On The Door:</strong> John Doe</p>
@@ -56,7 +54,7 @@
 
         <!-- Prayer Request Review Section -->
         <div class="section prayer-requests-review">
-            <h3>Prayer Request Review - 01-01-2024</h3>
+            <h3 class="section-heading">Prayer Request Review<br>01-01-2024</h3>
             <ul class="prayer-requests-list">
                 <li>Emily Johnson <i class="fa fa-times-circle"></i></li>
                 <li>Michael Smith <i class="fa fa-check-circle"></i></li>
@@ -75,7 +73,7 @@
 
         <!-- Notifications Section -->
         <div class="section notifications">
-            <h3>Create Notification</h3>
+            <h3 class="section-heading">Create Notification</h3>
             <div class="notification-form">
                 <label for="notification-date">Date</label>
                 <input type="text" id="notification-date" placeholder="--/--/----">
