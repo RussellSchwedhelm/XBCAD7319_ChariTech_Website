@@ -68,21 +68,22 @@ nav.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between; /* Make sure the items are distributed between left and right */
-    padding: 0 1rem;
     white-space: nowrap; /* Prevent wrapping of navbar items */
+    position: relative; /* Ensure z-index works properly */
+    width: 100vw; /* Make the navbar take full width of the viewport */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    height: 4rem;
 }
 
 .navbar-nav {
     display: flex;
     flex-grow: 1;
-    min-width: 576px;
     justify-content: center;
     align-items: center;
     text-align: center;
     list-style: none;
     margin: 0;
     padding: 0;
-    white-space: nowrap; /* Prevent navbar items from wrapping */
 }
 
     .navbar-nav .nav-item {
@@ -93,7 +94,6 @@ nav.navbar {
     .navbar-nav .nav-link {
         color: #000;
         font-weight: 500;
-        padding: 0.625rem; /* 10px padding */
         text-decoration: none;
         transition: color 0.3s ease;
         white-space: nowrap; /* Ensure text stays on one line */
@@ -103,35 +103,84 @@ nav.navbar {
             color: #0056b3;
         }
 
+/* Default behavior: right-aligned content */
 .navbar-right {
     display: flex;
     align-items: center; /* Center elements vertically */
     justify-content: center; /* Ensure content is horizontally aligned within the .navbar-right */
     position: absolute; /* Position absolutely */
-    right: 4rem; /* Align it to the far right */
+    right: 1rem; /* Adjust right aligned content */
     top: 50%; /* Position it in the middle vertically */
     transform: translateY(-50%); /* Vertically center within the navbar */
     padding-right: 1rem; /* Optional padding to add some space from the edge */
 }
 
-    /* Profile Picture */
-    .navbar-right .profile-picture {
-        width: 2.1875rem; /* 35px */
-        height: 2.1875rem; /* 35px */
-        border-radius: 50%; /* Circular shape */
-        margin-left: 1rem; /* Increased spacing between the username and picture */
+/* Stop right-aligned elements from moving with the right side at 1132px */
+@media screen and (max-width: 1132px) {
+    .navbar-right {
+        position: static; /* Remove absolute positioning */
+        transform: none; /* Remove translation */
+        margin-left: auto; /* Align the right-hand group on the left side */
+        padding-right: 0;
+    }
+}
+
+/* Snap back to the right side at 576px */
+@media screen and (max-width: 576px) {
+    .navbar-right {
+        position: absolute; /* Re-enable absolute positioning */
+        right: 1rem; /* Align to the right */
+        top: 50%; /* Vertically center */
+        transform: translateY(-50%); /* Center vertically */
+    }
+}
+
+
+/* Media query for smaller screens */
+@media (max-width: 576px) {
+    .navbar-nav {
+        display: none; /* Hide navbar links initially */
     }
 
-    /* Username */
-    .navbar-right .username {
-        margin-left: 1rem; /* Increased spacing between the profile picture and username */
-        font-weight: 500;
+    .navbar-collapse {
+        flex-grow: 1;
+        justify-content: center;
+        background-color: #fff; /* Set dropdown menu background to white */
+        z-index: 999; /* Ensure the dropdown is in front of other content */
+        position: absolute; /* Make the dropdown position absolute */
+        top: var(--navbar-height); /* Position right below the navbar */
+        left: 0;
+        right: 0;
+        border-top: 1px solid #ccc; /* Optional: Add a border on the top */
     }
 
-    /* Add padding between any other items */
-    .navbar-right .other-item {
-        margin-left: 1rem; /* Add similar spacing between other items */
+    .navbar-right {
+        right: 1rem; /* Adjust right aligned content for smaller screens */
     }
+
+    .navbar-toggler {
+        display: inline-block;
+    }
+
+    .navbar-collapse.show .navbar-nav {
+        display: flex; /* Show navbar links when the hamburger is clicked */
+        flex-direction: column;
+        width: 100%;
+        background-color: #fff; /* Ensure dropdown has a white background */
+        z-index: 999; /* Ensure the dropdown stays above all other elements */
+        position: relative; /* Allow the dropdown items to align properly */
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 0;
+        padding: 0.5rem 1rem;
+    }
+
+    /* Hide the "|" separators on small screens */
+    .navbar-nav .separator {
+        display: none;
+    }
+}
 
 
 
@@ -498,14 +547,14 @@ footer {
     flex-direction: column; /* Stack child elements vertically */
     justify-content: center; /* Center the content vertically */
     align-items: center; /* Center the content horizontally */
-    min-height: calc(100vh - 5rem); /* Assuming the footer is 50px tall */
+    min-height: calc(100vh - 6rem); /* Assuming the footer is 50px tall */
     min-width: 100vw;
     padding-left: 2rem; /* Padding on the left */
     padding-right: 2rem; /* Padding on the right */
 }
 
 .home {
-    padding-left: 15rem;
-    padding-right: 15rem;
+    padding-left: 13rem;
+    padding-right: 13rem;
 }
 
