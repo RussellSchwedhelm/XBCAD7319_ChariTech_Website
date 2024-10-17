@@ -168,7 +168,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #FFA500;
+    background-color: #008000;
     color: white;
     width: 3.75rem;
     height: 3.75rem;
@@ -177,7 +177,7 @@ footer {
 }
 
     .exhortation-actions:hover, .news-play-button:hover {
-        background-color: #FF8C00;
+        background-color: #0f4d0f;
     }
 
 .news-info, .exhortation-info {

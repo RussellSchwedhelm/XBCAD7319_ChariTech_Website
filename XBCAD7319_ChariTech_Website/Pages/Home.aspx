@@ -52,16 +52,18 @@
             <!-- Prayer Requests Section -->
             <div class="section prayer-requests">
                 <h4>Prayer Requests - 01-01-2024</h4>
-                <ul>
-                    <li>Emily Johnson</li>
-                    <li>Michael Smith</li>
-                    <li>Olivia Brown</li>
-                    <li>Benjamin Davis</li>
-                    <li>Sophia Martinez</li>
-                    <li>Jacob Wilson</li>
-                    <li>Isabella Thompson</li>
-                    <li>Ethan Garcia</li>
-                </ul>
+                <div class="prayer-requests-grid">
+                    <ul>
+                        <li>Emily Johnson</li>
+                        <li>Michael Smith</li>
+                        <li>Olivia Brown</li>
+                        <li>Benjamin Davis</li>
+                        <li>Sophia Martinez</li>
+                        <li>Jacob Wilson</li>
+                        <li>Isabella Thompson</li>
+                        <li>Ethan Garcia</li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Online Donations Section -->
