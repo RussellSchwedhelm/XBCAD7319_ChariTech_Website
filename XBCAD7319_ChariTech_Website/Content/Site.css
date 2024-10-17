@@ -156,33 +156,97 @@ footer {
 
 /* Left Section: Exhortations */
 .exhortation-item, .news-item {
+    position: relative; /* Add this to make the container a positioned element */
     display: flex;
-    justify-content: space-between;
-    padding: 0.625rem;
-    background-color: #e6e6e6;
-    margin-bottom: 0.625rem;
-    border-radius: 0.3125rem;
+    justify-content: left;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: #f7f7f7;
+    margin-bottom: 0.3rem;
+    border-radius: 0.375rem;
+    border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
 }
 
-.exhortation-actions, .news-play-button {
+/* Text Section */
+.news-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.news-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.news-summary {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Play Button - Positioned on the far right within the item */
+.play-button {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #008000;
     color: white;
-    width: 3.75rem;
-    height: 3.75rem;
-    border-radius: 0.3125rem;
+    border: 0px;
+    height: 100%; /* Make the height 100% of the parent container */
+    aspect-ratio: 1 / 1; /* This ensures the width equals the height */
+    border-radius: 0 0.375rem 0.375rem 0; /* Apply radius only to the top-right and bottom-right */
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute; /* Keep it inside the container */
+    right: 0px; /* Align the button to the right edge */
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust centering vertically */
 }
 
-    .exhortation-actions:hover, .news-play-button:hover {
+    .play-button:hover {
         background-color: #0f4d0f;
     }
 
+/* Play Button - Positioned on the far right within the item */
+.news-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FF8C00;
+    color: white;
+    border: 0px;
+    height: 100%; /* Make the height 100% of the parent container */
+    aspect-ratio: 1 / 1; /* This ensures the width equals the height */
+    border-radius: 0 0.375rem 0.375rem 0; /* Apply radius only to the top-right and bottom-right */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute; /* Keep it inside the container */
+    right: 0px; /* Align the button to the right edge */
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust centering vertically */
+}
+
+    .news-button:hover {
+        background-color: #CC5500;
+    }
+
+/* Style for the details link positioned to the left of the play button */
+.details-link {
+    display: inline-block;
+    cursor: pointer;
+    position: absolute; /* Positioning it relative to the parent */
+    right: 4rem; /* Position it to the left of the play button */
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust vertical centering */
+}
+
 .news-info, .exhortation-info {
-    flex-grow: 1;
-    padding-right: 0.625rem;
+    padding-right: 1rem;
 }
 
     .news-info p, .exhortation-info p {

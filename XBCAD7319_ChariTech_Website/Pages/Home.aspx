@@ -6,17 +6,15 @@
         <!-- Left Section: Exhortations -->
         <div class="section exhortations">
             <h3 class="section-heading">Exhortations</h3>
-            <div class="exhortations-list">
+            <div>
                 <!-- Dynamic list of Exhortations -->
                 <div class="exhortation-item">
                     <div class="exhortation-info">
-                        <p class="title">Talk Title | 01-01-2024</p>
-                        <p class="description">Brief Talk Description</p>
+                        <p>Talk Title | 01-01-2024</p>
+                        <p>Brief Talk Description</p>
                     </div>
-                    <div class="exhortation-actions">
-                        <a href="#" class="details-link">Details ></a>
+                        <a class="details-link" href="#">Details ></a>
                         <button class="play-button">▶</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -28,10 +26,10 @@
                 <!-- Dynamic list of News Letters -->
                 <div class="news-item">
                     <div class="news-info">
-                        <p class="title">News Letter Title | 01-01-2024</p>
-                        <p class="description">Brief Letter Description</p>
+                        <p>News Letter Title | 01-01-2024</p>
+                        <p>Brief Letter Description</p>
                     </div>
-                    <button class="news-play-button">🕮</button>
+                    <button class="news-button">🕮</button>
                 </div>
             </div>
         </div>
