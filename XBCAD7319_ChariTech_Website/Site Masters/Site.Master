@@ -28,7 +28,7 @@
 
         <nav class="navbar navbar-expand-sm">
             <div class="container">
-                <ul class="navbar-nav flex-grow-1 justify-content-center d-flex align-items-center">
+                <ul class="navbar-nav justify-content-center d-flex align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" runat="server" href="~/Pages/Home">Home</a>
                     </li>

@@ -64,32 +64,39 @@ textarea {
 nav.navbar {
     background-color: #f8f9fa;
     border-bottom: 1px solid #ccc;
-    height: var(--navbar-height); /* Make sure navbar has fixed height */
+    height: var(--navbar-height); /* Fixed navbar height */
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Make sure the items are distributed between left and right */
     padding: 0 1rem;
+    white-space: nowrap; /* Prevent wrapping of navbar items */
 }
 
 .navbar-nav {
     display: flex;
     flex-grow: 1;
+    min-width: 576px;
     justify-content: center;
+    align-items: center;
     text-align: center;
     list-style: none;
     margin: 0;
     padding: 0;
+    white-space: nowrap; /* Prevent navbar items from wrapping */
 }
 
     .navbar-nav .nav-item {
-        margin-left: 1.25rem; /* 20px */
+        margin-left: 1.25rem; /* 20px spacing between items */
+        flex-shrink: 0; /* Prevent items from shrinking */
     }
 
     .navbar-nav .nav-link {
         color: #000;
         font-weight: 500;
-        padding: 0.625rem; /* 10px */
+        padding: 0.625rem; /* 10px padding */
         text-decoration: none;
         transition: color 0.3s ease;
+        white-space: nowrap; /* Ensure text stays on one line */
     }
 
         .navbar-nav .nav-link:hover {
@@ -175,7 +182,8 @@ footer {
     display: flex;
     flex-direction: column;
     max-height: 100%;
-    min-width: 100%;
+    min-width: 30rem;
+    height: 100%;
 }
 
 /* Left Section: Exhortations */
@@ -293,20 +301,28 @@ footer {
 }
 
 .next-sunday, .prayer-requests, .donations {
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    padding: 1.25rem; /* Add padding inside the containers */
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    text-align: center; /* Center text inside each item */
+    width: 100%; /* Ensure it takes full width of the parent */
+    height: 100%; /* Ensure it takes full height of the parent or container */
+    box-sizing: border-box; /* Ensure padding is included in the width and height */
 }
 
-    .next-sunday .content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
+
+.content {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Ensure text is centered within each item */
+    width: 100%; /* Make the container take full width */
+    height: 100%; /* Ensure the container takes full height */
+}
+
 
     .next-sunday button, .prayer-requests button, .donations button {
         margin-top: 0.3125rem; /* 5px */
@@ -469,10 +485,10 @@ footer {
 }
 
 .container {
-    width: 100%; /* Full width */
     margin: 0 auto; /* Center the container horizontally */
     box-sizing: border-box; /* Include padding and border in element's total width */
     align-items: center;
+    min-width: 576px;
 }
 
 .page-content {

@@ -37,9 +37,9 @@
         <!-- Right Section: Next Sunday, Prayer Requests, and Donations -->
         <div class="right-section">
             <!-- Next Sunday Section -->
-            <div class="section next-sunday">
+            <div class="section">
                 <h5 class="headings">Next Sunday - 01-01-2024</h5>
-                <div class="content">
+                <div class="content next-sunday">
                     <p><strong>Presiding:</strong> James Dean</p>
                     <p><strong>Exhortation:</strong> Phil Dunphy</p>
                     <p><strong>On The Door:</strong> John Doe</p>
@@ -48,9 +48,9 @@
             </div>
 
             <!-- Prayer Requests Section -->
-            <div class="section prayer-requests">
+            <div class="section">
                 <h5 class="headings">Prayer Requests - 01-01-2024</h5>
-                <div class="prayer-requests-home">
+                <div class="prayer-requests-home prayer-requests">
                     <asp:Repeater ID="PrayerRequestsRepeater" runat="server">
                         <ItemTemplate>
                             <div><%# Container.DataItem.ToString() %></div>
@@ -60,8 +60,9 @@
             </div>
 
             <!-- Online Donations Section -->
-            <div class="section donations">
+            <div class="section">
                 <h5 class="headings">Donations</h5>
+                <div class="donations">
                 <div class="donation-grid">
                     <div>Blue Bag - General</div>
                     <div>Red Bag - Welfare</div>
@@ -78,6 +79,7 @@
                         </div>
                     </div>
                 </div>
+                    </div>
             </div>
         </div>
     </div>
