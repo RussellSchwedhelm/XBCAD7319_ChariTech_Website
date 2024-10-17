@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Dashboard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <!-- Main Container -->
-    <div class="main-container dashboard-container">
+    <div class="dashboard-container">
         <!-- Ecclesial Newsletter Upload Section -->
         <div class="section ecclesial-news-upload">
             <h3 class="section-heading">Ecclesial Newsletter Upload</h3>
