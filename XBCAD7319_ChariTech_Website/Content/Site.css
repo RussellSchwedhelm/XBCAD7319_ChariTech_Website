@@ -281,17 +281,21 @@ footer {
         margin-top: 0.3125rem; /* 5px */
         background-color: #333;
         color: white;
-        padding: 0.625rem; /* 10px */
+        padding: calc(0.6rem); /* Increased scalable padding */
+        width: calc(10rem * var(--scale-factor)); /* Set explicit width for the button */
+        height: calc(3rem * var(--scale-factor)); /* Set explicit height for the button */
         border: none;
         border-radius: 0.3125rem;
         cursor: pointer;
-        font-size: 1rem;
+        font-size: calc(1rem * var(--scale-factor)); /* Scalable font size */
+        text-align: center; /* Ensure text is centered */
         transition: background-color 0.3s ease;
     }
 
         .next-sunday button:hover, .prayer-requests button:hover, .donations button:hover {
             background-color: #555;
         }
+
 
 /* Donation Grid */
 .donation-grid {
@@ -425,4 +429,10 @@ footer {
 
 .fa-times-circle {
     color: #dc3545;
+}
+
+/* Style for prayer requests home */
+.prayer-requests-home {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
 }

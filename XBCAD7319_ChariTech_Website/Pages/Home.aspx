@@ -43,24 +43,19 @@
                     <p><strong>Presiding:</strong> James Dean</p>
                     <p><strong>Exhortation:</strong> Phil Dunphy</p>
                     <p><strong>On The Door:</strong> John Doe</p>
-                    <button class="view-schedule">View Schedule</button>
+                    <button>View Schedule</button>
                 </div>
             </div>
 
             <!-- Prayer Requests Section -->
             <div class="section prayer-requests">
                 <h4>Prayer Requests - 01-01-2024</h4>
-                <div class="prayer-requests-grid">
-                    <ul>
-                        <li>Emily Johnson</li>
-                        <li>Michael Smith</li>
-                        <li>Olivia Brown</li>
-                        <li>Benjamin Davis</li>
-                        <li>Sophia Martinez</li>
-                        <li>Jacob Wilson</li>
-                        <li>Isabella Thompson</li>
-                        <li>Ethan Garcia</li>
-                    </ul>
+                <div class="prayer-requests-home">
+                    <asp:Repeater ID="PrayerRequestsRepeater" runat="server">
+                        <ItemTemplate>
+                            <div><%# Container.DataItem.ToString() %></div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
 
