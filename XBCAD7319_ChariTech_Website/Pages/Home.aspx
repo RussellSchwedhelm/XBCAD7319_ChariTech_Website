@@ -2,10 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <!-- Main Container -->
-    <div class="main-container">
+    <div class="main-container home">
         <!-- Left Section: Exhortations -->
-        <div class="section exhortations">
-            <h3 class="section-heading">Exhortations</h3>
+        <div class="section">
+            <h3 class="headings">Exhortations</h3>
             <div>
                 <!-- Dynamic list of Exhortations -->
                 <div class="exhortation-item">
@@ -20,8 +20,8 @@
         </div>
 
         <!-- Middle Section: Ecclesial News -->
-        <div class="section ecclesial-news">
-            <h3 class="section-heading">Ecclesial News</h3>
+        <div class="section">
+            <h3 class="headings">Ecclesial News</h3>
             <div class="news-list">
                 <!-- Dynamic list of News Letters -->
                 <div class="news-item">
@@ -38,7 +38,7 @@
         <div class="right-section">
             <!-- Next Sunday Section -->
             <div class="section next-sunday">
-                <h4>Next Sunday - 01-01-2024</h4>
+                <h5 class="headings">Next Sunday - 01-01-2024</h5>
                 <div class="content">
                     <p><strong>Presiding:</strong> James Dean</p>
                     <p><strong>Exhortation:</strong> Phil Dunphy</p>
@@ -49,7 +49,7 @@
 
             <!-- Prayer Requests Section -->
             <div class="section prayer-requests">
-                <h4>Prayer Requests - 01-01-2024</h4>
+                <h5 class="headings">Prayer Requests - 01-01-2024</h5>
                 <div class="prayer-requests-home">
                     <asp:Repeater ID="PrayerRequestsRepeater" runat="server">
                         <ItemTemplate>
@@ -61,7 +61,7 @@
 
             <!-- Online Donations Section -->
             <div class="section donations">
-                <h4>Donations</h4>
+                <h5 class="headings">Donations</h5>
                 <div class="donation-grid">
                     <div>Blue Bag - General</div>
                     <div>Red Bag - Welfare</div>

@@ -3,29 +3,37 @@
     /* Base sizes based on 1920px width */
     --base-font-size: 16px;
     --scale-factor: calc(100vw / 1920);
-    --navbar-height: 60px;
+    --navbar-height: 4rem;
 }
 
 /* Global Styles */
-body {
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100%; /* Ensure body and HTML take full height */
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
     font-size: var(--base-font-size);
     box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: inherit;
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--navbar-height)); /* Full height minus navbar */
 }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
 
 /* Body Content Padding */
 .body-content {
     margin-top: 1rem; /* 16px */
     padding-left: 1rem;
     padding-right: 1rem;
+    min-height: 100%;
 }
 
 @media screen and (min-width: 768px) {
@@ -56,7 +64,7 @@ textarea {
 nav.navbar {
     background-color: #f8f9fa;
     border-bottom: 1px solid #ccc;
-    height: var(--navbar-height);
+    height: var(--navbar-height); /* Make sure navbar has fixed height */
     display: flex;
     align-items: center;
     padding: 0 1rem;
@@ -108,10 +116,13 @@ nav.navbar {
 
 /* Footer Styles */
 footer {
-    padding: 0.625rem 0; /* 10px */
-    text-align: center;
     border-top: 1px solid #ccc;
-    margin-top: 1.25rem; /* 20px */
+    width: 100%;
+    height: 0rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    flex-shrink: 0; /* Keep footer fixed at the bottom */
 }
 
 /* Separator */
@@ -122,13 +133,16 @@ footer {
     user-select: none;
 }
 
-/* Main Container Grid */
+/* Main container */
 .main-container {
+    flex-grow: 1; /* Grow to fill remaining space below the navbar */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
     gap: 1.25rem; /* 20px gap between columns */
     padding: 1.25rem; /* 20px padding around the container */
     box-sizing: border-box;
+    min-height: 100%;
+    min-width: 100%;
 }
 
 /* Responsive Grid for smaller screens */
@@ -146,13 +160,9 @@ footer {
     box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    max-height: 100%;
+    min-width: 100%;
 }
-
-    .section h4, .section h2 {
-        font-size: 1.125rem; /* 18px */
-        text-align: center;
-        margin-bottom: 1.25rem; /* 20px */
-    }
 
 /* Left Section: Exhortations */
 .exhortation-item, .news-item {
@@ -259,6 +269,13 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 1.25rem; /* Gap between sections */
+}
+
+.headings {
+    width: 100%;
+    text-align: center; /* Center the headings horizontally */
+    margin: 0;
+    margin-bottom: 0.5rem;
 }
 
 .next-sunday, .prayer-requests, .donations {
@@ -436,3 +453,29 @@ footer {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two equal columns */
 }
+
+.container {
+    width: 100%; /* Full width */
+    margin: 0 auto; /* Center the container horizontally */
+    box-sizing: border-box; /* Include padding and border in element's total width */
+    align-items: center;
+}
+
+.page-content {
+    margin: 0 auto; /* Centers content horizontally */
+    box-sizing: border-box; /* Include padding and border in element's total width */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Stack child elements vertically */
+    justify-content: center; /* Center the content vertically */
+    align-items: center; /* Center the content horizontally */
+    min-height: calc(100vh - 5rem); /* Assuming the footer is 50px tall */
+    min-width: 100vw;
+    padding-left: 2rem; /* Padding on the left */
+    padding-right: 2rem; /* Padding on the right */
+}
+
+.home {
+    padding-left: 15rem;
+    padding-right: 15rem;
+}
+
