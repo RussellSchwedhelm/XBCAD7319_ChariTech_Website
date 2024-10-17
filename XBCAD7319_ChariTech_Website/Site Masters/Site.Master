@@ -53,12 +53,10 @@
                         <a class="nav-link" runat="server" href="~/Pages/About">About Us</a>
                     </li>
                 </ul>
-
-                <!-- Notification Bell Icon (Separated from .navbar-right) -->
-                <img src='<%= ResolveUrl("~/Images/notification.png") %>' alt="Notification Bell" style="width: 20px; height: 20px;" />
-
                 <!-- Right-Aligned Elements (Profile) -->
-                <div class="navbar-right ml-auto d-flex align-items-center">
+                <div class="navbar-right">
+                    <!-- Notification Bell Icon (Separated from .navbar-right) -->
+                    <img src='<%= ResolveUrl("~/Images/notification.png") %>' alt="Notification Bell" style="width: 20px; height: 20px;" />
                     <!-- User Profile -->
                     <span class="username ml-3">Username</span>
                     <img src="path_to_user_profile_picture.jpg" alt="Profile Picture" class="profile-picture ml-2" />
