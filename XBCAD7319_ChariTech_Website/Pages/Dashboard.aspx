@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Dashboard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <!-- Main Container -->
-    <div class="main-container dashboard-container">
+    <div class="main-container">
         <!-- Ecclesial Newsletter Upload Section -->
-        <div class="section ecclesial-news-upload">
+        <div class="dashboard-stack">
+        <div class="section">
             <h3 class="headings">Ecclesial Newsletter Upload</h3>
             <div class="exhoration-upload-input-layout"> <!-- Fixed class name -->
                 <div class="upload-form">                
@@ -22,7 +23,7 @@
         </div>
 
         <!-- Online Donations Section -->
-        <div class="section online-donations">
+        <div class="section">
             <h3 class="headings">Online Donations</h3>
             <div class="donation-editable">
                 <div>
@@ -41,7 +42,8 @@
                 <button class="btn publish-btn">Publish Changes</button>
             </div>
         </div>
-
+            </div>
+        <div class="dashboard-stack">
         <!-- Next Sunday Section -->
         <div class="section next-sunday-modi">
             <h3 class="headings">Next Sunday<br>01-01-2024</h3>
@@ -72,9 +74,10 @@
                 <button>Revert Changes</button>
             </div>
         </div>
-
+            </div>
+        <div class="dashboard-stack">
         <!-- Notifications Section -->
-        <div class="section notifications">
+        <div class="section">
             <h3 class="headings">Create Notification</h3>
             <div class="notification-form">
                 <label for="notification-date">Date</label>
@@ -101,5 +104,6 @@
                 <button>Upload Bible Course</button>
             </div>
         </div>
+            </div>
     </div>
 </asp:Content>
