@@ -242,6 +242,20 @@ footer {
     flex-direction: column;
 }
 
+.exhortations-list {
+    height :100%;
+    max-height: auto; /* Remove height restriction */
+    overflow-y: hidden; /* Remove vertical scroll */
+}
+
+/*Exhortation Page Start */
+.exhortationSelect {
+    grid-column: 1 / 1;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
 
 /* Left Section: Exhortations */
 .exhortation-item, .news-item {
@@ -261,15 +275,22 @@ footer {
 
 /* Audio Player Section */
 .audio-player {
-    width: calc(50% * var(--scale-factor)); /* Responsive width scaling */
+    /* Adjust width scaling */
+    width: calc(70% * var(--scale-factor)); /* Using --scale-factor directly */
+
     margin: 0 auto;
-    padding: calc(20px * var(--scale-factor));
+    /* Adjust padding scaling */
+    padding: calc(20px * var(--scale-factor)); /* Using --scale-factor */
+
     background-color: #f0f0f0;
     border: 1px solid #ccc;
-    border-radius: calc(10px * var(--scale-factor));
+    /* Adjust border-radius scaling */
+    border-radius: calc(10px * var(--scale-factor)); /* Using --scale-factor */
+    /* Adjust box-shadow scaling */
     box-shadow: 0 calc(4px * var(--scale-factor)) calc(6px * var(--scale-factor)) rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
 }
+
 
 .audio-header {
     display: flex;
@@ -277,6 +298,10 @@ footer {
     margin-bottom: calc(10px * var(--scale-factor));
 }
 
+.audio-controls {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+}
 
 
 
@@ -324,6 +349,25 @@ footer {
     .play-button:hover {
         background-color: #0f4d0f;
     }
+
+
+
+
+.play-button2 {
+    background-color: #BFBFBF;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* Space between button and progress bar */
+}
+
+.play-button:hover {
+    background-color: #45a049;
+}
+
 
 /* Play Button - Positioned on the far right within the item */
 .news-button {
