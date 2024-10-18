@@ -710,3 +710,149 @@ input[type="date"], input[type="text"] {
 {
     cursor:pointer
 }
+
+/* General layout for settings page */
+.settings-page {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.settings-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px;
+    border: 2px solid #d8d8d8;
+    border-radius: 12px;
+}
+
+/* Left Panel Styling */
+.settings-left {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #b9b9b9;
+    padding-right: 40px;
+}
+
+    .settings-left h3 {
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+.setting-option {
+    margin-bottom: 20px;
+}
+
+    .setting-option label {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .setting-option input[type="range"] {
+        width: 100%;
+        height: 8px;
+        border-radius: 5px;
+        background: #ddd;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+        .setting-option input[type="range"]::-webkit-slider-thumb {
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+/* Right Panel Styling */
+.settings-right {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 2px solid #b9b9b9;
+}
+
+.account-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.settings-right h3 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.account-fields {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+    .account-fields label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Buttons */
+.btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .settings-container {
+        flex-direction: column;
+    }
+}
