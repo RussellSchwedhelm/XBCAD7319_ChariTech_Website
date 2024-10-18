@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
-    public partial class EditExhortations : System.Web.UI.Page
+    public partial class Exhortations : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

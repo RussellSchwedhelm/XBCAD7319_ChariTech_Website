@@ -33,7 +33,6 @@ body {
     margin-top: 1rem; /* 16px */
     padding-left: 1rem;
     padding-right: 1rem;
-    min-height: 100%;
 }
 
 @media screen and (min-width: 768px) {
@@ -235,6 +234,15 @@ footer {
     height: 100%;
 }
 
+
+.exhortationDisplay {
+    grid-column: 2 / 4;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+
 /* Left Section: Exhortations */
 .exhortation-item, .news-item {
     position: relative; /* Add this to make the container a positioned element */
@@ -249,6 +257,30 @@ footer {
     font-family: Arial, sans-serif;
     font-size: 1rem;
 }
+
+
+/* Audio Player Section */
+.audio-player {
+    width: calc(50% * var(--scale-factor)); /* Responsive width scaling */
+    margin: 0 auto;
+    padding: calc(20px * var(--scale-factor));
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: calc(10px * var(--scale-factor));
+    box-shadow: 0 calc(4px * var(--scale-factor)) calc(6px * var(--scale-factor)) rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.audio-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: calc(10px * var(--scale-factor));
+}
+
+
+
+
+
 
 /* Text Section */
 .news-description {
@@ -326,6 +358,24 @@ footer {
     transform: translateY(-50%); /* Adjust vertical centering */
 }
 
+.exhortation-details-link {
+    display: inline-block;
+    cursor: pointer;
+    position: absolute; /* Positioning it relative to the parent */
+    right: 4rem; /* Position it to the left of the play button */
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust vertical centering */
+    /* New styles for color and removing underline */
+    color: grey; /* Set the link color to grey */
+    text-decoration: none; /* Remove the underline */
+}
+
+.exhortation-details-link:hover {
+    color: darkgrey; /* Change color on hover, optional */
+}
+
+
+
 .news-info, .exhortation-info {
     padding-right: 1rem;
 }
@@ -373,22 +423,23 @@ footer {
 }
 
 
-    .next-sunday button, .prayer-requests button, .donations button {
-        margin-top: 0.3125rem; /* 5px */
-        background-color: #333;
-        color: white;
-        padding: calc(0.6rem); /* Increased scalable padding */
-        width: calc(10rem * var(--scale-factor)); /* Set explicit width for the button */
-        height: calc(3rem * var(--scale-factor)); /* Set explicit height for the button */
-        border: none;
-        border-radius: 0.3125rem;
-        cursor: pointer;
-        font-size: calc(1rem * var(--scale-factor)); /* Scalable font size */
-        text-align: center; /* Ensure text is centered */
-        transition: background-color 0.3s ease;
-    }
+.next-sunday button, .buttons-group button, .prayer-requests button, .donations button {
+    background-color: #333;
+    color: white;
+    padding: calc(0.6rem); /* Increased scalable padding */
+    width: calc(10rem * var(--scale-factor)); /* Set explicit width for the button */
+    height: calc(3rem * var(--scale-factor)); /* Set explicit height for the button */
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    font-size: calc(1rem * var(--scale-factor)); /* Scalable font size */
+    text-align: center; /* Ensure text is centered */
+    transition: background-color 0.3s ease;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
 
-        .next-sunday button:hover, .prayer-requests button:hover, .donations button:hover {
+        .next-sunday button:hover, .buttons-group button:hover, .prayer-requests button:hover, .donations button:hover {
             background-color: #555;
         }
 
@@ -454,8 +505,10 @@ footer {
     border: 0.125rem dashed #ccc;
     padding: 1.25rem;
     text-align: center;
+    align-self:center;
     border-radius: 0.625rem;
     cursor: pointer;
+    height: 5rem;
 }
 
     .file-upload i {
@@ -465,16 +518,16 @@ footer {
     }
 
 .donation-editable {
-    display: flex;
+    display: flow;
     gap: 0.625rem;
-    align-items: center;
+    text-align:center;
     height: 100%;
-    align-self: center;
 }
 
 .buttons-group {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
 }
 
 .btn {
@@ -510,6 +563,7 @@ footer {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
     .prayer-requests-list li {
@@ -559,26 +613,202 @@ footer {
 }
 
 .dashboard-container {
-    flex-grow: 1; /* Grow to fill remaining space below the navbar */
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 1.25rem; /* 20px gap between columns */
-    padding: 1.25rem; /* 20px padding around the container */
-    box-sizing: border-box;
-    min-height: 100%;
-    min-width: 100%;
+    grid-template-rows: 6fr;
+    height: 83vh;
 }
 
 .ecclesial-news-upload {
     grid-column: 1; /* Spans column 1 */
-    grid-row: 1 / 3; /* Spans from row 1 to row 3 */
+    grid-row: 1 / 4; /* Spans from row 1 to row 3 */
 }
 
 .online-donations {
-    grid-column: 1; /* Spans column 1 */
-    grid-row: 4 / 6; /* Spans from row 1 to row 3 */
+    grid-column: 2; /* Spans column 2 */
+    grid-row: 1 / 4; /* Spans from row 1 to row 3 */
 }
 
+.next-sunday-modi {
+    grid-column: 3;
+    grid-row: 1 / 5;
+}
 
+.prayer-requests-review {
+    grid-column: 1;
+    grid-row: 4 / 6;
+    align-items: center;
+}
 
+.notifications {
+    grid-column: 2;
+    grid-row: 4 / 6;
+}
+
+.bible-course-nav {
+    grid-column: 3;
+    grid-row: 5 / 6;
+    align-items:center;
+}
+
+.exhoration-upload-input-layout {
+    display: flex;
+    gap: 10px; /* Adds spacing between the date and title input */
+}
+
+.upload-form {
+    flex: 1; /* This makes each input take up equal width */
+}
+
+input[type="date"], input[type="text"] {
+    width: 100%; /* Ensures inputs fill their container */
+}
+
+.fa-edit
+{
+    cursor:pointer
+}
+
+/* General layout for settings page */
+.settings-page {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.settings-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px;
+    border: 2px solid #d8d8d8;
+    border-radius: 12px;
+}
+
+/* Left Panel Styling */
+.settings-left {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #b9b9b9;
+    padding-right: 40px;
+}
+
+    .settings-left h3 {
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+.setting-option {
+    margin-bottom: 20px;
+}
+
+    .setting-option label {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .setting-option input[type="range"] {
+        width: 100%;
+        height: 8px;
+        border-radius: 5px;
+        background: #ddd;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+        .setting-option input[type="range"]::-webkit-slider-thumb {
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+/* Right Panel Styling */
+.settings-right {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 2px solid #b9b9b9;
+}
+
+.account-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.settings-right h3 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.account-fields {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+    .account-fields label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Buttons */
+.btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .settings-container {
+        flex-direction: column;
+    }
+}
