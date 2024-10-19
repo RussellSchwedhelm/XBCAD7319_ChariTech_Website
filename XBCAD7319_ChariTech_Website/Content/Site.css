@@ -46,7 +46,6 @@ body {
 input,
 select,
 textarea {
-    max-width: 17.5rem; /* 280px */
     width: 100%;
     padding: 0.625rem; /* 10px */
     margin-bottom: 0.625rem; /* 10px */
@@ -208,7 +207,7 @@ footer {
     gap: 1.25rem; /* 20px gap between columns */
     padding: 1.25rem; /* 20px padding around the container */
     box-sizing: border-box;
-    min-height: 100%;
+    min-height: fit-content;
     min-width: 100%;
 }
 
@@ -457,7 +456,7 @@ footer {
 }
 
 
-.next-sunday button, .buttons-group button, .prayer-requests button, .donations button {
+.next-sunday button, .next-sunday-modi button, .buttons-group button, .prayer-requests button, .donations button {
     background-color: #333;
     color: white;
     padding: calc(0.6rem); /* Increased scalable padding */
@@ -473,9 +472,9 @@ footer {
     margin-right: 0.5rem;
 }
 
-        .next-sunday button:hover, .buttons-group button:hover, .prayer-requests button:hover, .donations button:hover {
-            background-color: #555;
-        }
+    .next-sunday-modi button:hover, .next-sunday button:hover, .buttons-group button:hover, .prayer-requests button:hover, .donations button:hover {
+        background-color: #555;
+    }
 
 
 /* Donation Grid */
@@ -562,6 +561,7 @@ footer {
     display: flex;
     align-items: center;
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .btn {
@@ -814,4 +814,13 @@ input[type="date"], input[type="text"] {
     .settings-container {
         flex-direction: column;
     }
+}
+
+.item-wrap{
+    height:max-content;
+    align-items: center;
+    width: 100%
+}
+.next-sunday-calendar {
+    margin-bottom: 20px; /* Adjust the value for more or less padding */
 }
