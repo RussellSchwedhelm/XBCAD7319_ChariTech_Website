@@ -8,6 +8,8 @@
         <div class="exhortations-list">
             <!-- Repeat this block for each exhortation dynamically -->
             <div class="exhortation-item">
+                <img src='<%= ResolveUrl("~/Images/Trash 13.png") %>' alt="Trash Bin" style="width: 20px; height: 20px;" />
+
                 <div class="exhortation-info">
                     <p class="title">Talk Title | 01-01-2024</p>
                     <p class="description">Brief Talk Description</p>
@@ -23,8 +25,8 @@
 
 
         <div class="section exhortationDisplay" >
-            <h3 class="section-heading">*Talk Title*</h3>
-            <h4 class="section-heading">*A brief descriptive summary*</h4>
+            <h3 class="exhortation-heading">*Talk Title*</h3>
+            <h4 class="exhortation-heading">*A brief descriptive summary*</h4>
             
     <div class="audio-player" >
         <div class="audio-header">
@@ -34,8 +36,8 @@
         <div class="audio-controls">
             <button class="play-button2" onclick="togglePlayPause()">▶</button>
             <div class="progress-container">
-                <div class="progress-bar">
-                    <div class="progress"></div>
+                <div class="exh-progress-bar">
+                    <div class="exh-progress"></div>
                 </div>
                 <div class="timestamps">
                     <span class="current-time">10:11</span>

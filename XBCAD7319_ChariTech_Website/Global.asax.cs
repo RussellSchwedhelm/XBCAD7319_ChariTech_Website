@@ -8,7 +8,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 
 namespace XBCAD7319_ChariTech_Website
-{
+{ 
     public class Global : HttpApplication
     {
         void Application_Start(object sender, EventArgs e)
