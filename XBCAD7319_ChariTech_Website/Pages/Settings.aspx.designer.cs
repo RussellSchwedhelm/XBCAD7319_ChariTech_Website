@@ -15,13 +15,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
 
         /// <summary>
-        /// lblDarkMode control.
+        /// lblDarkModeDesc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDarkMode;
+        protected global::System.Web.UI.WebControls.Label lblDarkModeDesc;
 
         /// <summary>
         /// chkDarkMode control.

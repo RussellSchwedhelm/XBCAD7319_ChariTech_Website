@@ -7,20 +7,21 @@
             <!-- Left Settings Panel -->
             <div class="settings-left">
                 <h3>Settings</h3>
-                <div class="setting-option">
-                    <asp:Label ID="lblDarkMode" runat="server" Text="Dark Mode"></asp:Label>
+                <div class="setting-option" style="display: flex; align-items: center;">
+                    <asp:Label ID="lblDarkModeDesc" runat="server" Text="Turn on/off dark mode"></asp:Label>
                     <asp:CheckBox ID="chkDarkMode" runat="server" />
-                    <small>Turn on/off dark mode</small>
                 </div>
+
                 <div class="setting-option">
                     <asp:Label ID="lblVolume" runat="server" Text="Volume"></asp:Label>
                     <input type="range" id="volume" name="volume" min="0" max="100" runat="server" />
                     <small>Volume Intensity</small>
                 </div>
-                <div class="setting-option">
-                    <asp:Label ID="lblButtonClickSound" runat="server" Text="Button Click Sound"></asp:Label>
-                    <asp:CheckBox ID="chkButtonClickSound" runat="server" />
+                <asp:Label ID="lblButtonClickSound" runat="server" Text="Button Click Sound"></asp:Label>
+                <div class="setting-option" style="display: flex; align-items: center;">>
+                    
                     <small>Make Clicking Sounds When Buttons Are Clicked</small>
+                    <asp:CheckBox ID="chkButtonClickSound" runat="server" />
                 </div>
 
                 <h3>Notifications</h3>
