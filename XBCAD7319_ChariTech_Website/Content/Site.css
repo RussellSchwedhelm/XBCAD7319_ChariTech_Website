@@ -267,14 +267,15 @@ footer {
 /* Audio Player Section */
 .audio-player {
     /* Adjust width scaling */
-    width: calc(70% * var(--scale-factor)); /* Using --scale-factor directly */
+    width: 50%; /* Using --scale-factor directly */
+
+    /* Adjust padding scaling */
+    /*padding: calc(20px * var(--scale-factor)); /* Using --scale-factor */
 
     margin: 0 auto;
-    /* Adjust padding scaling */
-    padding: calc(20px * var(--scale-factor)); /* Using --scale-factor */
 
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    
     /* Adjust border-radius scaling */
     border-radius: calc(10px * var(--scale-factor)); /* Using --scale-factor */
     /* Adjust box-shadow scaling */
@@ -290,11 +291,38 @@ footer {
 }
 
 .audio-controls {
+    width: calc(70% * var(--scale-factor));
     display: flex;
     align-items: center; /* Align items vertically in the center */
 }
 
+.exhortation-heading {
+    align-items: center;
+    width: 100%;
+    text-align: center; /* Center the headings horizontally */
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
 
+
+.progress-container {
+    flex-grow: 1; /* Allow the progress bar to take up remaining space */
+}
+
+.exh-progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 0.3125rem;
+    height: 0.625rem; /* 10px */
+    position: relative;
+    width: 210px;
+}
+
+.exh-progress {
+    background-color: #555;
+    border-radius: 0.3125rem;
+    height: 100%;
+    width: 210px;
+}
 
 
 
@@ -491,7 +519,7 @@ footer {
     position: relative;
 }
 
-.progress {
+.progress {  
     background-color: #555;
     border-radius: 0.3125rem;
     height: 100%;

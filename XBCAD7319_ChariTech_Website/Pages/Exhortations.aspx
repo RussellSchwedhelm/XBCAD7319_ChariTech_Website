@@ -34,8 +34,8 @@
         <div class="audio-controls">
             <button class="play-button2" onclick="togglePlayPause()">▶</button>
             <div class="progress-container">
-                <div class="progress-bar">
-                    <div class="progress"></div>
+                <div class="exh-progress-bar">
+                    <div class="exh-progress"></div>
                 </div>
                 <div class="timestamps">
                     <span class="current-time">10:11</span>

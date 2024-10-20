@@ -266,6 +266,7 @@
     <Content Include="Images\ChurchLogo.png" />
     <Content Include="Images\default_profile.png" />
     <Content Include="Images\notification.png" />
+    <Content Include="Images\Trash 13.png" />
     <Content Include="Pages\About.aspx" />
     <Content Include="Pages\BibleCourses.aspx" />
     <Content Include="Pages\Contact.aspx" />
