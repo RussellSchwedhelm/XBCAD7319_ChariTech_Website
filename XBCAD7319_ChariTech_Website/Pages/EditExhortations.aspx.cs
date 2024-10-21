@@ -7,7 +7,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the session exists
-            if (Session["UserEmail"] == null)
+            /*if (Session["UserEmail"] == null)
             {
                 // If no session, redirect to login page
                 Response.Redirect("Login.aspx");
@@ -17,7 +17,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // User is authenticated, you can access their email
                 string email = Session["UserEmail"].ToString();
                 // Use the email for further logic if needed
-            }
+            }*/
         }
     }
 }
