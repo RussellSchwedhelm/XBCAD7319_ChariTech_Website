@@ -176,7 +176,9 @@
 
             <asp:Button ID="LoginButton" runat="server" CssClass="btn login-btn" Text="Login" OnClick="LoginButton_Click" />
 
-            <button type="submit" class="btn register-btn" onclick="location.href='/Pages/Register.aspx'">Register</button>
+            <!-- Register button now just redirects without any field checks -->
+            <button type="button" class="btn register-btn" onclick="window.location.href='/Pages/Register.aspx'; return false;">Register</button>
+
 
             <!-- Social Login Options -->
             <div class="social-login">
