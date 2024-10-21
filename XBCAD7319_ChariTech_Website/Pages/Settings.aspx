@@ -5,35 +5,82 @@
     <div class="settings-page">
         <div class="settings-container">
             <!-- Left Settings Panel -->
-            <div class="settings-left">
+            <div class="settings-left" >
                 <h3>Settings</h3>
                 <div class="setting-option" style="display: flex; align-items: center;">
                     <asp:Label ID="lblDarkModeDesc" runat="server" Text="Turn on/off dark mode"></asp:Label>
-                    <asp:CheckBox ID="chkDarkMode" runat="server" />
+                    <!-- Hidden input to store the value for the ASP.NET checkbox functionality -->
+                    <asp:HiddenField ID="chkDarkModeHidden" runat="server" />
+
+                    <!-- Custom switch design -->
+                    <label class="switch" style="margin-left:auto">
+                        <input type="checkbox" id="chkDarkModeCustom" />
+                        <span class="slider"></span>
+                    </label>
+
+
                 </div>
 
                 <div class="setting-option">
                     <asp:Label ID="lblVolume" runat="server" Text="Volume"></asp:Label>
+                    <br />
                     <input type="range" id="volume" name="volume" min="0" max="100" runat="server" />
                     <small>Volume Intensity</small>
                 </div>
                 <asp:Label ID="lblButtonClickSound" runat="server" Text="Button Click Sound"></asp:Label>
-                <div class="setting-option" style="display: flex; align-items: center;">>
+                <div class="setting-option" style="display: flex; align-items: center;">
                     
                     <small>Make Clicking Sounds When Buttons Are Clicked</small>
-                    <asp:CheckBox ID="chkButtonClickSound" runat="server" />
+                    <!--<asp:CheckBox ID="chkButtonClickSound" Width="40" runat="server" />-->
+
+                    <!-- Hidden input to store the value for the ASP.NET checkbox functionality -->
+                    <asp:HiddenField ID="chcButtonSoundHidden" runat="server" />
+
+                    <!-- Custom switch design -->
+                    <label class="switch" style="margin-left:auto">
+                        <input type="checkbox" id="chkButtonClickSoundCustom" />
+                        <span class="slider"></span>
+                    </label>
+
+
                 </div>
 
                 <h3>Notifications</h3>
-                <div class="setting-option">
-                    <asp:Label ID="lblBibleBasics" runat="server" Text="Bible Basics"></asp:Label>
-                    <asp:CheckBox ID="chkBibleBasics" runat="server" />
+
+                <asp:Label ID="Label1" runat="server" Text="Bible Basics"></asp:Label>
+                <div class="setting-option" style="display: flex; align-items: center;">
                     <small>Switch on/off Bible Basic Notifications</small>
+                    
+
+                    <!-- Hidden input to store the value for the ASP.NET checkbox functionality -->
+                    <asp:HiddenField ID="chkBibleBasicsHidden" runat="server" />
+
+                    <!-- Custom switch design -->
+                    <label class="switch" style="margin-left:auto">
+                        <input type="checkbox" id="chkBibleBasicsCustom" />
+                        <span class="slider"></span>
+                    </label>                                
+
+
                 </div>
-                <div class="setting-option">
-                    <asp:Label ID="lblResponsibilityUpdates" runat="server" Text="Responsibility Updates"></asp:Label>
-                    <asp:CheckBox ID="chkResponsibilityUpdates" runat="server" />
+
+                <asp:Label ID="lblResponsibilityUpdates" runat="server" Text="Responsibility Updates"></asp:Label>
+                <div class="setting-option" style="display: flex; align-items: center;">
+                    
+                    
                     <small>Switch on/off Responsibility Update Notifications</small>
+                    
+                    
+                    <!-- Hidden input to store the value for the ASP.NET checkbox functionality -->
+                    <asp:HiddenField ID="chkResponsibilityHidden" runat="server" />
+
+                    <!-- Custom switch design -->
+                    <label class="switch" style="margin-left:auto">
+                        <input type="checkbox" id="chkResponsibiltyUpdatesCustom" />
+                        <span class="slider"></span>
+                    </label>
+
+
                 </div>
             </div>
 

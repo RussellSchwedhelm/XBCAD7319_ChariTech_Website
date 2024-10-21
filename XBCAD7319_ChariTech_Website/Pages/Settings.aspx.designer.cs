@@ -24,13 +24,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.Label lblDarkModeDesc;
 
         /// <summary>
-        /// chkDarkMode control.
+        /// chkDarkModeHidden control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkDarkMode;
+        protected global::System.Web.UI.WebControls.HiddenField chkDarkModeHidden;
 
         /// <summary>
         /// lblVolume control.
@@ -69,22 +69,31 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.CheckBox chkButtonClickSound;
 
         /// <summary>
-        /// lblBibleBasics control.
+        /// chcButtonSoundHidden control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBibleBasics;
+        protected global::System.Web.UI.WebControls.HiddenField chcButtonSoundHidden;
 
         /// <summary>
-        /// chkBibleBasics control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkBibleBasics;
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// chkBibleBasicsHidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField chkBibleBasicsHidden;
 
         /// <summary>
         /// lblResponsibilityUpdates control.
@@ -96,13 +105,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.Label lblResponsibilityUpdates;
 
         /// <summary>
-        /// chkResponsibilityUpdates control.
+        /// chkResponsibilityHidden control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkResponsibilityUpdates;
+        protected global::System.Web.UI.WebControls.HiddenField chkResponsibilityHidden;
 
         /// <summary>
         /// lblUsername control.
