@@ -283,6 +283,12 @@ footer {
     box-sizing: border-box;
 }
 
+/* Remove vertical scrollbar and make items fit */
+.exhortations-list {
+    max-height: auto; /* Remove height restriction */
+    overflow-y: hidden; /* Remove vertical scroll */
+}
+
 
 .audio-header {
     display: flex;
@@ -704,6 +710,7 @@ input[type="date"], input[type="text"] {
     justify-content: center;
     padding: 20px;
     gap: 20px;
+    width: 100%
 }
 
 .settings-container {
@@ -713,6 +720,7 @@ input[type="date"], input[type="text"] {
     gap: 20px;
     border: 2px solid #d8d8d8;
     border-radius: 12px;
+
 }
 
 /* Left Panel Styling */
@@ -724,6 +732,8 @@ input[type="date"], input[type="text"] {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: 2px solid #b9b9b9;
     padding-right: 40px;
+
+
 }
 
     .settings-left h3 {
@@ -768,6 +778,7 @@ input[type="date"], input[type="text"] {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     border: 2px solid #b9b9b9;
+
 }
 
 .account-info {
@@ -854,7 +865,59 @@ input[type="date"], input[type="text"] {
 }
 
 
-s
+
+
+/*Experimental area*/
+/* The switch container */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+    /* Hide the checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+/* The slider (background) */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc; /* Default background color */
+    transition: .4s;
+    border-radius: 25px; /* Rounded background */
+}
+
+    /* The circle inside the slider */
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 5px;
+        bottom: 2.5px;
+        background-color: white; /* Circle color */
+        transition: .4s;
+        border-radius: 50%; /* Circle */
+    }
+
+/* When the checkbox is checked */
+input:checked + .slider {
+    background-color: #444; /* Dark background color when active */
+}
+
+    /* Move the circle when checked */
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
 
 
 
