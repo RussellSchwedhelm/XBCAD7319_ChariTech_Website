@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Configuration;
 
 namespace XBCAD7319_ChariTech_Website.Classes
@@ -10,25 +12,57 @@ namespace XBCAD7319_ChariTech_Website.Classes
         public bool AuthenticateUser(string email, string password)
         {
             // Placeholder for actual Azure SQL Database connection and authentication logic
-            // Once connected to Azure SQL, replace the hardcoded logic with actual DB queries.
-
-            // Example query - replace with your actual DB connection and query
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                string query = "SELECT COUNT(*) FROM Users WHERE Email = @Email AND Password = @Password";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@Email", email);
-                    cmd.Parameters.AddWithValue("@Password", password);
+                    conn.Open();
+                    string query = "SELECT PasswordHash FROM Users WHERE Email = @Email";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", email);
 
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                        // Get the stored hashed password from the database
+                        string storedPasswordHash = Convert.ToString(cmd.ExecuteScalar());
 
-                    // If count is greater than 0, the user exists and is authenticated
-                    return count > 0;
+                        if (!string.IsNullOrEmpty(storedPasswordHash))
+                        {
+                            // Hash the provided password
+                            string hashedPassword = HashPassword(password);
+
+                            // Compare the provided password (hashed) with the stored password (hashed)
+                            return storedPasswordHash == hashedPassword;
+                        }
+                        else
+                        {
+                            // Email not found or no password stored
+                            return false;
+                        }
+                    }
                 }
+                catch (Exception ex)
+                {
+                    // Log error (optional) and handle connection exceptions
+                    Console.WriteLine("Error: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        // Hash the password using SHA256
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
             }
         }
     }

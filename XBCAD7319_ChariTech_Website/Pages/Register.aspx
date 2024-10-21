@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Login" Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Register" %>
+﻿<%@ Page Title="Register" Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Register" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Register - Charitech</title>
+    <title>Register</title>
 
     <!-- CSS Styles -->
     <style>
@@ -38,11 +38,12 @@
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
         }
 
-
-        /* Logo Section */
+        /* Logo and Profile Picture Section */
         .logo-container {
             display: flex;
             justify-content: center;
+            align-items: center;
+            gap: 1rem;
             margin-bottom: 1.5rem;
         }
 
@@ -51,55 +52,67 @@
             height: 80px;
         }
 
+        .profile-picture-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .profile-picture-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .edit-icon {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            background-color: rgba(128, 128, 128, 0.8);
+            color: white;
+            text-align: center;
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .edit-icon i {
+            font-size: 1rem;
+        }
+
+        .hidden-upload {
+            display: none;
+        }
+
         /* Form Styling */
         .registration-form {
             display: flex;
             flex-direction: column;
         }
 
-
-            .registration-form label {
-                font-weight: 200;
-                margin-bottom: 0.5rem;
-                margin-top: 0.5rem;
-            }
-
-            .registration-form input,
-            .registration-form select {
-                width: 100%;
-                padding: 0.625rem;
-                margin-bottom: 1rem;
-                border: 1px solid #ccc;
-                border-radius: 0.3125rem;
-                font-size: 1rem;
-                border-radius: 0.5rem;
-            }
-
-        /* Password Container Styling */
-        .password-container {
-            display: flex;
-            flex-direction: column;
+        .registration-form label {
+            font-weight: 200;
+            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
         }
 
-        /* Password Toggle Styling */
-        .password-toggle {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem; /* Adds space between the icon and the text */
-            cursor: pointer;
-            margin-top: 0.5rem; /* Adds spacing between the second input and the toggle */
-            margin-bottom: 0.5rem; /* Adds spacing between the second input and the toggle */
+        .registration-form input,
+        .registration-form select {
+            width: 100%;
+            padding: 0.625rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.3125rem;
+            font-size: 1rem;
         }
 
-            .password-toggle i {
-                font-size: 1.5rem; /* Adjust icon size */
-                color: #555;
-                transition: color 0.3s ease;
-            }
-
-                .password-toggle i:hover {
-                    color: #000;
-                }
         /* Button Styling */
         .btn {
             margin-top: 0.625rem;
@@ -115,64 +128,110 @@
             transition: background-color 0.3s ease;
         }
 
-            .btn:hover {
-                background-color: #555;
-            }
+        .btn:hover {
+            background-color: #555;
+        }
 
-        /* Register and Login Buttons */
-        .register-btn {
-            margin-bottom: 0.625rem;
+        /* Social Login Buttons */
+        .google-btn {
+            background-color: #db4437;
+            color: white;
+            margin-top: 0.625rem;
+            padding: 0.75rem;
+            width: 100%;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .facebook-btn {
+            background-color: #3b5998;
+            color: white;
+            margin-top: 0.625rem;
+            padding: 0.75rem;
+            width: 100%;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .social-login {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .social-login button i {
+            margin-right: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <!-- Logo Section -->
-        <div class="logo-container">
-            <img src="~/Images/ChurchLogo.png" alt="Church Logo" class="form-logo" runat="server" />
-        </div>
+    <form runat="server">
+        <div class="form-container">
+            <!-- Logo and Profile Picture Section -->
+            <div class="logo-container">
+                <img src="~/Images/ChurchLogo.png" alt="Church Logo" class="form-logo" runat="server" />
 
-        <!-- Form Section -->
-        <div class="registration-form">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" placeholder="Value" required />
-
-            <label for="surname">Surname</label>
-            <input type="text" id="surname" name="surname" placeholder="Value" required />
-
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Value" required />
-
-            <label for="ecclesia">Ecclesia</label>
-            <select id="ecclesia" name="ecclesia" required>
-                <option value="">Select</option>
-                <option value="Ecclesia1">Ecclesia 1</option>
-                <option value="Ecclesia2">Ecclesia 2</option>
-            </select>
-
-            <div class="password-container">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Value" required />
-
-                <label for="rePassword">Re-Enter Password</label>
-                <input type="password" id="rePassword" name="rePassword" placeholder="Value" required />
-
-                <!-- Eye Icon for View Passwords -->
-                <div class="password-toggle">
-                    <i class="fa fa-eye" id="togglePassword" aria-hidden="true"></i>
-                    <span>View Passwords</span>
+                <div class="profile-picture-container" onclick="document.getElementById('profilePictureUpload').click();">
+                    <asp:Image ID="profilePicture" runat="server" ImageUrl="~/Images/default_profile.png" />
+                    <div class="edit-icon">
+                        <i class="fas fa-pen"></i>
+                        <span>Edit</span>
+                    </div>
+                    <asp:FileUpload ID="profilePictureUpload" class="hidden-upload" runat="server" />
                 </div>
             </div>
 
-            <button type="submit" class="btn register-btn">Register</button>
-            <button type="button" class="btn login-btn">Login</button>
+            <!-- Form Section -->
+            <div class="registration-form">
+                <label for="firstName">First Name</label>
+                <asp:TextBox ID="firstNameInput" runat="server" placeholder="Value" />
+
+                <label for="surname">Surname</label>
+                <asp:TextBox ID="surnameInput" runat="server" placeholder="Value" />
+
+                <label for="email">Email</label>
+                <asp:TextBox ID="emailInput" runat="server" placeholder="Value" TextMode="Email" />
+
+                <!-- Ecclesia selection -->
+                <label for="ecclesia">Ecclesia</label>
+                <asp:DropDownList ID="ecclesia" runat="server">
+                    <asp:ListItem Value="" Text="Select" />
+                </asp:DropDownList>
+
+
+                <!-- Password fields (hidden for SSO users) -->
+                <div id="passwordContainer" runat="server">
+                    <label for="password">Password</label>
+                    <asp:TextBox ID="passwordInput" runat="server" TextMode="Password" placeholder="Value" />
+                </div>
+
+                <div id="rePasswordContainer" runat="server">
+                    <label for="rePassword">Re-Enter Password</label>
+                    <asp:TextBox ID="rePasswordInput" runat="server" TextMode="Password" placeholder="Value" />
+                </div>
+            </div>
+
+            <div class="social-login">
+                <asp:Button ID="registerBtn" runat="server" CssClass="btn register-btn" Text="Register" OnClick="RegisterButton_Click" />
+                <asp:Button ID="loginBtn" runat="server" CssClass="btn register-btn" Text="Login" OnClick="LoginButton_Click" />
+                <!-- Add provider parameter to specify Google or Facebook login -->
+                <button type="button" class="btn google-btn" onclick="location.href='/Pages/LoginExternal.aspx?provider=google'">
+                    <i class="fab fa-google"></i> Sign up with Google
+                </button>
+            </div>
         </div>
-    </div>
+    </form>
 
     <!-- Optional JavaScript for Password Toggle -->
     <script>
         const togglePassword = document.getElementById('togglePassword');
-        const passwordFields = document.querySelectorAll('#password, #rePassword');
+        const passwordFields = document.querySelectorAll('#passwordInput, #rePasswordInput');
 
         togglePassword.addEventListener('click', () => {
             passwordFields.forEach(field => {
@@ -183,8 +242,6 @@
             // Toggle the icon between 'fa-eye' and 'fa-eye-slash'
             togglePassword.classList.toggle('fa-eye-slash');
         });
-
-
     </script>
 </body>
 </html>

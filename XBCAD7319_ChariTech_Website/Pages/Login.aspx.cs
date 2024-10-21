@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Web;
+using Microsoft.Owin.Security;
 using XBCAD7319_ChariTech_Website.Classes;
 
 namespace XBCAD7319_ChariTech_Website.Pages
@@ -7,29 +10,53 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserEmail"] != null)
+            {
+                // If the user is already logged in, redirect to the dashboard
+                Response.Redirect("Home.aspx");
+            }
 
+            // Check if the user is coming from an OAuth provider (Google or Facebook)
+            var user = HttpContext.Current.GetOwinContext().Authentication.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                // Extract user details from OAuth claims
+                var emailClaim = user.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Email);
+                string email = emailClaim?.Value;
+
+                // Create session and redirect if the user is authenticated via OAuth
+                if (!string.IsNullOrEmpty(email))
+                {
+                    Session["UserEmail"] = email;
+                    Session.Timeout = 30;
+                    Response.Redirect("Home.aspx"); // Redirect to Home page after login
+                }
+            }
         }
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            // Get email and password input
+            // Handle traditional login with email and password
             string email = Request.Form["email"];
             string password = Request.Form["password"];
 
-            // Initialize the LoginManager and authenticate
             LoginManager loginManager = new LoginManager();
             bool isAuthenticated = loginManager.AuthenticateUser(email, password);
 
             if (isAuthenticated)
             {
-                // Create a session and redirect to the protected page
+                // Set user session and timeout
                 Session["UserEmail"] = email;
-                Response.Redirect("Dashboard.aspx");  // Example redirection after successful login
+                Session.Timeout = 30; // 30 minutes session timeout
+
+                // Redirect to the dashboard or home page after successful login
+                Response.Redirect("/Pages/Home.aspx");
             }
             else
             {
-                // Display error message
-                Response.Write("<script>alert('Invalid login credentials');</script>");
+                // Alert the user about the failed login attempt
+                Response.Write("<script>alert('Invalid email or password. Please try again.');</script>");
             }
         }
     }

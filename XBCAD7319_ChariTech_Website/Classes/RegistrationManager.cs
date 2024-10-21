@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,7 +9,34 @@ namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class RegistrationManager
     {
-        public bool RegisterUser(string firstName, string surname, string email, string ecclesia, string password)
+        // Method to check if the email is already registered
+        public bool IsEmailRegistered(string email)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM Users WHERE Email = @Email";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        int count = (int)cmd.ExecuteScalar();
+                        return count > 0; // Return true if the email is already in use
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return false; // In case of error, assume the email is not registered
+            }
+        }
+
+        // Method to register a new user
+        public bool RegisterUser(string firstName, string surname, string email, int churchID, string password, byte[] profilePicture)
         {
             // Hash the password before saving it
             string hashedPassword = HashPassword(password);
@@ -21,25 +49,28 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "INSERT INTO Users (FirstName, Surname, Email, Ecclesia, PasswordHash) VALUES (@FirstName, @Surname, @Email, @Ecclesia, @PasswordHash)";
+
+                    string query = "INSERT INTO Users (FirstName, Surname, Email, ChurchID, PasswordHash, ProfilePicture, DateRegistered, RoleID) " +
+                                   "VALUES (@FirstName, @Surname, @Email, @ChurchID, @PasswordHash, @ProfilePicture, @DateRegistered, @RoleID)";
+
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@FirstName", firstName);
                         cmd.Parameters.AddWithValue("@Surname", surname);
                         cmd.Parameters.AddWithValue("@Email", email);
-                        cmd.Parameters.AddWithValue("@Ecclesia", ecclesia);
+                        cmd.Parameters.AddWithValue("@ChurchID", churchID);
                         cmd.Parameters.AddWithValue("@PasswordHash", hashedPassword);
+                        cmd.Parameters.AddWithValue("@ProfilePicture", (object)profilePicture ?? DBNull.Value); // Handle null for profile picture
+                        cmd.Parameters.AddWithValue("@DateRegistered", DateTime.Now); // Automatically set registration date
+                        cmd.Parameters.AddWithValue("@RoleID", 2); // Assuming "2" is the default role for new users
 
                         int result = cmd.ExecuteNonQuery();
-
-                        // If result > 0, it means the insert was successful
-                        return result > 0;
+                        return result > 0; // Return true if the insert was successful
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log or handle the exception as necessary
                 Console.WriteLine("Error: " + ex.Message);
                 return false;
             }
@@ -57,6 +88,24 @@ namespace XBCAD7319_ChariTech_Website.Classes
                     builder.Append(bytes[i].ToString("x2"));
                 }
                 return builder.ToString();
+            }
+        }
+
+        // Method to fetch and return the list of churches sorted by ChurchID
+        public DataTable GetSortedChurches()
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT ChurchID, ChurchName FROM Church ORDER BY ChurchID ASC";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable churches = new DataTable();
+                    da.Fill(churches);  // Fill the DataTable with church data
+                    return churches;
+                }
             }
         }
     }

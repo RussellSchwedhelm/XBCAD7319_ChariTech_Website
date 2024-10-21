@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Web;
-using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace XBCAD7319_ChariTech_Website
 { 
     public class Global : HttpApplication
     {
-        void Application_Start(object sender, EventArgs e)
+        protected void Application_Start(object sender, EventArgs e)
         {
-            // Code that runs on application startup
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            RouteTable.Routes.MapPageRoute("GoogleLogin", "GoogleLogin", "~/Pages/LoginExternal.aspx?provider=Google");
+            RouteTable.Routes.MapPageRoute("FacebookLogin", "FacebookLogin", "~/Pages/LoginExternal.aspx?provider=Facebook");
+            RouteTable.Routes.MapPageRoute("RegisterRoute", "Register", "~/Pages/Register.aspx");
         }
     }
 }

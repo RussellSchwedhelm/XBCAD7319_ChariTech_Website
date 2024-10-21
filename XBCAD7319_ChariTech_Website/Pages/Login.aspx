@@ -8,7 +8,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Register - Charitech</title>
+    <title>Login</title>
 
     <!-- CSS Styles -->
     <style>
@@ -38,7 +38,6 @@
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
         }
 
-
         /* Logo Section */
         .logo-container {
             display: flex;
@@ -57,23 +56,22 @@
             flex-direction: column;
         }
 
+        .registration-form label {
+            font-weight: 200;
+            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
+        }
 
-            .registration-form label {
-                font-weight: 200;
-                margin-bottom: 0.5rem;
-                margin-top: 0.5rem;
-            }
-
-            .registration-form input,
-            .registration-form select {
-                width: 100%;
-                padding: 0.625rem;
-                margin-bottom: 1rem;
-                border: 1px solid #ccc;
-                border-radius: 0.3125rem;
-                font-size: 1rem;
-                border-radius: 0.5rem;
-            }
+        .registration-form input,
+        .registration-form select {
+            width: 100%;
+            padding: 0.625rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.3125rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+        }
 
         /* Password Container Styling */
         .password-container {
@@ -85,21 +83,22 @@
         .password-toggle {
             display: flex;
             align-items: center;
-            gap: 0.5rem; /* Adds space between the icon and the text */
+            gap: 0.5rem;
             cursor: pointer;
-            margin-top: 0.5rem; /* Adds spacing between the second input and the toggle */
-            margin-bottom: 0.5rem; /* Adds spacing between the second input and the toggle */
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
-            .password-toggle i {
-                font-size: 1.5rem; /* Adjust icon size */
-                color: #555;
-                transition: color 0.3s ease;
-            }
+        .password-toggle i {
+            font-size: 1.5rem;
+            color: #555;
+            transition: color 0.3s ease;
+        }
 
-                .password-toggle i:hover {
-                    color: #000;
-                }
+        .password-toggle i:hover {
+            color: #000;
+        }
+
         /* Button Styling */
         .btn {
             margin-top: 0.625rem;
@@ -115,17 +114,50 @@
             transition: background-color 0.3s ease;
         }
 
-            .btn:hover {
-                background-color: #555;
-            }
+        .btn:hover {
+            background-color: #555;
+        }
 
-        /* Register and Login Buttons */
-        .register-btn {
-            margin-bottom: 0.625rem;
+        /* Social Login Buttons */
+        .google-btn {
+            background-color: #db4437;
+            color: white;
+            margin-top: 0.625rem;
+            padding: 0.75rem;
+            width: 100%;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .facebook-btn {
+            background-color: #3b5998;
+            color: white;
+            margin-top: 0.625rem;
+            padding: 0.75rem;
+            width: 100%;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .social-login {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .social-login button i {
+            margin-right: 0.5rem;
         }
     </style>
 </head>
 <body>
+   <form id="form1" runat="server">
     <div class="form-container">
         <!-- Logo Section -->
         <div class="logo-container">
@@ -134,43 +166,26 @@
 
         <!-- Form Section -->
         <div class="registration-form">
-
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Value" required />
+            <input type="email" id="email" name="email" placeholder="Value" required runat="server" />
 
             <div class="password-container">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Value" required />
-
-                <!-- Eye Icon for View Passwords -->
-                <div class="password-toggle">
-                    <i class="fa fa-eye" id="togglePassword" aria-hidden="true"></i>
-                    <span>View Password</span>
-                </div>
+                <input type="password" id="password" name="password" placeholder="Value" required runat="server" />
             </div>
 
-            <button type="button" class="btn login-btn">Login</button>
-            <button type="submit" class="btn register-btn">Register</button>
+            <asp:Button ID="LoginButton" runat="server" CssClass="btn login-btn" Text="Login" OnClick="LoginButton_Click" />
 
+            <button type="submit" class="btn register-btn" onclick="location.href='/Pages/Register.aspx'">Register</button>
+
+            <!-- Social Login Options -->
+            <div class="social-login">
+                <button type="button" class="btn google-btn" onclick="location.href='/GoogleLogin'">
+                    <i class="fab fa-google"></i> Login with Google
+                </button>
+            </div>
         </div>
     </div>
-
-    <!-- Optional JavaScript for Password Toggle -->
-    <script>
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordFields = document.querySelectorAll('#password, #rePassword');
-
-        togglePassword.addEventListener('click', () => {
-            passwordFields.forEach(field => {
-                const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
-                field.setAttribute('type', type);
-            });
-
-            // Toggle the icon between 'fa-eye' and 'fa-eye-slash'
-            togglePassword.classList.toggle('fa-eye-slash');
-        });
-
-
-    </script>
+    </form>
 </body>
 </html>
