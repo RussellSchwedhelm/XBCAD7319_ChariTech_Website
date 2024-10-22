@@ -268,6 +268,7 @@
     <Content Include="Images\notification.png" />
     <Content Include="Images\Trash 13.png" />
     <Content Include="Pages\About.aspx" />
+    <Content Include="Pages\BibleCourseUpload.aspx" />
     <Content Include="Pages\BibleCourses.aspx" />
     <Content Include="Pages\Contact.aspx" />
     <Content Include="Pages\Dashboard.aspx" />
@@ -362,6 +363,13 @@
     </Compile>
     <Compile Include="Pages\About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BibleCourseUpload.aspx.cs">
+      <DependentUpon>BibleCourseUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\BibleCourseUpload.aspx.designer.cs">
+      <DependentUpon>BibleCourseUpload.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\BibleCourses.aspx.cs">
       <DependentUpon>BibleCourses.aspx</DependentUpon>

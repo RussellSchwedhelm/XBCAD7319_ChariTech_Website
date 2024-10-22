@@ -734,12 +734,18 @@ input[type="date"], input[type="text"] {
     padding-right: 40px;
 
 
+
 }
 
     .settings-left h3 {
         margin-bottom: 20px;
         font-weight: bold;
     }
+
+.centered-heading {
+    text-align: center; /* Centers the text horizontally */
+}
+
 
 .setting-option {
     margin-bottom: 20px;
@@ -811,6 +817,15 @@ input[type="date"], input[type="text"] {
         display: block;
         margin-top: 10px;
     }
+
+.transparent-textbox {
+    background-color: transparent;
+    border: none; /* Remove border if necessary */
+    color: #BBBBBD; /* Change the text color if needed */
+    padding: 5px;
+    border-bottom: 1px solid #BBBBBD;
+}
+
 
 .form-control {
     width: 100%;
@@ -918,6 +933,5 @@ input:checked + .slider {
     input:checked + .slider:before {
         transform: translateX(20px);
     }
-
 
 

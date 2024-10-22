@@ -1,12 +1,16 @@
 ﻿<%@ Page Title="Settings" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="Settings.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Settings" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
 
     <!-- Settings Layout -->
     <div class="settings-page">
         <div class="settings-container">
             <!-- Left Settings Panel -->
             <div class="settings-left" >
-                <h3>Settings</h3>
+                <div style="text-align: center;">
+                    <h3> Settings </h3>
+                </div>
                 <div class="setting-option" style="display: flex; align-items: center;">
                     <asp:Label ID="lblDarkModeDesc" runat="server" Text="Turn on/off dark mode"></asp:Label>
                     <!-- Hidden input to store the value for the ASP.NET checkbox functionality -->
@@ -45,7 +49,9 @@
 
                 </div>
 
-                <h3>Notifications</h3>
+                <div style="text-align: center;">
+                    <h3>Notifications</h3>
+                </div>
 
                 <asp:Label ID="Label1" runat="server" Text="Bible Basics"></asp:Label>
                 <div class="setting-option" style="display: flex; align-items: center;">
@@ -90,26 +96,72 @@
                     <img src="~/Images/ProfilePic.png" alt="Profile Picture" class="profile-pic" />
                     <h3>My Account</h3>
                     <div class="account-fields">
-                        <asp:Label ID="lblUsername" runat="server" Text="Username"></asp:Label>
-                        <asp:TextBox ID="txtUsername" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>
-                        
-                        <asp:Label ID="lblName" runat="server" Text="Name"></asp:Label>
-                        <asp:TextBox ID="txtName" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>
+                        <div style="display: flex; align-items: center;">
+                            <asp:Label ID="lblUsername" runat="server" Text="Username" style="padding:10px;"></asp:Label>
+                            <asp:TextBox ID="txtUsername" runat="server" 
+                                ReadOnly="true" 
+                                style="background-color: transparent;
+                                border: none;
+                                color: #BBBBBD; 
+                                padding: 5px;
+                                border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
+                        </div>
 
-                        <asp:Label ID="lblSurname" runat="server" Text="Surname"></asp:Label>
-                        <asp:TextBox ID="txtSurname" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>
+                        <div style="display: flex; align-items: center;">
+                            <asp:Label ID="lblName" runat="server" Text="Name" style="padding:10px;"></asp:Label>
+                            <asp:TextBox ID="txtName" runat="server" 
+                                ReadOnly="true" 
+                                style="background-color: transparent;
+                                border: none;
+                                color: #BBBBBD; 
+                                padding: 5px;
+                                border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
+                        </div>
 
-                        <asp:Label ID="lblEmail" runat="server" Text="Email"></asp:Label>
-                        <asp:TextBox ID="txtEmail" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>
+                        <div style="display: flex; align-items: center;">
+                            <asp:Label ID="lblSurname" runat="server" Text="Surname" style="padding:10px;"></asp:Label>
+                            <asp:TextBox ID="txtSurname" runat="server"                                 
+                                ReadOnly="true" 
+                                style="background-color: transparent;
+                                border: none;
+                                color: #BBBBBD; 
+                                padding: 5px;
+                                border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
+                        </div>
 
-                        <asp:Label ID="lblPassword" runat="server" Text="Password"></asp:Label>
-                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" ReadOnly="true" CssClass="form-control"></asp:TextBox>
+                        <div style="display: flex; align-items: center;">
+                        <asp:Label ID="lblEmail" runat="server" Text="Email" style="padding:10px;"></asp:Label>
+                        <asp:TextBox ID="txtEmail" runat="server" 
+                                ReadOnly="true" 
+                                style="background-color: transparent;
+                                border: none;
+                                color: #BBBBBD; 
+                                padding: 5px;
+                                border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
+                        </div>
 
-                        <asp:Label ID="lblEcclesia" runat="server" Text="Ecclesia"></asp:Label>
-                        <asp:DropDownList ID="ddlEcclesia" runat="server" CssClass="form-control">
+                        <div style="display: flex; align-items: center;">
+                        <asp:Label ID="lblPassword" runat="server" Text="Password" style="padding:10px;"></asp:Label>
+                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" 
+                                ReadOnly="true" 
+                                style="background-color: transparent;
+                                border: none;
+                                color: #BBBBBD; 
+                                padding: 5px;
+                                border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
+                        </div>
+
+                        <div style="display: flex; align-items: center;">
+                        <asp:Label ID="lblEcclesia" runat="server" Text="Ecclesia" style="padding:10px;"></asp:Label>
+                        <asp:DropDownList ID="ddlEcclesia" runat="server" style="background-color: transparent;
+                                border: none;
+                                color: #BBBBBD; 
+                                padding: 5px;
+                                border-bottom: 1px solid #BBBBBD;">
                             <asp:ListItem Value="Cape Town">Cape Town</asp:ListItem>
                             <asp:ListItem Value="Johannesburg">Johannesburg</asp:ListItem>
                         </asp:DropDownList>
+                        </div>
                     </div>
 
                     <asp:Button ID="btnLogout" runat="server" Text="Log Out" CssClass="btn btn-primary" />

@@ -2,11 +2,10 @@
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
-    public partial class Settings : System.Web.UI.Page
+    public partial class BibleCourseUpload : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*
             // Check if the session exists
             if (Session["UserEmail"] == null)
             {
@@ -18,7 +17,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // User is authenticated, you can access their email
                 string email = Session["UserEmail"].ToString();
                 // Use the email for further logic if needed
-            }*/
+            }
         }
     }
 }
