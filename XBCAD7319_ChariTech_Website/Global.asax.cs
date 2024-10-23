@@ -12,6 +12,7 @@ namespace XBCAD7319_ChariTech_Website
             RouteTable.Routes.MapPageRoute("GoogleLogin", "GoogleLogin", "~/Pages/LoginExternal.aspx?provider=Google");
             RouteTable.Routes.MapPageRoute("FacebookLogin", "FacebookLogin", "~/Pages/LoginExternal.aspx?provider=Facebook");
             RouteTable.Routes.MapPageRoute("RegisterRoute", "Register", "~/Pages/Register.aspx");
+            RouteTable.Routes.MapPageRoute("DashboardRoute", "Dashboard", "~/Pages/Dashboard.aspx");
         }
     }
 }

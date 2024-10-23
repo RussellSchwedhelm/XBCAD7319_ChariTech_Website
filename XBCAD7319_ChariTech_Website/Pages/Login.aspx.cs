@@ -37,7 +37,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            // Handle traditional login with email and password
             string email = Request.Form["email"];
             string password = Request.Form["password"];
 
@@ -46,18 +45,23 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             if (isAuthenticated)
             {
-                // Set user session and timeout
-                Session["UserEmail"] = email;
-                Session.Timeout = 30; // 30 minutes session timeout
+                int userRoleID = (int)Session["UserRoleID"];
 
-                // Redirect to the dashboard or home page after successful login
-                Response.Redirect("/Pages/Home.aspx");
+                // Redirect based on role
+                if (userRoleID == 2) // Admin Role
+                {
+                    Response.Redirect("/Pages/AdminDashboard.aspx");
+                }
+                else
+                {
+                    Response.Redirect("/Pages/Home.aspx");
+                }
             }
             else
             {
-                // Alert the user about the failed login attempt
                 Response.Write("<script>alert('Invalid email or password. Please try again.');</script>");
             }
         }
+
     }
 }

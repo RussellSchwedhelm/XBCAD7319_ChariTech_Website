@@ -14,7 +14,7 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 <body>
@@ -33,32 +33,44 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-        
+
                 <!-- Navbar content that collapses -->
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav justify-content-center d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link" runat="server" href="~/Pages/Home">Home</a>
+                            <a class="nav-link" runat="server" href="~/Pages/Home.aspx">Home</a>
                         </li>
-                        <li class="nav-item separator d-none d-sm-block">|</li> <!-- Hide on small screens -->
+                        <li class="nav-item separator d-none d-sm-block">|</li>
+                        <% if (Session["UserRoleID"] != null && (int)Session["UserRoleID"] == 2)
+                            { %>
                         <li class="nav-item">
-                            <a class="nav-link" runat="server" href="~/Pages/Exhortations">Exhortations</a>
+                            <a class="nav-link" runat="server" href="~/Pages/AdminDashboard.aspx">Admin Dashboard</a>
                         </li>
-                        <li class="nav-item separator d-none d-sm-block">|</li> <!-- Hide on small screens -->
+                        <li class="nav-item separator d-none d-sm-block">|</li>
+                        <% } %>
+                        <!-- Hide on small screens -->
                         <li class="nav-item">
-                            <a class="nav-link" runat="server" href="~/Pages/BibleCourses">Bible Courses</a>
+                            <a class="nav-link" runat="server" href="~/Pages/Exhortations.aspx">Exhortations</a>
                         </li>
-                        <li class="nav-item separator d-none d-sm-block">|</li> <!-- Hide on small screens -->
+                        <li class="nav-item separator d-none d-sm-block">|</li>
+                        <!-- Hide on small screens -->
                         <li class="nav-item">
-                            <a class="nav-link" runat="server" href="~/Pages/Settings">Settings</a>
+                            <a class="nav-link" runat="server" href="~/Pages/BibleCourses.aspx">Bible Courses</a>
                         </li>
-                        <li class="nav-item separator d-none d-sm-block">|</li> <!-- Hide on small screens -->
+                        <li class="nav-item separator d-none d-sm-block">|</li>
+                        <!-- Hide on small screens -->
                         <li class="nav-item">
-                            <a class="nav-link" runat="server" href="~/Pages/Contact">Contact</a>
+                            <a class="nav-link" runat="server" href="~/Pages/Settings.aspx">Settings</a>
                         </li>
-                        <li class="nav-item separator d-none d-sm-block">|</li> <!-- Hide on small screens -->
+                        <li class="nav-item separator d-none d-sm-block">|</li>
+                        <!-- Hide on small screens -->
                         <li class="nav-item">
-                            <a class="nav-link" runat="server" href="~/Pages/About">About Us</a>
+                            <a class="nav-link" runat="server" href="~/Pages/Contact.aspx">Contact</a>
+                        </li>
+                        <li class="nav-item separator d-none d-sm-block">|</li>
+                        <!-- Hide on small screens -->
+                        <li class="nav-item">
+                            <a class="nav-link" runat="server" href="~/Pages/About.aspx">About Us</a>
                         </li>
                     </ul>
                 </div>
