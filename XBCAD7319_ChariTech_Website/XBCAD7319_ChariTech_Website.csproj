@@ -268,10 +268,10 @@
     <Content Include="Images\notification.png" />
     <Content Include="Images\Trash 13.png" />
     <Content Include="Pages\About.aspx" />
+    <Content Include="Pages\AdminDashboard.aspx" />
     <Content Include="Pages\BibleCourseUpload.aspx" />
     <Content Include="Pages\BibleCourses.aspx" />
     <Content Include="Pages\Contact.aspx" />
-    <Content Include="Pages\Dashboard.aspx" />
     <Content Include="Pages\Default.aspx" />
     <Content Include="Pages\EditExhortations.aspx" />
     <Content Include="Pages\Exhortations.aspx" />
@@ -351,9 +351,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\ChatGPTManager.cs" />
     <Compile Include="Classes\LoginManager.cs" />
+    <Compile Include="Classes\NewsletterManager.cs" />
     <Compile Include="Classes\RegistrationManager.cs" />
     <Compile Include="Classes\Startup.cs" />
+    <Compile Include="Classes\TranscriptionManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -363,6 +366,13 @@
     </Compile>
     <Compile Include="Pages\About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminDashboard.aspx.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\AdminDashboard.aspx.designer.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\BibleCourseUpload.aspx.cs">
       <DependentUpon>BibleCourseUpload.aspx</DependentUpon>
@@ -384,13 +394,6 @@
     </Compile>
     <Compile Include="Pages\Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Dashboard.aspx.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Dashboard.aspx.designer.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

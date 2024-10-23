@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using System.Web.Configuration;
 
 namespace XBCAD7319_ChariTech_Website.Classes
@@ -11,7 +12,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
         // This method will authenticate the user by checking credentials in the database.
         public bool AuthenticateUser(string email, string password)
         {
-            // Placeholder for actual Azure SQL Database connection and authentication logic
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -19,37 +19,43 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 try
                 {
                     conn.Open();
-                    string query = "SELECT PasswordHash FROM Users WHERE Email = @Email";
+                    string query = "SELECT PasswordHash, RoleID FROM Users WHERE Email = @Email";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Email", email);
 
-                        // Get the stored hashed password from the database
-                        string storedPasswordHash = Convert.ToString(cmd.ExecuteScalar());
-
-                        if (!string.IsNullOrEmpty(storedPasswordHash))
+                        // Execute the query to get password and role
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            // Hash the provided password
-                            string hashedPassword = HashPassword(password);
+                            if (reader.Read())
+                            {
+                                string storedPasswordHash = reader["PasswordHash"].ToString();
+                                int roleID = Convert.ToInt32(reader["RoleID"]);
 
-                            // Compare the provided password (hashed) with the stored password (hashed)
-                            return storedPasswordHash == hashedPassword;
-                        }
-                        else
-                        {
-                            // Email not found or no password stored
-                            return false;
+                                // Hash the provided password
+                                string hashedPassword = HashPassword(password);
+
+                                // Compare passwords
+                                if (storedPasswordHash == hashedPassword)
+                                {
+                                    // Set session variables for email and role
+                                    HttpContext.Current.Session["UserEmail"] = email;
+                                    HttpContext.Current.Session["UserRoleID"] = roleID;
+                                    return true;
+                                }
+                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Log error (optional) and handle connection exceptions
                     Console.WriteLine("Error: " + ex.Message);
                     return false;
                 }
             }
+            return false;
         }
+
 
         // Hash the password using SHA256
         private string HashPassword(string password)
