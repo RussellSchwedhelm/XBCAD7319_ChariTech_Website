@@ -183,20 +183,20 @@
                         <i class="fas fa-pen"></i>
                         <span>Edit</span>
                     </div>
-                    <asp:FileUpload ID="profilePictureUpload" class="hidden-upload" runat="server" />
+                    <asp:FileUpload ID="profilePictureUpload" class="hidden-upload" runat="server" accept="image/*" OnChange="previewProfilePicture();" />
                 </div>
             </div>
 
             <!-- Form Section -->
             <div class="registration-form">
                 <label for="firstName">First Name</label>
-                <asp:TextBox ID="firstNameInput" runat="server" placeholder="Value" />
+                <asp:TextBox ID="firstNameInput" runat="server" />
 
                 <label for="surname">Surname</label>
-                <asp:TextBox ID="surnameInput" runat="server" placeholder="Value" />
+                <asp:TextBox ID="surnameInput" runat="server" />
 
                 <label for="email">Email</label>
-                <asp:TextBox ID="emailInput" runat="server" placeholder="Value" TextMode="Email" />
+                <asp:TextBox ID="emailInput" runat="server" TextMode="Email" />
 
                 <!-- Ecclesia selection -->
                 <label for="ecclesia">Ecclesia</label>
@@ -208,12 +208,12 @@
                 <!-- Password fields (hidden for SSO users) -->
                 <div id="passwordContainer" runat="server">
                     <label for="password">Password</label>
-                    <asp:TextBox ID="passwordInput" runat="server" TextMode="Password" placeholder="Value" />
+                    <asp:TextBox ID="passwordInput" runat="server" TextMode="Password" />
                 </div>
 
                 <div id="rePasswordContainer" runat="server">
                     <label for="rePassword">Re-Enter Password</label>
-                    <asp:TextBox ID="rePasswordInput" runat="server" TextMode="Password" placeholder="Value" />
+                    <asp:TextBox ID="rePasswordInput" runat="server" TextMode="Password" />
                 </div>
             </div>
 
@@ -228,20 +228,19 @@
         </div>
     </form>
 
-    <!-- Optional JavaScript for Password Toggle -->
     <script>
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordFields = document.querySelectorAll('#passwordInput, #rePasswordInput');
+        function previewProfilePicture() {
+            const fileInput = document.getElementById('profilePictureUpload');
+            const profilePicture = document.getElementById('<%= profilePicture.ClientID %>');
 
-        togglePassword.addEventListener('click', () => {
-            passwordFields.forEach(field => {
-                const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
-                field.setAttribute('type', type);
-            });
-
-            // Toggle the icon between 'fa-eye' and 'fa-eye-slash'
-            togglePassword.classList.toggle('fa-eye-slash');
-        });
-    </script>
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    profilePicture.src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+</script>
 </body>
 </html>

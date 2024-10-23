@@ -56,7 +56,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
         }
 
-
         protected void RegisterButton_Click(object sender, EventArgs e)
         {
             // Collect user input
@@ -65,7 +64,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             string email = emailInput.Text.Trim();
             string password = passwordInput.Text.Trim();
             int churchID = -1;
-            byte[] profilePicture = null;
+            byte[] profilePicture = null; // Byte array for storing the profile picture
 
             // *** VALIDATION ***
 
@@ -92,7 +91,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             else
             {
                 // Assign selected value if valid
-                churchID = Convert.ToInt32(ecclesia.SelectedIndex);
+                churchID = Convert.ToInt32(ecclesia.SelectedIndex) - 1;
             }
 
             // Validate password criteria (at least 8 characters, 1 uppercase, 1 number, 1 special character)
@@ -102,15 +101,24 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 return;
             }
 
-            // If a profile picture is uploaded, use it. Otherwise, use the default profile picture.
+            // If a profile picture is uploaded, read it as a byte array
             if (profilePictureUpload.HasFile)
             {
-                // Get profile picture as byte array
-                profilePicture = profilePictureUpload.FileBytes;
+                try
+                {
+                    // Read the uploaded file into a byte array
+                    profilePicture = profilePictureUpload.FileBytes;
+                }
+                catch (Exception ex)
+                {
+                    // Handle file read error
+                    Response.Write("<script>alert('Error processing profile picture. Please try again.');</script>");
+                    return;
+                }
             }
             else
             {
-                // Load default profile image from the server
+                // Load default profile image from the server as a byte array
                 string defaultImagePath = Server.MapPath("~/Images/default_profile.png");
                 profilePicture = File.ReadAllBytes(defaultImagePath);
             }
@@ -139,6 +147,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('Registration failed. Please try again later.');</script>");
             }
         }
+
 
         // Define the LoginButton_Click method
         protected void LoginButton_Click(object sender, EventArgs e)

@@ -95,6 +95,7 @@
         /* Register Button Styling */
         .register-btn {
             background-color: #333;
+            margin: 0px 0px 0px 0px;
         }
 
         /* Social Login Buttons */
@@ -130,17 +131,17 @@
             <!-- Form Section -->
             <div class="registration-form">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Value" required runat="server" />
+                <input type="email" id="email" name="email" required runat="server" />
 
                 <div class="password-container">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Value" required runat="server" />
+                    <input type="password" id="password" name="password" required runat="server" />
                 </div>
 
                 <!-- Social Login Options -->
                 <div class="social-login">
                     <!-- Add the OnClick attribute to LoginButton -->
-                    <asp:Button ID="LoginButton" runat="server" CssClass="btn" Text="Login" OnClick="LoginButton_Click" />
+                    <asp:Button ID="LoginButton" style="padding: 0.75rem; margin-bottom: 0.625rem;" runat="server" CssClass="btn register-btn" Text="Login" OnClick="LoginButton_Click" />
 
                     <!-- Register button -->
                     <button type="button" class="btn register-btn" onclick="window.location.href='/Pages/Register.aspx'; return false;">Register</button>
