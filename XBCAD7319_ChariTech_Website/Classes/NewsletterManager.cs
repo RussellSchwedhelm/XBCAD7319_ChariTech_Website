@@ -83,5 +83,43 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
+        // Method to retrieve a list of newsletters
+        public DataTable GetNewsletters()
+        {
+            DataTable newslettersTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT NewsletterID, Title, IssueDate FROM dbo.Newsletter";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(newslettersTable);
+                }
+            }
+
+            return newslettersTable;
+        }
+
+        // Method to retrieve the PDF content by NewsletterID
+        public byte[] GetNewsletterPdf(int newsletterId)
+        {
+            byte[] pdfBytes = null;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT PdfContent FROM dbo.Newsletter WHERE NewsletterID = @NewsletterID";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@NewsletterID", newsletterId);
+                    connection.Open();
+
+                    pdfBytes = command.ExecuteScalar() as byte[];
+                }
+            }
+
+            return pdfBytes;
+        }
     }
 }

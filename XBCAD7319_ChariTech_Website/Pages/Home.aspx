@@ -19,20 +19,25 @@
             </div>
         </div>
 
-        <!-- Middle Section: Ecclesial News -->
-        <div class="section">
-            <h3 class="headings">Ecclesial News</h3>
-            <div class="news-list">
-                <!-- Dynamic list of News Letters -->
-                <div class="news-item">
-                    <div class="news-info">
-                        <p>News Letter Title | 01-01-2024</p>
-                        <p>Brief Letter Description</p>
+    <!-- Middle Section: Ecclesial News -->
+    <div class="section">
+        <h3 class="headings">Ecclesial News</h3>
+        <div class="news-list">
+            <!-- Dynamic list of News Letters -->
+            <asp:Repeater ID="newsListRepeater" runat="server">
+                <ItemTemplate>
+                    <div class="news-item">
+                        <div class="news-info">
+                            <p><%# Eval("Title") %></p>
+                            <p><%# Eval("IssueDate", "{0:MM-dd-yyyy}") %></p>
+                        </div>
+                        <asp:LinkButton ID="openPdfLinkButton" runat="server" CommandArgument='<%# Eval("NewsletterID") %>'
+                            Text="🕮" CssClass="news-button" OnClientClick='<%# "openPdf(" + Eval("NewsletterID") + "); return false;" %>'></asp:LinkButton>
                     </div>
-                    <button class="news-button">🕮</button>
-                </div>
-            </div>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
+    </div>
 
         <!-- Right Section: Next Sunday, Prayer Requests, and Donations -->
         <div class="right-section">
@@ -83,4 +88,11 @@
             </div>
         </div>
     </div>
+        <!-- Script to open PDF in a new window -->
+    <script type="text/javascript">
+        function openPdf(newsletterId) {
+            var url = "DownloadNewsletter.aspx?id=" + newsletterId;
+            window.open(url, '_blank');
+        }
+    </script>
 </asp:Content>

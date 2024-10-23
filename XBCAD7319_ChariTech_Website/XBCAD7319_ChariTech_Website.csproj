@@ -273,6 +273,7 @@
     <Content Include="Pages\BibleCourses.aspx" />
     <Content Include="Pages\Contact.aspx" />
     <Content Include="Pages\Default.aspx" />
+    <Content Include="Pages\DownloadNewsletter.aspx" />
     <Content Include="Pages\EditExhortations.aspx" />
     <Content Include="Pages\Exhortations.aspx" />
     <Content Include="Pages\FacebookCallback.aspx" />
@@ -401,6 +402,13 @@
     </Compile>
     <Compile Include="Pages\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DownloadNewsletter.aspx.cs">
+      <DependentUpon>DownloadNewsletter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\DownloadNewsletter.aspx.designer.cs">
+      <DependentUpon>DownloadNewsletter.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\EditExhortations.aspx.cs">
       <DependentUpon>EditExhortations.aspx</DependentUpon>
