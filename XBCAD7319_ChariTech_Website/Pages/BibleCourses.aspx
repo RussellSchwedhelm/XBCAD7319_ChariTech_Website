@@ -6,6 +6,7 @@
         <div class="main-container">
 
             <div class="section courseSearchDisplay">
+                <h3 class="heading">Sentence</h3>
 
             </div>
 

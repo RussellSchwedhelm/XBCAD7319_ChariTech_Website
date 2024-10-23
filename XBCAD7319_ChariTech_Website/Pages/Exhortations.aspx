@@ -4,7 +4,9 @@
     <div class="main-container">
     <!-- Exhortations Section -->
     <div class="section exhortationSelect">
-        <h3 class="section-heading">Exhortations</h3>
+        <div style="text-align: center;">
+            <h3> Exhortations </h3>
+        </div>
         <div class="exhortations-list">
             <!-- Repeat this block for each exhortation dynamically -->
             <div class="exhortation-item">
@@ -23,7 +25,9 @@
 
 
         <div class="section exhortationDisplay" >
-            <h3 class="section-heading">*Talk Title*</h3>
+            <div style="text-align: center;">
+                    <h3> *Talk Title* </h3>
+            </div>
             <h4 class="section-heading">*A brief descriptive summary*</h4>
             
     <div class="audio-player">

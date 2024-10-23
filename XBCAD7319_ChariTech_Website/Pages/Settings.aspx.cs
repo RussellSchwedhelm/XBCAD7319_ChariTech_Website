@@ -18,7 +18,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // User is authenticated, you can access their email
                 string email = Session["UserEmail"].ToString();
                 // Use the email for further logic if needed
-            }
+            }*/
         }
     }
 }

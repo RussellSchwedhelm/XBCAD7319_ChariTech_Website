@@ -96,9 +96,10 @@
                     <img src="~/Images/ProfilePic.png" alt="Profile Picture" class="profile-pic" />
                     <h3>My Account</h3>
                     <div class="account-fields">
+                        
                         <div style="display: flex; align-items: center;">
-                            <asp:Label ID="lblUsername" runat="server" Text="Username" style="padding:10px;"></asp:Label>
-                            <asp:TextBox ID="txtUsername" runat="server" 
+                        <asp:Label ID="lblEmail" runat="server" Text="Email" style="padding:10px;"></asp:Label>
+                        <asp:TextBox ID="txtEmail" runat="server" 
                                 ReadOnly="true" 
                                 style="background-color: transparent;
                                 border: none;
@@ -121,17 +122,6 @@
                         <div style="display: flex; align-items: center;">
                             <asp:Label ID="lblSurname" runat="server" Text="Surname" style="padding:10px;"></asp:Label>
                             <asp:TextBox ID="txtSurname" runat="server"                                 
-                                ReadOnly="true" 
-                                style="background-color: transparent;
-                                border: none;
-                                color: #BBBBBD; 
-                                padding: 5px;
-                                border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
-                        </div>
-
-                        <div style="display: flex; align-items: center;">
-                        <asp:Label ID="lblEmail" runat="server" Text="Email" style="padding:10px;"></asp:Label>
-                        <asp:TextBox ID="txtEmail" runat="server" 
                                 ReadOnly="true" 
                                 style="background-color: transparent;
                                 border: none;
