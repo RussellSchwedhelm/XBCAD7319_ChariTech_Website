@@ -731,12 +731,11 @@ input[type="date"], input[type="text"] {
 
 /* Left Panel Styling */
 .settings-left {
-    background-color: #f7f7f7;
+    background-color: #f4f4f4;
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     flex: 1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 2px solid #b9b9b9;
     padding-right: 40px;
 }
 
@@ -780,13 +779,12 @@ input[type="date"], input[type="text"] {
 
 /* Right Panel Styling */
 .settings-right {
-    background-color: #f7f7f7;
+    background-color: #f4f4f4;
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     flex: 1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border: 2px solid #b9b9b9;
 
 }
 
