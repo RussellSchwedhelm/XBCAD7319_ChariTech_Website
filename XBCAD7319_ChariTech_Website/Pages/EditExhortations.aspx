@@ -14,11 +14,11 @@
                     <p class="title">Talk Title | 01-01-2024</p>
                     <p class="description">Brief Talk Description</p>
                 </div>
-                <div class="exhortation-actions">
+            <div class="exhortation-actions">
                     <a href="#" class="exhortation-details-link">Details ></a>
                     <button class="play-button">▶</button>
-                </div>
-            </div>
+        </div>
+     </div>
         </div>
     </div>
 

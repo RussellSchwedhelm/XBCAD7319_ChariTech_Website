@@ -233,12 +233,21 @@ footer {
     height: 100%;
 }
 
+
 .exhortationDisplay {
     grid-column: 2 / 4;
     grid-row: 1 / 4;
     display: flex;
     flex-direction: column;
 }
+
+.courseDisplay {
+    grid-column: 2 / 4;
+    grid-row: 2 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
 
 /*Exhortation Page Start */
 .exhortationSelect {
@@ -935,3 +944,50 @@ input:checked + .slider {
     }
 
 
+
+
+
+
+
+/*Bible Course related components*/
+.courseFilterSelect {
+    grid-column: 1 / 1;
+    grid-row: 2 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.courseSearchDisplay {
+    grid-column: 1 / 4;
+    grid-row: 1 / 1;
+    display: flex;
+    flex-direction: column;
+}
+`
+.scrollable-list {
+    
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc;
+    padding: 10px;
+    flex: 1;
+    max-height: calc(5px * var(--scale-factor));
+}
+
+.filter-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0; /* Divider line */
+}
+
+.item-icon {
+    width: 24px; /* Set the size of the icon */
+    height: 24px;
+    margin-right: 10px;
+}
+
+.item-text {
+    flex-grow: 1; /* Allow the text to take available space */
+    font-size: 16px;
+}
