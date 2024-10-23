@@ -3,31 +3,26 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <!-- Main Container -->
     <div class="main-container">
-                <!-- Ecclesial Newsletter Upload Section -->
+        <!-- Ecclesial Newsletter Upload Section -->
         <div class="dashboard-stack">
             <div class="section item-wrap">
                 <h3 class="headings">Ecclesial Newsletter Upload</h3>
                 <div class="exhoration-upload-input-layout">
-                    <!-- Fixed class name -->
+                    <!-- Date Input -->
                     <div class="upload-form">
                         <label for="date">Date</label>
-                        <input type="date" id="date">
+                        <input type="date" id="date" name="date" required>
                     </div>
+
+                    <!-- Title Input -->
                     <div class="upload-form">
                         <label for="title">Title</label>
-                        <input type="text" id="title" placeholder="-----------------------">
+                        <input type="text" id="title" name="title" placeholder="Enter the title" required>
                     </div>
                 </div>
-
-                <!-- File Upload Section with Drag and Drop support -->
-                <div class="file-upload" id="file-drop-area">
-                    <i class="fa fa-upload" id="upload-icon"></i>
-                    <p id="upload-text">Drag and Drop Here Or Browse For a File</p>
-                    <input type="file" id="file-upload" name="fileUpload" style="display: none">
-                </div>
-
-                <!-- Disable the button by default -->
-                <asp:Button ID="uploadButton" runat="server" CssClass="btn" Text="Upload Newsletter" OnClick="UploadNewsletterButton_Click" Enabled="false" />
+                    <asp:FileUpload ID="fileUploadControl" runat="server" CssClass="file-upload" />
+                <!-- Enable the button when all fields are filled -->
+                <asp:Button ID="uploadButton" runat="server" CssClass="btn" Text="Upload Newsletter" OnClick="UploadNewsletterButton_Click" />
             </div>
             <!-- Prayer Request Review Section -->
             <div class="section prayer-requests-review item-wrap">
@@ -166,130 +161,39 @@
                 }
             });
         });
-</script>
-          <script>
-              document.addEventListener('DOMContentLoaded', function () {
-                  const dateInput = document.getElementById('date');
-                  const titleInput = document.getElementById('title');
-                  const fileInput = document.getElementById('file-upload');
-                  const uploadButton = document.getElementById('<%= uploadButton.ClientID %>'); // Ensures correct button reference with ClientID in ASP.NET
-            const dropArea = document.getElementById('file-drop-area');
+    </script>
+
+<!-- JavaScript to handle file selection and form validation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dateInput = document.getElementById('date');
+            const titleInput = document.getElementById('title');
+            const fileInput = document.getElementById('file-upload');
+            const uploadButton = document.getElementById('<%= uploadButton.ClientID %>');
             const uploadIcon = document.getElementById('upload-icon');
             const uploadText = document.getElementById('upload-text');
 
-            // Function to check if all fields are filled
-            function checkFields() {
-                if (dateInput.value && titleInput.value && fileInput.files.length > 0) {
-                    const file = fileInput.files[0];
-                    if (file.type === "application/pdf") {
-                        uploadButton.disabled = false;
-                        uploadButton.style.backgroundColor = ""; // Reset background color
-                        uploadButton.style.cursor = "pointer"; // Change cursor to pointer
-                    } else {
-                        alert("Only PDF files are allowed.");
-                        uploadButton.disabled = true;
-                        uploadButton.style.backgroundColor = "grey"; // Grey out the button
-                        uploadButton.style.cursor = "not-allowed"; // Change cursor to not-allowed
-                    }
-                } else {
-                    uploadButton.disabled = true;
-                    uploadButton.style.backgroundColor = "grey"; // Grey out the button
-                    uploadButton.style.cursor = "not-allowed"; // Change cursor to not-allowed
-                }
-            }
-
-            // Add event listeners to inputs to trigger field check
-            dateInput.addEventListener('input', checkFields);
+            // Event listeners to check the form state
+            dateInput.addEventListener('change', checkFields);
             titleInput.addEventListener('input', checkFields);
             fileInput.addEventListener('change', function () {
                 if (fileInput.files.length > 0) {
-                    const file = fileInput.files[0];
-                    const fileName = file.name;
-                    uploadText.textContent = `Selected file: ${fileName}`; // Change text to file name
-                    uploadIcon.style.display = 'none'; // Hide the icon
+                    const fileName = fileInput.files[0].name;
 
-                    // Check if the selected file is a PDF
-                    if (file.type !== "application/pdf") {
-                        alert("Only PDF files are allowed.");
-                        fileInput.value = ""; // Clear the input
-                        uploadText.textContent = "Drag and Drop Here Or Browse For a File"; // Reset the text
-                    }
+                    // Remove the upload icon and display the file name
+                    uploadIcon.style.display = 'none';
+                    uploadText.textContent = fileName;
                 }
                 checkFields();
             });
 
-            // Handle click to trigger file selection
-            dropArea.addEventListener('click', function () {
-                fileInput.click(); // Trigger the hidden file input click
+            // Show file dialog when clicking the file-upload area
+            fileUploadContainer.addEventListener('click', function () {
+                fileInput.click();
             });
-
-            // Add drag and drop functionality
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                dropArea.addEventListener(eventName, preventDefaults, false);
-            });
-
-            function preventDefaults(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-
-            // Handle dropped files
-            dropArea.addEventListener('drop', handleDrop, false);
-
-            function handleDrop(e) {
-                const dt = e.dataTransfer;
-                const files = dt.files;
-
-                fileInput.files = files; // Assign the dropped file to the hidden input
-                const fileName = fileInput.files[0].name;
-                const file = fileInput.files[0];
-                uploadText.textContent = `Selected file: ${fileName}`; // Change text to file name
-                uploadIcon.style.display = 'none'; // Hide the icon
-
-                // Check if the dropped file is a PDF
-                if (file.type !== "application/pdf") {
-                    alert("Only PDF files are allowed.");
-                    fileInput.value = ""; // Clear the input
-                    uploadText.textContent = "Drag and Drop Here Or Browse For a File"; // Reset the text
-                }
-
-                checkFields();
-            }
         });
     </script>
-    <script>
-        function submitNewsletterForm() {
-            // Manually submit the form to trigger the server-side event
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = window.location.href;  // Submit to the current page
 
-            // Add the title input
-            const titleInput = document.createElement('input');
-            titleInput.type = 'hidden';
-            titleInput.name = 'title';
-            titleInput.value = document.getElementById('title').value;
-            form.appendChild(titleInput);
-
-            // Add the date input
-            const dateInput = document.createElement('input');
-            dateInput.type = 'hidden';
-            dateInput.name = 'date';
-            dateInput.value = document.getElementById('date').value;
-            form.appendChild(dateInput);
-
-            // Add the file input
-            const fileInput = document.createElement('input');
-            fileInput.type = 'hidden';
-            fileInput.name = 'fileUpload';
-            fileInput.value = document.getElementById('file-upload').files[0]; // This will only pass the file name
-
-            form.appendChild(fileInput);
-
-            document.body.appendChild(form); // Append the form to the body
-            form.submit();  // Submit the form
-        }
-    </script>
     <style>
         /* Button Styling */
         .btn {
@@ -306,8 +210,8 @@
             margin-top: 0.625rem; /* Consistent margin for all buttons */
         }
 
-            .btn:hover {
-                background-color: #555; /* Add hover effect */
-            }
+        .btn:hover {
+            background-color: #555; /* Add hover effect */
+        }
     </style>
 </asp:Content>

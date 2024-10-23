@@ -62,7 +62,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                         cmd.Parameters.AddWithValue("@PasswordHash", hashedPassword);
                         cmd.Parameters.AddWithValue("@ProfilePicture", (object)profilePicture ?? DBNull.Value); // Handle null for profile picture
                         cmd.Parameters.AddWithValue("@DateRegistered", DateTime.Now); // Automatically set registration date
-                        cmd.Parameters.AddWithValue("@RoleID", 2); // Assuming "2" is the default role for new users
+                        cmd.Parameters.AddWithValue("@RoleID", 1);
 
                         int result = cmd.ExecuteNonQuery();
                         return result > 0; // Return true if the insert was successful

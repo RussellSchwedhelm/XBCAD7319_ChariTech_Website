@@ -23,41 +23,41 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
         protected void UploadNewsletterButton_Click(object sender, EventArgs e)
         {
-                string userEmail = Session["UserEmail"].ToString();  // Get the email from the session
-                string title = Request.Form["title"];
-                DateTime issueDate = DateTime.Parse(Request.Form["date"]);
-                HttpPostedFile uploadedFile = Request.Files["fileUpload"];
+            // Retrieve form data
+            string email = Session["UserEmail"].ToString(); // User email from session
+            int churchId = 0; // Assuming churchId is 1 for now, modify as needed
+            string title = Request.Form["title"]; // Newsletter title from input
+            DateTime issueDate = DateTime.Parse(Request.Form["date"]); // Date from input
 
-                // Check if a file was uploaded
-                if (uploadedFile != null && uploadedFile.ContentLength > 0)
+            // Access the FileUpload control
+            if (fileUploadControl.HasFile && fileUploadControl.PostedFile.ContentLength > 0)
+            {
+                // Get the uploaded file
+                HttpPostedFile uploadedFile = fileUploadControl.PostedFile;
+
+                // Instantiate the NewsletterManager class
+                NewsletterManager newsletterManager = new NewsletterManager();
+
+                // Call the UploadNewsletter method
+                bool uploadSuccess = newsletterManager.UploadNewsletter(email, churchId, title, issueDate, uploadedFile);
+
+                if (uploadSuccess)
                 {
-                    // Create a new instance of the NewsletterManager class
-                    NewsletterManager manager = new NewsletterManager();
-
-                    // Call the UploadNewsletter method
-                    bool isUploaded = manager.UploadNewsletter(
-                        email: userEmail,  // Use email from session
-                        churchId: 1,       // Example ChurchID (you can dynamically get this)
-                        title: title,
-                        issueDate: issueDate,
-                        uploadedFile: uploadedFile
-                    );
-
-                    // Provide feedback to the user
-                    if (isUploaded)
-                    {
-                        Response.Write("<script>alert('Newsletter uploaded successfully!');</script>");
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('Failed to upload the newsletter.');</script>");
-                    }
+                    // Display success message
+                    Response.Write("<script>alert('Newsletter uploaded successfully!');</script>");
                 }
                 else
                 {
-                    Response.Write("<script>alert('Please select a valid PDF file to upload.');</script>");
+                    // Display error message
+                    Response.Write("<script>alert('Failed to upload the newsletter.');</script>");
                 }
             }
+            else
+            {
+                // Display error message for invalid file
+                Response.Write("<script>alert('Please upload a valid PDF file.');</script>");
+            }
         }
-    }
 
+    }
+}
