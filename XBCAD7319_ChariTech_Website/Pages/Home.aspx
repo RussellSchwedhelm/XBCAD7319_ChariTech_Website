@@ -3,21 +3,26 @@
 
     <!-- Main Container -->
     <div class="main-container" style="column-count: 2;">
-        <!-- Left Section: Exhortations -->
-        <div class="section">
-            <h3 class="headings">Exhortations</h3>
-            <div>
-                <!-- Dynamic list of Exhortations -->
-                <div class="exhortation-item">
-                    <div class="exhortation-info">
-                        <p>Talk Title | 01-01-2024</p>
-                        <p>Brief Talk Description</p>
-                    </div>
+    <!-- Left Section: Exhortations -->
+    <div class="section">
+        <h3 class="headings">Exhortations</h3>
+        <div class="exhortation-list">
+            <!-- Dynamic list of Exhortations -->
+            <asp:Repeater ID="ExhortationListRepeater" runat="server">
+                <ItemTemplate>
+                    <div class="exhortation-item">
+                        <div class="exhortation-info">
+                            <p><%# Eval("Title") %> | <%# Eval("Date", "{0:MM-dd-yyyy}") %></p>
+                            <p>Speaker: <%# Eval("Speaker") %></p>
+                        </div>
                         <a class="details-link" href="#">Details ></a>
-                        <button class="play-button">▶</button>
-                </div>
-            </div>
+                        <!-- Play/Pause button -->
+                        <button id="playButton_<%# Eval("ExhortationID") %>" class="play-button" onclick="togglePlayPause('<%# Eval("ExhortationID") %>')">▶</button>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
+    </div>
 
     <!-- Middle Section: Ecclesial News -->
     <div class="section">
@@ -95,4 +100,52 @@
             window.open(url, '_blank');
         }
     </script>
+    <script type="text/javascript">
+        // Global variables to track the currently playing audio and its ID
+        var currentAudio = null;
+        var currentExhortationId = null;
+
+        // Function to toggle between play and pause
+        function togglePlayPause(exhortationId) {
+            var playButton = document.getElementById("playButton_" + exhortationId);
+
+            // If the same exhortation is playing, toggle between play and pause
+            if (currentExhortationId === exhortationId && currentAudio !== null) {
+                if (currentAudio.paused) {
+                    currentAudio.play();
+                    playButton.innerHTML = "❚❚";  // Change to pause icon
+                } else {
+                    currentAudio.pause();
+                    playButton.innerHTML = "▶";  // Change to play icon
+                }
+            } else {
+                // Pause any currently playing audio
+                if (currentAudio !== null) {
+                    currentAudio.pause();
+                    var previousButton = document.getElementById("playButton_" + currentExhortationId);
+                    if (previousButton) {
+                        previousButton.innerHTML = "▶";  // Reset the previous button to play icon
+                    }
+                }
+
+                // Play the new exhortation
+                currentExhortationId = exhortationId;
+                currentAudio = new Audio("DownloadExhortation.aspx?id=" + exhortationId);
+
+                // Add an event listener to start playing only when the audio is ready
+                currentAudio.addEventListener('canplaythrough', function () {
+                    currentAudio.play();
+                    playButton.innerHTML = "❚❚";  // Change to pause icon
+                });
+
+                // Handle the case when the audio ends
+                currentAudio.onended = function () {
+                    playButton.innerHTML = "▶";  // Reset button to play icon when audio ends
+                    currentAudio = null;
+                    currentExhortationId = null;
+                };
+            }
+        }
+    </script>
+
 </asp:Content>

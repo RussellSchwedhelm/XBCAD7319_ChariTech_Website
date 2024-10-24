@@ -265,6 +265,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\ChurchLogo.png" />
     <Content Include="Images\default_profile.png" />
+    <Content Include="Images\Edit.png" />
     <Content Include="Images\notification.png" />
     <Content Include="Images\Trash 13.png" />
     <Content Include="Pages\About.aspx" />
@@ -273,6 +274,7 @@
     <Content Include="Pages\BibleCourses.aspx" />
     <Content Include="Pages\Contact.aspx" />
     <Content Include="Pages\Default.aspx" />
+    <Content Include="Pages\DownloadExhortation.aspx" />
     <Content Include="Pages\DownloadNewsletter.aspx" />
     <Content Include="Pages\EditExhortations.aspx" />
     <Content Include="Pages\Exhortations.aspx" />
@@ -407,6 +409,13 @@
     </Compile>
     <Compile Include="Pages\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DownloadExhortation.aspx.cs">
+      <DependentUpon>DownloadExhortation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\DownloadExhortation.aspx.designer.cs">
+      <DependentUpon>DownloadExhortation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\DownloadNewsletter.aspx.cs">
       <DependentUpon>DownloadNewsletter.aspx</DependentUpon>

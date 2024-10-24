@@ -15,6 +15,15 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
 
         /// <summary>
+        /// ExhortationListRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater ExhortationListRepeater;
+
+        /// <summary>
         /// newsListRepeater control.
         /// </summary>
         /// <remarks>

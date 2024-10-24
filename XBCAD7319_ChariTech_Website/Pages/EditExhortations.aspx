@@ -33,10 +33,19 @@
 
 
         <div class="section exhortationDisplay" >
-
+            <div class="editExhortationContainer">
+                <div style="align-items: center; display: flex; width:100% !important; justify-content: center; margin:0 auto;">
                 <asp:TextBox ID="txtExhortationTitle" class="editExhortationTitle" ReadOnly="False" Text="*Talk Title*" runat="server" ></asp:TextBox>
+                <img src='<%= ResolveUrl("~/Images/Edit.png") %>' alt="Trash Bin" style="width: 20px; height: 20px; margin-left: 10px; margin-bottom: 10px" />
+                    </div>
+                
+                <div style="align-items: center; display: flex; width:100% !important; justify-content: center; margin:0 auto;">
                 <asp:TextBox ID="txtExhortationSummary" class="editExhortationSummary" ReadOnly="False" Text="*A brief descriptive summary*" runat="server" ></asp:TextBox>
-            
+                <img src='<%= ResolveUrl("~/Images/Edit.png") %>' alt="Trash Bin" style="width: 20px; height: 20px; margin-left: 10px; margin-bottom: 10px" />
+                    </div>
+            </div>
+
+            <br />
             
     <div class="audio-player" >
         <div class="audio-header">
@@ -57,11 +66,11 @@
         </div>
     </div>
          
-            
+            <br />
 
             <h5 class="section-heading"> </h5>
 
-   
+             <div style="align-items: center; display: flex; width:100% !important; justify-content: center; margin:0 auto;">
                 <asp:TextBox ID="txtExhortationTranscript" 
                     class="editExhortationTranscript" 
                     ReadOnly="False" 
@@ -70,12 +79,16 @@
                     runat="server" 
                     style="width:auto"></asp:TextBox>
 
-            
+                    <img src='<%= ResolveUrl("~/Images/Edit.png") %>' alt="Trash Bin" style="width: 20px; height: 20px; margin-left: 10px; margin-bottom: 10px" />
+            </div>
+            <br />
             
 
-            <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" CssClass="btn btn-secondary" />
-            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" />
+            <asp:Button ID="btnSaveChanges" runat="server" style="width: 50% !important; margin: 0 auto;" Text="Save Changes" CssClass="btn btn-secondary" />
+            <br />
+            <asp:Button ID="btnCancel" runat="server" style="width: 50% !important; margin: 0 auto;" Text="Cancel" CssClass="btn btn-secondary" />
             
+
         </div>
 
 

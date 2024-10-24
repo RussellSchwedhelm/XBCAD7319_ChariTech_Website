@@ -266,16 +266,18 @@ footer {
 
 .editExhortationContainer {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-content:center;
 }
 
 .editExhortationTitle {
     background-color: #fff;
     border: 1px solid #BBBBBD;
     color: #000;
-    padding: 5px;
+    padding: 10px;
     font-weight: bold;
-    width: 40%;
+    width: 50% !important;
+
     font-size: 1.75rem;
 }
 
@@ -283,8 +285,8 @@ footer {
     background-color: #fff;
     border: 1px solid #BBBBBD;
     color: #000;
-    padding: 5px;
-    width: 70%;
+    padding: 10px;
+    width: 70% !important;
     font-size: 1.5rem;
 }
 
@@ -293,7 +295,7 @@ footer {
     border: 1px solid #BBBBBD;
     color: #000;
     padding: 5px;
-    width: 70%;
+    width: 70% !important;
     font-size: 1rem;
     box-sizing: border-box; /* Ensures padding is considered within width */
     word-wrap: break-word; /* Break long words to fit within the container */
@@ -320,6 +322,11 @@ footer {
     box-shadow: 0 calc(4px * var(--scale-factor)) calc(6px * var(--scale-factor)) rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
 }
+
+
+
+
+
 
 /* Remove vertical scrollbar and make items fit */
 .exhortations-list {
@@ -387,23 +394,47 @@ li {
 
 
 .progress-container {
-    flex-grow: 1; /* Allow the progress bar to take up remaining space */
+    flex-grow:1;
+    justify-content: space-between; /* Space between items */
+    
+    width: 100%; /* Ensure it takes full width */
+    margin-top: 10px; /* Optional: Add some space above */
 }
 
 .exh-progress-bar {
-    background-color: #e0e0e0;
-    border-radius: 0.3125rem;
-    height: 0.625rem; /* 10px */
-    position: relative;
-    width: 210px;
+    flex: 1; /* Allow progress bar to take remaining space */
+    background: #e0e0e0; /* Light background for progress bar */
+    height: 5px; /* Height of the progress bar */
+    border-radius: 2.5px; /* Rounded corners for the progress bar */
+    margin: 0 10px; /* Optional: Add some horizontal margin */
 }
 
 .exh-progress {
     background-color: #555;
-    border-radius: 0.3125rem;
-    height: 100%;
-    width: 210px;
+    width: 50%; /* Example width for progress (you can change this dynamically) */
+    height: 100%; /* Full height of the bar */
+    border-radius: 2.5px; /* Rounded corners */
 }
+
+
+
+
+.timestamps {
+    display: flex; /* Use flexbox for timestamps */
+    justify-content: space-between; /* Space between timestamps */
+    width: 100%; /* Make it take full width of the container */
+}
+
+.current-time,
+.total-time {
+    font-size: 0.875rem; /* Adjust the font size as needed */
+    color: #333; /* Text color */
+}
+
+
+
+
+
 
 
 
@@ -1030,4 +1061,24 @@ input:checked + .slider {
 .item-text {
     flex-grow: 1; /* Allow the text to take available space */
     font-size: 16px;
+}
+
+.loading-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 2px solid #3498db;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
