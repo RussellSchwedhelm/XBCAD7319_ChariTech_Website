@@ -323,6 +323,11 @@ footer {
     box-sizing: border-box;
 }
 
+
+
+
+
+
 /* Remove vertical scrollbar and make items fit */
 .exhortations-list {
     max-height: auto; /* Remove height restriction */
@@ -389,23 +394,47 @@ li {
 
 
 .progress-container {
-    flex-grow: 1; /* Allow the progress bar to take up remaining space */
+    flex-grow:1;
+    justify-content: space-between; /* Space between items */
+    
+    width: 100%; /* Ensure it takes full width */
+    margin-top: 10px; /* Optional: Add some space above */
 }
 
 .exh-progress-bar {
-    background-color: #e0e0e0;
-    border-radius: 0.3125rem;
-    height: 0.625rem; /* 10px */
-    position: relative;
-    width: 210px;
+    flex: 1; /* Allow progress bar to take remaining space */
+    background: #e0e0e0; /* Light background for progress bar */
+    height: 5px; /* Height of the progress bar */
+    border-radius: 2.5px; /* Rounded corners for the progress bar */
+    margin: 0 10px; /* Optional: Add some horizontal margin */
 }
 
 .exh-progress {
     background-color: #555;
-    border-radius: 0.3125rem;
-    height: 100%;
-    width: 210px;
+    width: 50%; /* Example width for progress (you can change this dynamically) */
+    height: 100%; /* Full height of the bar */
+    border-radius: 2.5px; /* Rounded corners */
 }
+
+
+
+
+.timestamps {
+    display: flex; /* Use flexbox for timestamps */
+    justify-content: space-between; /* Space between timestamps */
+    width: 100%; /* Make it take full width of the container */
+}
+
+.current-time,
+.total-time {
+    font-size: 0.875rem; /* Adjust the font size as needed */
+    color: #333; /* Text color */
+}
+
+
+
+
+
 
 
 
