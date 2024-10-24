@@ -1,9 +1,18 @@
 ﻿using System;
+using System.Data;
+using System.Web.UI.WebControls;
+using XBCAD7319_ChariTech_Website.Classes;
+
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class EditExhortations : System.Web.UI.Page
     {
+
+        private ExhortationManager exhortationManager = new ExhortationManager();
+        private UserManager userManager = new UserManager();
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the session exists
@@ -17,8 +26,43 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // User is authenticated, you can access their email
                 string email = Session["UserEmail"].ToString();
                 // Use the email for further logic if needed
+                int userId = userManager.GetUserIdByEmail(email);
+                int userChurchId = userManager.GetChurchIdByUserId(userId);
+                LoadExhortations(userChurchId);
+
             }
         }
+
+
+        private void LoadExhortations(int churchID)
+        {
+             DataTable exhortations = exhortationManager.GetExhortationsByChurchID(churchID);
+
+            // Clear any existing items in the ListView or DropDownList
+            // exhortationListView.DataSource = exhortations;
+            // exhortationListView.DataBind();
+
+            /*  // Create dummy data using a DataTable
+              DataTable exhortations = new DataTable();
+              exhortations.Columns.Add("ExhortationID", typeof(int));
+              exhortations.Columns.Add("Title", typeof(string));
+              exhortations.Columns.Add("Description", typeof(string));
+              exhortations.Columns.Add("Speaker", typeof(string));
+              exhortations.Columns.Add("Date", typeof(DateTime));
+              exhortations.Columns.Add("AudioFilePath", typeof(string));
+
+              // Add sample rows
+              exhortations.Rows.Add(1, "The Power of Faith", "A powerful talk about faith.", "John Doe", DateTime.Now, "https://example.com/audio1.mp3");
+              exhortations.Rows.Add(2, "Living with Purpose", "Insights on purposeful living.", "Jane Smith", DateTime.Now.AddDays(-1), "https://example.com/audio2.mp3");
+
+              // Bind the data to the Repeater control
+              exhortationListView.DataSource = exhortations;
+              exhortationsListView.DataBind();*/
+        }
+
+
+
+
     }
 }
 
