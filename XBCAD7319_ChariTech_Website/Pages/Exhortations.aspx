@@ -7,7 +7,6 @@
         <div class="section">
             <h3 class="headings">Exhortations</h3>
             <div class="exhortation-list">
-                <!-- Dynamic list of Exhortations -->
                 <asp:Repeater ID="ExhortationListRepeater" runat="server">
                     <ItemTemplate>
                         <div class="exhortation-item">
@@ -24,56 +23,45 @@
             </div>
         </div>
 
-       <script type="text/javascript">
-           // Global variables to track the currently playing audio and its ID
-           var currentAudio = null;
-           var currentExhortationId = null;
+        <script type="text/javascript">
+            var currentAudio = null;
+            var currentExhortationId = null;
 
-           // Function to toggle between play and pause
-           function togglePlayPause(exhortationId) {
-               var playButton = document.getElementById("playButton_" + exhortationId);
+            function togglePlayPause(exhortationId) {
+                var playButton = document.getElementById("playButton_" + exhortationId);
 
-               // If the same exhortation is playing, toggle between play and pause
-               if (currentExhortationId === exhortationId && currentAudio !== null) {
-                   if (currentAudio.paused) {
-                       currentAudio.play();
-                       playButton.innerHTML = "❚❚";  // Change to pause icon
-                   } else {
-                       currentAudio.pause();
-                       playButton.innerHTML = "▶";  // Change to play icon
-                   }
-               } else {
-                   // Pause any currently playing audio
-                   if (currentAudio !== null) {
-                       currentAudio.pause();
-                       var previousButton = document.getElementById("playButton_" + currentExhortationId);
-                       if (previousButton) {
-                           previousButton.innerHTML = "▶";  // Reset the previous button to play icon
-                       }
-                   }
+                if (currentExhortationId === exhortationId && currentAudio !== null) {
+                    if (currentAudio.paused) {
+                        currentAudio.play();
+                        playButton.innerHTML = "❚❚";
+                    } else {
+                        currentAudio.pause();
+                        playButton.innerHTML = "▶";
+                    }
+                } else {
+                    if (currentAudio !== null) {
+                        currentAudio.pause();
+                        var previousButton = document.getElementById("playButton_" + currentExhortationId);
+                        if (previousButton) {
+                            previousButton.innerHTML = "▶";
+                        }
+                    }
 
-                   // Play the new exhortation
-                   currentExhortationId = exhortationId;
-                   currentAudio = new Audio("DownloadExhortation.aspx?id=" + exhortationId);
+                    currentExhortationId = exhortationId;
+                    currentAudio = new Audio("DownloadExhortation.aspx?id=" + exhortationId);
+                    currentAudio.addEventListener('canplaythrough', function () {
+                        currentAudio.play();
+                        playButton.innerHTML = "❚❚";
+                    });
 
-                   // Add an event listener to start playing only when the audio is ready
-                   currentAudio.addEventListener('canplaythrough', function () {
-                       currentAudio.play();
-                       playButton.innerHTML = "❚❚";  // Change to pause icon
-                   });
-
-                   // Handle the case when the audio ends
-                   currentAudio.onended = function () {
-                       playButton.innerHTML = "▶";  // Reset button to play icon when audio ends
-                       currentAudio = null;
-                       currentExhortationId = null;
-                   };
-               }
-           }
-       </script>
-
-
-
+                    currentAudio.onended = function () {
+                        playButton.innerHTML = "▶";
+                        currentAudio = null;
+                        currentExhortationId = null;
+                    };
+                }
+            }
+    </script>
 
         <div class="section exhortationDisplay">
             <div style="text-align: center;">
@@ -109,46 +97,4 @@
 
     </div>
 
-
-
-
-    <script>
-        let audioPlayer = new Audio();
-        let isPlaying = false;
-
-        // Function to play selected audio
-        function playAudio(audioPath) {
-            if (isPlaying) {
-                audioPlayer.pause();
-                isPlaying = false;
-                return;
-            }
-
-            audioPlayer.src = audioPath;
-            audioPlayer.play();
-            isPlaying = true;
-
-            audioPlayer.addEventListener('ended', function () {
-                isPlaying = false;
-            });
-        }
-
-        // Toggle play/pause in the display section
-        function togglePlayPause() {
-            const playButton = document.querySelector('.play-button2');
-            if (isPlaying) {
-                audioPlayer.pause();
-                playButton.textContent = '▶';
-            } else {
-                audioPlayer.play();
-                playButton.textContent = '❚❚';
-            }
-            isPlaying = !isPlaying;
-        }
-    </script>
-
-
-
 </asp:Content>
-
-
