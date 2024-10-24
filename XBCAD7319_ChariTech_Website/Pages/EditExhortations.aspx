@@ -4,29 +4,39 @@
     <div class="main-container">
     <!-- Exhortations Section -->
     <div class="section exhortationSelect">
-        <h3 class="heading">Exhortations</h3>
+        <div style="text-align: center;">
+            <h3 class="heading">Exhortations</h3>
+
+            <div class="search-container" >
+                <asp:TextBox ID="txtSearchQuery" runat="server" CssClass="search-box" placeholder="Search..."></asp:TextBox>
+                <asp:Button ID="btnSearch" runat="server" CssClass="search-button" Text="Search" OnClick="btnSearch_Click" />
+            </div>
+        </div>
+
         <div class="exhortations-list">
             <!-- Repeat this block for each exhortation dynamically -->
             <div class="exhortation-item">
-                <img src='<%= ResolveUrl("~/Images/Trash 13.png") %>' alt="Trash Bin" style="width: 20px; height: 20px;" />
+                <img src='<%= ResolveUrl("~/Images/Trash 13.png") %>' alt="Trash Bin" style="width: 20px; height: 20px; margin-right: 10px;" />
 
                 <div class="exhortation-info">
                     <p class="title">Talk Title | 01-01-2024</p>
                     <p class="description">Brief Talk Description</p>
                 </div>
-            <div class="exhortation-actions">
+                <div class="exhortation-actions">
                     <a href="#" class="exhortation-details-link">Details ></a>
                     <button class="play-button">▶</button>
-        </div>
-     </div>
+                </div>
+            </div>
         </div>
     </div>
 
 
 
         <div class="section exhortationDisplay" >
-            <h3 class="exhortation-heading">*Talk Title*</h3>
-            <h4 class="exhortation-heading">*A brief descriptive summary*</h4>
+            
+                <asp:TextBox ID="txtExhortationTitle" class="editExhortationTitle" ReadOnly="False" Text="*Talk Title*" runat="server" ></asp:TextBox>
+                <asp:TextBox ID="txtExhortationSummary" class="editExhortationSummary" ReadOnly="False" Text="*A brief descriptive summary*" runat="server" ></asp:TextBox>
+            
             
     <div class="audio-player" >
         <div class="audio-header">
