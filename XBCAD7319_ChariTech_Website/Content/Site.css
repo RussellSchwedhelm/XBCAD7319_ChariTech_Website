@@ -976,12 +976,6 @@ input:checked + .slider {
         transform: translateX(20px);
     }
 
-
-
-
-
-
-
 /*Bible Course related components*/
 .courseFilterSelect {
     grid-column: 1 / 1;

@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <!-- Main Container -->
-    <div class="main-container home">
+    <div class="main-container" style="column-count: 2;">
         <!-- Left Section: Exhortations -->
         <div class="section">
             <h3 class="headings">Exhortations</h3>
