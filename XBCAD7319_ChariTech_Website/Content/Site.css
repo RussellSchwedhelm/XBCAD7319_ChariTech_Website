@@ -288,6 +288,20 @@ footer {
     font-size: 1.5rem;
 }
 
+.editExhortationTranscript {
+    background-color: #fff;
+    border: 1px solid #BBBBBD;
+    color: #000;
+    padding: 5px;
+    width: 70%;
+    font-size: 1rem;
+    box-sizing: border-box; /* Ensures padding is considered within width */
+    word-wrap: break-word; /* Break long words to fit within the container */
+    white-space: pre-wrap; /* Preserve spaces, wrap text, and break lines as needed */
+    overflow-wrap: break-word; /* Ensure that text wraps within the width */
+    min-height: 100px; /* Optional minimum height */
+}
+
 
 
 

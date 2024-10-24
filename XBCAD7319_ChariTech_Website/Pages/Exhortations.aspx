@@ -28,6 +28,8 @@
         <div class="section exhortationSelect">
             <div style="text-align: center;">
                 <h3>Exhortations</h3>
+
+                
             </div>
             <ListView ID="exhortationListView" class="exhortations-list">
                 <ItemTemplate>
