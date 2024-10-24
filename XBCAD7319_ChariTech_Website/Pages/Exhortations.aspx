@@ -23,9 +23,14 @@
 
 
         <div class="section exhortationDisplay" >
-            <h3 class="section-heading">*Talk Title*</h3>
-            <h4 class="section-heading">*A brief descriptive summary*</h4>
-            
+            <div style="text-align: center;">
+                <h3> *Talk Title* </h3>
+            </div>
+
+            <div style="text-align: center;">
+                <h4 class="section-heading">*A brief descriptive summary*</h4>
+            </div>
+             
     <div class="audio-player">
         <div class="audio-header">
             <span class="speaker">Marshal</span>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
@@ -18,6 +19,22 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 string email = Session["UserEmail"].ToString();
                 // Use the email for further logic if needed
             }*/
+        }
+
+        //the logic behind the search function
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchQuery = txtSearchQuery.Text.Trim();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                //List<string> results = PerformSearch(searchQuery);  // Simulate the search logic
+                //DisplayResults(results);
+            }
+            else
+            {
+                //lblSearchResults.Text = "Please enter a search term.";
+            }
         }
     }
 }

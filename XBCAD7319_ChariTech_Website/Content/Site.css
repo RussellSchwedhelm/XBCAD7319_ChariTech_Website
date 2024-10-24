@@ -264,6 +264,33 @@ footer {
     font-size: 1rem;
 }
 
+.editExhortationContainer {
+    display: flex;
+    align-items: center;
+}
+
+.editExhortationTitle {
+    background-color: #fff;
+    border: 1px solid #BBBBBD;
+    color: #000;
+    padding: 5px;
+    font-weight: bold;
+    width: 40%;
+    font-size: 1.75rem;
+}
+
+.editExhortationSummary {
+    background-color: #fff;
+    border: 1px solid #BBBBBD;
+    color: #000;
+    padding: 5px;
+    width: 70%;
+    font-size: 1.5rem;
+}
+
+
+
+
 /* Audio Player Section */
 .audio-player {
     /* Adjust width scaling */
@@ -288,6 +315,43 @@ footer {
     max-height: auto; /* Remove height restriction */
     overflow-y: hidden; /* Remove vertical scroll */
 }
+
+/*Exhortation page(s) search bar styles*/
+.search-container {
+    margin-bottom: 20px;
+    display: flex; 
+    align-items: center;
+}
+
+.search-box {
+    width: 60%;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.search-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 20%
+}
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px 0;
+}
+
+
 
 
 .audio-header {
@@ -921,3 +985,49 @@ input:checked + .slider {
 
 
 
+
+
+
+
+/*Bible Course related components*/
+.courseFilterSelect {
+    grid-column: 1 / 1;
+    grid-row: 2 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.courseSearchDisplay {
+    grid-column: 1 / 4;
+    grid-row: 1 / 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollable-list {
+    
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc;
+    padding: 10px;
+    flex: 1;
+    max-height: calc(5px * var(--scale-factor));
+}
+
+.filter-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0; /* Divider line */
+}
+
+.item-icon {
+    width: 24px; /* Set the size of the icon */
+    height: 24px;
+    margin-right: 10px;
+}
+
+.item-text {
+    flex-grow: 1; /* Allow the text to take available space */
+    font-size: 16px;
+}
