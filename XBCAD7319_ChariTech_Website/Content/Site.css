@@ -22,11 +22,11 @@ body {
     min-height: calc(100vh - var(--navbar-height)); /* Full height minus navbar */
 }
 
-    *,
-    *::before,
-    *::after {
-        box-sizing: inherit;
-    }
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
 
 /* Body Content Padding */
 .body-content {
@@ -233,21 +233,12 @@ footer {
     height: 100%;
 }
 
-
 .exhortationDisplay {
     grid-column: 2 / 4;
     grid-row: 1 / 4;
     display: flex;
     flex-direction: column;
 }
-
-.courseDisplay {
-    grid-column: 2 / 4;
-    grid-row: 2 / 4;
-    display: flex;
-    flex-direction: column;
-}
-
 
 /*Exhortation Page Start */
 .exhortationSelect {
@@ -273,18 +264,42 @@ footer {
     font-size: 1rem;
 }
 
+.editExhortationContainer {
+    display: flex;
+    align-items: center;
+}
+
+.editExhortationTitle {
+    background-color: #fff;
+    border: 1px solid #BBBBBD;
+    color: #000;
+    padding: 5px;
+    font-weight: bold;
+    width: 40%;
+    font-size: 1.75rem;
+}
+
+.editExhortationSummary {
+    background-color: #fff;
+    border: 1px solid #BBBBBD;
+    color: #000;
+    padding: 5px;
+    width: 70%;
+    font-size: 1.5rem;
+}
+
+
+
+
 /* Audio Player Section */
 .audio-player {
     /* Adjust width scaling */
     width: 50%; /* Using --scale-factor directly */
-
     /* Adjust padding scaling */
     /*padding: calc(20px * var(--scale-factor)); /* Using --scale-factor */
 
     margin: 0 auto;
-
     background-color: #f0f0f0;
-    
     /* Adjust border-radius scaling */
     border-radius: calc(10px * var(--scale-factor)); /* Using --scale-factor */
     /* Adjust box-shadow scaling */
@@ -297,6 +312,43 @@ footer {
     max-height: auto; /* Remove height restriction */
     overflow-y: hidden; /* Remove vertical scroll */
 }
+
+/*Exhortation page(s) search bar styles*/
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.search-box {
+    width: 60%;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.search-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 20%
+}
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px 0;
+}
+
+
 
 
 .audio-header {
@@ -448,9 +500,9 @@ footer {
     text-decoration: none; /* Remove the underline */
 }
 
-.exhortation-details-link:hover {
-    color: darkgrey; /* Change color on hover, optional */
-}
+    .exhortation-details-link:hover {
+        color: darkgrey; /* Change color on hover, optional */
+    }
 
 .news-info, .exhortation-info {
     padding-right: 1rem;
@@ -534,7 +586,7 @@ footer {
     position: relative;
 }
 
-.progress {  
+.progress {
     background-color: #555;
     border-radius: 0.3125rem;
     height: 100%;
@@ -581,7 +633,7 @@ footer {
     border: 0.125rem dashed #ccc;
     padding: 1.25rem;
     text-align: center;
-    align-self:center;
+    align-self: center;
     border-radius: 0.625rem;
     cursor: pointer;
     height: 5rem;
@@ -596,7 +648,7 @@ footer {
 .donation-editable {
     display: flow;
     gap: 0.625rem;
-    text-align:center;
+    text-align: center;
     height: 100%;
 }
 
@@ -708,9 +760,8 @@ input[type="date"], input[type="text"] {
     width: 100%; /* Ensures inputs fill their container */
 }
 
-.fa-edit
-{
-    cursor:pointer
+.fa-edit {
+    cursor: pointer
 }
 
 /* General layout for settings page */
@@ -724,18 +775,21 @@ input[type="date"], input[type="text"] {
 
 .settings-container {
     display: flex;
-    width: 70%;
+    width: 100%;
     max-width: 1200px;
-    gap: 10px;
+    gap: 20px;
+    border: 2px solid #d8d8d8;
+    border-radius: 12px;
 }
 
 /* Left Panel Styling */
 .settings-left {
-    background-color: #f4f4f4;
-    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+    background-color: #f7f7f7;
     padding: 20px;
-    border-radius: 0.625rem;
+    border-radius: 10px;
     flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #b9b9b9;
     padding-right: 40px;
 }
 
@@ -743,11 +797,6 @@ input[type="date"], input[type="text"] {
         margin-bottom: 20px;
         font-weight: bold;
     }
-
-.centered-heading {
-    text-align: center; /* Centers the text horizontally */
-}
-
 
 .setting-option {
     margin-bottom: 20px;
@@ -779,13 +828,13 @@ input[type="date"], input[type="text"] {
 
 /* Right Panel Styling */
 .settings-right {
-    background-color: #f4f4f4;
-    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+    background-color: #f7f7f7;
     padding: 20px;
-    border-radius: 0.625rem;
+    border-radius: 10px;
     flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-
+    border: 2px solid #b9b9b9;
 }
 
 .account-info {
@@ -818,15 +867,6 @@ input[type="date"], input[type="text"] {
         display: block;
         margin-top: 10px;
     }
-
-.transparent-textbox {
-    background-color: transparent;
-    border: none; /* Remove border if necessary */
-    color: #BBBBBD; /* Change the text color if needed */
-    padding: 5px;
-    border-bottom: 1px solid #BBBBBD;
-}
-
 
 .form-control {
     width: 100%;
@@ -871,11 +911,12 @@ input[type="date"], input[type="text"] {
     }
 }
 
-.item-wrap{
-    height:max-content;
+.item-wrap {
+    height: max-content;
     align-items: center;
     width: 100%
 }
+
 .next-sunday-calendar {
     margin-bottom: 20px; /* Adjust the value for more or less padding */
 }
@@ -956,9 +997,8 @@ input:checked + .slider {
     display: flex;
     flex-direction: column;
 }
-`
+
 .scrollable-list {
-    
     overflow-y: auto; /* Enable vertical scrolling */
     border: 1px solid #ccc;
     padding: 10px;
