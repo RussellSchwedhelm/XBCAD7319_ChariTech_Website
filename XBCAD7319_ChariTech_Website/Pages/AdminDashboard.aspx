@@ -3,27 +3,30 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <!-- Main Container -->
     <div class="main-container">
-        <!-- Ecclesial Newsletter Upload Section -->
-        <div class="dashboard-stack">
-            <div class="section item-wrap">
-                <h3 class="headings">Ecclesial Newsletter Upload</h3>
-                <div class="exhoration-upload-input-layout">
-                    <!-- Date Input -->
-                    <div class="upload-form">
-                        <label for="date">Date</label>
-                        <input type="date" id="date" name="date" required>
-                    </div>
+                <!-- Ecclesial Newsletter Upload Section -->
+        <form id="newsletterForm" runat="server" method="post" enctype="multipart/form-data">
+            <div class="dashboard-stack">
+                <div class="section item-wrap">
+                    <h3 class="headings">Ecclesial Newsletter Upload</h3>
+                    <div class="exhortation-upload-input-layout">
+                        <!-- Date Input -->
+                        <div class="upload-form">
+                            <label for="newsletter-date">Date</label>
+                            <input type="date" id="newsletter-date" name="newsletter-date" required>
+                        </div>
 
-                    <!-- Title Input -->
-                    <div class="upload-form">
-                        <label for="title">Title</label>
-                        <input type="text" id="title" name="title" placeholder="Enter the title" required>
+                        <!-- Title Input -->
+                        <div class="upload-form">
+                            <label for="newsletter-title">Title</label>
+                            <input type="text" id="newsletter-title" name="newsletter-title" placeholder="Enter the title" required>
+                        </div>
                     </div>
-                </div>
                     <asp:FileUpload ID="fileUploadControl" runat="server" CssClass="file-upload" />
-                <!-- Enable the button when all fields are filled -->
-                <asp:Button ID="uploadButton" runat="server" CssClass="btn" Text="Upload Newsletter" OnClick="UploadNewsletterButton_Click" />
+                    <!-- Submit Button -->
+                    <asp:Button ID="uploadNewsletterButton" runat="server" CssClass="btn" Text="Upload Newsletter" OnClick="UploadNewsletterButton_Click" />
+                </div>
             </div>
+        </form>
             <!-- Prayer Request Review Section -->
             <div class="section prayer-requests-review item-wrap">
                 <h3 class="headings">Prayer Request Review<br>
@@ -44,27 +47,37 @@
                 </div>
             </div>
 
-        </div>
         <div class="dashboard-stack item-wrap">
 
-            <!-- Exhortation Upload Section -->
-            <div class="section item-wrap">
-                <h3 class="headings">Exhortation Upload</h3>
-                <div class="exhoration-upload-input-layout">
-                    <div class="upload-form">
-                        <label for="exhortation-date">Date</label>
-                        <input type="date" id="exhortation-date">
+                    <!-- Exhortation Upload Section -->
+        <form id="exhortationForm" runat="server" method="post" enctype="multipart/form-data">
+            <div class="dashboard-stack item-wrap">
+                <div class="section item-wrap">
+                    <h3 class="headings">Exhortation Upload</h3>
+                    <div class="exhortation-upload-input-layout">
+                        <!-- Date Input -->
+                        <div class="upload-form">
+                            <label for="exhortation-date">Date</label>
+                            <input type="date" id="exhortation-date" name="exhortation-date" required>
+                        </div>
+                        <!-- Title Input -->
+                        <div class="upload-form">
+                            <label for="exhortation-title">Title</label>
+                            <input type="text" id="exhortation-title" name="exhortation-title" placeholder="Enter the title" required>
+                        </div>
+                        <!-- Speaker Input -->
+                        <div class="upload-form">
+                            <label for="exhortation-speaker">Speaker</label>
+                            <input type="text" id="exhortation-speaker" name="exhortation-speaker" placeholder="Enter the speaker's name" required>
+                        </div>
+                        <!-- File Upload Input -->
+                        <asp:FileUpload ID="exhortationFileUpload" runat="server" CssClass="file-upload" />
                     </div>
-                    <div class="upload-form">
-                        <label for="exhortation-title">Title</label>
-                        <input type="text" id="exhortation-title" placeholder="-----------------------">
-                    </div>
-                </div>
-                <div class="file-upload">
-                    <i class="fa fa-upload"></i>
-                    <p>Drag and Drop Here Or Browse For a File</p>
+                    <!-- Submit Button -->
+                    <asp:Button ID="uploadExhortationButton" runat="server" CssClass="btn" Text="Upload Exhortation" OnClick="UploadExhortationButton_Click" />
                 </div>
             </div>
+        </form>
 
             <!-- Online Donations Section -->
             <div class="section item-wrap">
@@ -163,36 +176,40 @@
         });
     </script>
 
-<!-- JavaScript to handle file selection and form validation -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const dateInput = document.getElementById('date');
-            const titleInput = document.getElementById('title');
-            const fileInput = document.getElementById('file-upload');
-            const uploadButton = document.getElementById('<%= uploadButton.ClientID %>');
-            const uploadIcon = document.getElementById('upload-icon');
-            const uploadText = document.getElementById('upload-text');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Newsletter section elements
+        const newsletterDateInput = document.getElementById('newsletter-date');
+        const newsletterTitleInput = document.getElementById('newsletter-title');
+        const newsletterFileInput = document.getElementById('<%= fileUploadControl.ClientID %>');
+        const newsletterButton = document.getElementById('<%= uploadNewsletterButton.ClientID %>'); // Fix: Use correct ID
 
-            // Event listeners to check the form state
-            dateInput.addEventListener('change', checkFields);
-            titleInput.addEventListener('input', checkFields);
-            fileInput.addEventListener('change', function () {
-                if (fileInput.files.length > 0) {
-                    const fileName = fileInput.files[0].name;
+        // Exhortation section elements
+        const exhortationDateInput = document.getElementById('exhortation-date');
+        const exhortationTitleInput = document.getElementById('exhortation-title');
+        const exhortationSpeakerInput = document.getElementById('exhortation-speaker');
+        const exhortationFileInput = document.getElementById('<%= exhortationFileUpload.ClientID %>');
+        const exhortationButton = document.getElementById('<%= uploadExhortationButton.ClientID %>'); // Fix: Use correct ID
 
-                    // Remove the upload icon and display the file name
-                    uploadIcon.style.display = 'none';
-                    uploadText.textContent = fileName;
-                }
-                checkFields();
-            });
-
-            // Show file dialog when clicking the file-upload area
-            fileUploadContainer.addEventListener('click', function () {
-                fileInput.click();
-            });
+        // Validate Newsletter Fields
+        newsletterButton.addEventListener('click', function (event) {
+            if (!newsletterDateInput.value || !newsletterTitleInput.value || !newsletterFileInput.value) {
+                event.preventDefault();
+                alert("Please fill out all fields in the Newsletter Upload section.");
+            }
         });
-    </script>
+
+        // Validate Exhortation Fields
+        exhortationButton.addEventListener('click', function (event) {
+            if (!exhortationDateInput.value || !exhortationTitleInput.value || !exhortationSpeakerInput.value || !exhortationFileInput.value.endsWith('.mp3')) {
+                event.preventDefault();
+                alert("Please fill out all fields in the Exhortation Upload section and upload a valid .mp3 file.");
+            }
+        });
+    });
+</script>
+
+
 
     <style>
         /* Button Styling */
@@ -210,8 +227,8 @@
             margin-top: 0.625rem; /* Consistent margin for all buttons */
         }
 
-        .btn:hover {
-            background-color: #555; /* Add hover effect */
-        }
+            .btn:hover {
+                background-color: #555; /* Add hover effect */
+            }
     </style>
 </asp:Content>
