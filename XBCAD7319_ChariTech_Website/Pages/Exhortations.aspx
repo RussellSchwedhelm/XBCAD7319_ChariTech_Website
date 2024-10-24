@@ -4,66 +4,73 @@
 
     <div class="main-container">
         <!-- Exhortations Section -->
-        <div class="section exhortationSelect">
-            <div style="text-align: center;">
-                <h3>Exhortations </h3>
-            </div>
-            <div class="exhortations-list">
-                <!-- Repeat this block for each exhortation dynamically -->
-                <div class="exhortation-item">
-                    <div class="exhortation-info">
-                        <p class="title">Talk Title | 01-01-2024</p>
-                        <p class="description">Brief Talk Description</p>
-                    </div>
-                    <div class="exhortation-actions">
-                        <a href="#" class="details-link">Details ></a>
-                        <button class="play-button">▶</button>
-                    </div>
-                </div>
+        <div class="section">
+            <h3 class="headings">Exhortations</h3>
+            <div class="exhortation-list">
+                <!-- Dynamic list of Exhortations -->
+                <asp:Repeater ID="ExhortationListRepeater" runat="server">
+                    <ItemTemplate>
+                        <div class="exhortation-item">
+                            <div class="exhortation-info">
+                                <p><%# Eval("Title") %> | <%# Eval("Date", "{0:MM-dd-yyyy}") %></p>
+                                <p>Speaker: <%# Eval("Speaker") %></p>
+                            </div>
+                            <a class="details-link" href="#">Details ></a>
+                            <!-- Play/Pause button -->
+                            <button id="playButton_<%# Eval("ExhortationID") %>" class="play-button" onclick="togglePlayPause('<%# Eval("ExhortationID") %>')">▶</button>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
         </div>
 
+       <script type="text/javascript">
+           // Global variables to track the currently playing audio and its ID
+           var currentAudio = null;
+           var currentExhortationId = null;
 
-        <!-- Temporary list to store exhortations -->
-        <asp:Repeater ID="exhortationRepeater" runat="server">
-            <ItemTemplate>
-                <div class="exhortation-item">
-                    <div class="exhortation-info">
-                        <p class="title">
-                            <%# Eval("Title") %> | <%# Eval("Date", "{0:dd-MM-yyyy}") %>
-                        </p>
-                        <p class="speaker">Speaker: <%# Eval("Speaker") %></p>
-                    </div>
-                    <div class="exhortation-actions">
-                        <button class="play-button"
-                            onclick="playAudio('<%# Eval("ExhortationID") %>')">
-                            ▶</button>
-                    </div>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
+           // Function to toggle between play and pause
+           function togglePlayPause(exhortationId) {
+               var playButton = document.getElementById("playButton_" + exhortationId);
 
-        <script>
-            let audioPlayer = new Audio();
-            let isPlaying = false;
+               // If the same exhortation is playing, toggle between play and pause
+               if (currentExhortationId === exhortationId && currentAudio !== null) {
+                   if (currentAudio.paused) {
+                       currentAudio.play();
+                       playButton.innerHTML = "❚❚";  // Change to pause icon
+                   } else {
+                       currentAudio.pause();
+                       playButton.innerHTML = "▶";  // Change to play icon
+                   }
+               } else {
+                   // Pause any currently playing audio
+                   if (currentAudio !== null) {
+                       currentAudio.pause();
+                       var previousButton = document.getElementById("playButton_" + currentExhortationId);
+                       if (previousButton) {
+                           previousButton.innerHTML = "▶";  // Reset the previous button to play icon
+                       }
+                   }
 
-            function playAudio(exhortationId) {
-                const audioUrl = `GetAudioFile.aspx?id=${exhortationId}`;
+                   // Play the new exhortation
+                   currentExhortationId = exhortationId;
+                   currentAudio = new Audio("DownloadExhortation.aspx?id=" + exhortationId);
 
-                if (isPlaying) {
-                    audioPlayer.pause();
-                    isPlaying = false;
-                } else {
-                    audioPlayer.src = audioUrl;
-                    audioPlayer.play();
-                    isPlaying = true;
+                   // Add an event listener to start playing only when the audio is ready
+                   currentAudio.addEventListener('canplaythrough', function () {
+                       currentAudio.play();
+                       playButton.innerHTML = "❚❚";  // Change to pause icon
+                   });
 
-                    audioPlayer.addEventListener('ended', () => {
-                        isPlaying = false;
-                    });
-                }
-            }
-        </script>
+                   // Handle the case when the audio ends
+                   currentAudio.onended = function () {
+                       playButton.innerHTML = "▶";  // Reset button to play icon when audio ends
+                       currentAudio = null;
+                       currentExhortationId = null;
+                   };
+               }
+           }
+       </script>
 
 
 

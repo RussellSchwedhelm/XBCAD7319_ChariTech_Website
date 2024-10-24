@@ -39,7 +39,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
             DataTable exhortations = exhortationManager.GetExhortationsByChurchID(churchID);
              //exhortationListView.DataSource = exhortations;
             // exhortationListView.DataBind();
-            // exhortationRepeater.items.Clear();
+            // exhortationRepeater.DataSource = exhortations;
+           
 
             /*  // Create dummy data using a DataTable
               DataTable exhortations = new DataTable();
