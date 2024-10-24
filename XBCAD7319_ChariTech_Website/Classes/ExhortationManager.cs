@@ -11,13 +11,33 @@ namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class ExhortationManager
     {
+       /* public DataTable GetExhortationsByChurchID(int churchID)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT ExhortationID, Title, AudioFile FROM Exhortation WHERE ChurchID = @ChurchID";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ChurchID", churchID);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable exhortations = new DataTable();
+                    da.Fill(exhortations);  // Fill the DataTable with exhortations data
+                    return exhortations;
+                }
+            }
+        }*/
+
         public DataTable GetExhortationsByChurchID(int churchID)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT ExhortationID, Title, AudioFilePath FROM Exhortation WHERE ChurchID = @ChurchID";
+                // Fetch only metadata to improve performance
+                string query = "SELECT ExhortationID, Title, Speaker, Date FROM Exhortation WHERE ChurchID = @ChurchID";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@ChurchID", churchID);
@@ -29,6 +49,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
+
 
         public bool UploadExhortation(string email, int churchId, string title, string speaker, DateTime issueDate, HttpPostedFile uploadedFile)
         {

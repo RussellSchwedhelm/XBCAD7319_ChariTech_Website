@@ -36,11 +36,10 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
         private void LoadExhortations(int churchID)
         {
-             DataTable exhortations = exhortationManager.GetExhortationsByChurchID(churchID);
-
-            // Clear any existing items in the ListView or DropDownList
-            // exhortationListView.DataSource = exhortations;
+            DataTable exhortations = exhortationManager.GetExhortationsByChurchID(churchID);
+             //exhortationListView.DataSource = exhortations;
             // exhortationListView.DataBind();
+            // exhortationRepeater.items.Clear();
 
             /*  // Create dummy data using a DataTable
               DataTable exhortations = new DataTable();
