@@ -274,6 +274,7 @@
     <Content Include="Pages\BibleCourses.aspx" />
     <Content Include="Pages\Contact.aspx" />
     <Content Include="Pages\Default.aspx" />
+    <Content Include="Pages\DownloadExhortation.aspx" />
     <Content Include="Pages\DownloadNewsletter.aspx" />
     <Content Include="Pages\EditExhortations.aspx" />
     <Content Include="Pages\Exhortations.aspx" />
@@ -407,6 +408,13 @@
     </Compile>
     <Compile Include="Pages\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DownloadExhortation.aspx.cs">
+      <DependentUpon>DownloadExhortation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\DownloadExhortation.aspx.designer.cs">
+      <DependentUpon>DownloadExhortation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\DownloadNewsletter.aspx.cs">
       <DependentUpon>DownloadNewsletter.aspx</DependentUpon>

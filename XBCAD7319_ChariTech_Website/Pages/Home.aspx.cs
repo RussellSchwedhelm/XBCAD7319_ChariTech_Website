@@ -9,9 +9,11 @@ namespace XBCAD7319_ChariTech_Website.Pages
     public partial class Home : System.Web.UI.Page
     {
         private NewsletterManager newsletterManager = new NewsletterManager();
+        private ExhortationManager exhortationManager = new ExhortationManager();
 
         // List to temporarily hold the prayer requests
         private List<string> temp;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserEmail"] == null)
@@ -23,6 +25,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             {
                 PopulateNames();
                 LoadNewsletters(); // Load newsletters on page load
+                LoadExhortations(); // Load exhortations on page load
                 PrayerRequestsRepeater.DataSource = temp;
                 PrayerRequestsRepeater.DataBind();
             }
@@ -35,6 +38,18 @@ namespace XBCAD7319_ChariTech_Website.Pages
             {
                 newsListRepeater.DataSource = newsletters;
                 newsListRepeater.DataBind();
+            }
+        }
+
+        private void LoadExhortations()
+        {
+            int churchId = exhortationManager.GetChurchIdByEmail(Session["UserEmail"].ToString());
+            DataTable exhortations = exhortationManager.GetExhortationsByChurchID(churchId);
+
+            if (exhortations.Rows.Count > 0)
+            {
+                ExhortationListRepeater.DataSource = exhortations;
+                ExhortationListRepeater.DataBind();
             }
         }
 

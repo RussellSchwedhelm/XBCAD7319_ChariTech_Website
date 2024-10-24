@@ -44,14 +44,15 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT ExhortationID, Title, AudioFilePath FROM Exhortation WHERE ChurchID = @ChurchID";
+                // Only retrieve the essential fields (Title, Date, Speaker), not the audio file
+                string query = "SELECT ExhortationID, Title, Speaker, Date FROM Exhortation WHERE ChurchID = @ChurchID";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@ChurchID", churchID);
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable exhortations = new DataTable();
-                    da.Fill(exhortations);  // Fill the DataTable with exhortations data
+                    da.Fill(exhortations);  // Fill the DataTable with exhortation metadata
                     return exhortations;
                 }
             }
@@ -93,5 +94,46 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
+
+        public byte[] GetExhortationAudio(int exhortationId)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+            byte[] audioBytes = null;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT AudioFile FROM Exhortation WHERE ExhortationID = @ExhortationID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
+                        conn.Open();
+                        audioBytes = cmd.ExecuteScalar() as byte[];  // Retrieve the MP3 binary data
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Log the error if needed
+                System.Diagnostics.Debug.WriteLine("SQL error occurred: " + ex.Message);
+
+                // Reload the page in case of an SQL error
+                HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl, true);
+            }
+            catch (Exception ex)
+            {
+                // Log the error if needed
+                System.Diagnostics.Debug.WriteLine("An error occurred: " + ex.Message);
+
+                // Reload the page in case of any other error
+                HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl, true);
+            }
+
+            return audioBytes;
+        }
+
+
+
     }
 }
