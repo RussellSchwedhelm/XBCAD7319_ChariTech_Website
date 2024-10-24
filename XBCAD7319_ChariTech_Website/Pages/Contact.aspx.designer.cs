@@ -15,39 +15,12 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
 
         /// <summary>
-        /// pnlContact control.
+        /// contactSection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlContact;
-
-        /// <summary>
-        /// contactCard1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel contactCard1;
-
-        /// <summary>
-        /// contactCard2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel contactCard2;
-
-        /// <summary>
-        /// contactCard3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel contactCard3;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl contactSection;
     }
 }

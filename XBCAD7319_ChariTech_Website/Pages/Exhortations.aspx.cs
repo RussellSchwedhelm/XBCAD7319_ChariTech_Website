@@ -14,7 +14,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {/*
             // Check if the session exists
             if (Session["UserEmail"] == null)
             {
@@ -30,7 +30,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 int userChurchId = userManager.GetChurchIdByUserId(userId);
                 LoadExhortations(userChurchId);
 
-            }
+            }*/
         }
 
 
@@ -59,6 +59,24 @@ namespace XBCAD7319_ChariTech_Website.Pages
               exhortationListView.DataSource = exhortations;
               exhortationsListView.DataBind();*/
         }
+
+
+
+        //the logic behind the search function
+        /*protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchQuery = txtSearchQuery2.Text.Trim();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                //List<string> results = PerformSearch(searchQuery);  // Simulate the search logic
+                //DisplayResults(results);
+            }
+            else
+            {
+                //lblSearchResults.Text = "Please enter a search term.";
+            }
+        }*/
 
 
 
