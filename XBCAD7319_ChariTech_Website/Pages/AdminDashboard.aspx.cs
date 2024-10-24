@@ -20,44 +20,63 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Redirect("/Pages/Home.aspx");
             }
         }
+        // Handles the exhortation upload
+        protected void UploadExhortationButton_Click(object sender, EventArgs e)
+        {
+            string email = Session["UserEmail"].ToString();
+            int churchId = 1; // Replace with actual church ID logic if needed
+            string title = Request.Form["exhortation-title"];
+            string speaker = Request.Form["exhortation-speaker"];
+            DateTime issueDate = DateTime.Parse(Request.Form["exhortation-date"]);
 
+            if (exhortationFileUpload.HasFile && exhortationFileUpload.PostedFile.ContentLength > 0 && exhortationFileUpload.PostedFile.FileName.EndsWith(".mp3"))
+            {
+                HttpPostedFile uploadedFile = exhortationFileUpload.PostedFile;
+                ExhortationManager exhortationManager = new ExhortationManager();
+                bool uploadSuccess = exhortationManager.UploadExhortation(email, churchId, title, speaker, issueDate, uploadedFile);
+
+                if (uploadSuccess)
+                {
+                    Response.Write("<script>alert('Exhortation uploaded successfully!');</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Failed to upload the exhortation.');</script>");
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Please upload a valid MP3 file.');</script>");
+            }
+        }
+
+        // Handles the newsletter upload
         protected void UploadNewsletterButton_Click(object sender, EventArgs e)
         {
-            // Retrieve form data
-            string email = Session["UserEmail"].ToString(); // User email from session
-            int churchId = 0; // Assuming churchId is 1 for now, modify as needed
-            string title = Request.Form["title"]; // Newsletter title from input
-            DateTime issueDate = DateTime.Parse(Request.Form["date"]); // Date from input
+            string email = Session["UserEmail"].ToString();
+            int churchId = 1; // Replace with actual church ID logic if needed
+            string title = Request.Form["newsletter-title"];
+            DateTime issueDate = DateTime.Parse(Request.Form["newsletter-date"]);
 
-            // Access the FileUpload control
             if (fileUploadControl.HasFile && fileUploadControl.PostedFile.ContentLength > 0)
             {
-                // Get the uploaded file
                 HttpPostedFile uploadedFile = fileUploadControl.PostedFile;
-
-                // Instantiate the NewsletterManager class
                 NewsletterManager newsletterManager = new NewsletterManager();
-
-                // Call the UploadNewsletter method
                 bool uploadSuccess = newsletterManager.UploadNewsletter(email, churchId, title, issueDate, uploadedFile);
 
                 if (uploadSuccess)
                 {
-                    // Display success message
                     Response.Write("<script>alert('Newsletter uploaded successfully!');</script>");
                 }
                 else
                 {
-                    // Display error message
                     Response.Write("<script>alert('Failed to upload the newsletter.');</script>");
                 }
             }
             else
             {
-                // Display error message for invalid file
-                Response.Write("<script>alert('Please upload a valid PDF file.');</script>");
+                Response.Write("<script>alert('Please upload a valid file.');</script>");
             }
         }
-
     }
 }

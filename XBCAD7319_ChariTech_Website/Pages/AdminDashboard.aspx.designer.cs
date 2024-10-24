@@ -15,6 +15,15 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
 
         /// <summary>
+        /// newsletterForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm newsletterForm;
+
+        /// <summary>
         /// fileUploadControl control.
         /// </summary>
         /// <remarks>
@@ -24,12 +33,39 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.FileUpload fileUploadControl;
 
         /// <summary>
-        /// uploadButton control.
+        /// uploadNewsletterButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button uploadButton;
+        protected global::System.Web.UI.WebControls.Button uploadNewsletterButton;
+
+        /// <summary>
+        /// exhortationForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm exhortationForm;
+
+        /// <summary>
+        /// exhortationFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload exhortationFileUpload;
+
+        /// <summary>
+        /// uploadExhortationButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button uploadExhortationButton;
     }
 }

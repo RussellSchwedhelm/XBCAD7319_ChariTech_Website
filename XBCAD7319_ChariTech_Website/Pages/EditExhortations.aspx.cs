@@ -19,25 +19,16 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // Use the email for further logic if needed
             }*/
         }
-
-        //the logic behind the search function
+        // Define the event handler for the button click
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            string searchQuery = txtSearchQuery2.Text.Trim();
+            // Handle the search query here
+            //string searchQuery = txtSearchQuery.Text;
 
-            if (!string.IsNullOrEmpty(searchQuery))
-            {
-                //List<string> results = PerformSearch(searchQuery);  // Simulate the search logic
-                //DisplayResults(results);
-            }
-            else
-            {
-                //lblSearchResults.Text = "Please enter a search term.";
-            }
+            // Add logic to perform search based on the searchQuery
+            // Example: Display results, search through a database, etc.
         }
     }
-
-
 }
 
 
