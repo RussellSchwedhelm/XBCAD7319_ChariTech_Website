@@ -15,57 +15,102 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
 
         /// <summary>
-        /// newsletterForm control.
+        /// newsletterPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm newsletterForm;
+        protected global::System.Web.UI.WebControls.Panel newsletterPanel;
 
         /// <summary>
-        /// fileUploadControl control.
+        /// NewsletterDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fileUploadControl;
+        protected global::System.Web.UI.WebControls.TextBox NewsletterDate;
 
         /// <summary>
-        /// uploadNewsletterButton control.
+        /// NewsletterTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button uploadNewsletterButton;
+        protected global::System.Web.UI.WebControls.TextBox NewsletterTitle;
 
         /// <summary>
-        /// exhortationForm control.
+        /// NewsletterFileUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm exhortationForm;
+        protected global::System.Web.UI.WebControls.FileUpload NewsletterFileUpload;
 
         /// <summary>
-        /// exhortationFileUpload control.
+        /// UploadNewsletterButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload exhortationFileUpload;
+        protected global::System.Web.UI.WebControls.Button UploadNewsletterButton;
 
         /// <summary>
-        /// uploadExhortationButton control.
+        /// exhortationPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button uploadExhortationButton;
+        protected global::System.Web.UI.WebControls.Panel exhortationPanel;
+
+        /// <summary>
+        /// ExhortationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ExhortationDate;
+
+        /// <summary>
+        /// ExhortationTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ExhortationTitle;
+
+        /// <summary>
+        /// ExhortationSpeaker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ExhortationSpeaker;
+
+        /// <summary>
+        /// ExhortationFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload ExhortationFileUpload;
+
+        /// <summary>
+        /// UploadExhortationButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button UploadExhortationButton;
     }
 }

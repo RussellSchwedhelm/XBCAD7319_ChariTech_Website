@@ -11,6 +11,33 @@ namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class ExhortationManager
     {
+        // Method to retrieve ChurchID by Email from the Users table
+        public int GetChurchIdByEmail(string email)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+            int churchId = -1;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT ChurchID FROM Users WHERE Email = @Email";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Email", email);
+
+                    conn.Open();
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        churchId = Convert.ToInt32(result);
+                    }
+                }
+            }
+
+            return churchId;
+        }
+
+        // Method to retrieve exhortations by ChurchID
         public DataTable GetExhortationsByChurchID(int churchID)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
@@ -30,6 +57,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
         }
 
+        // Method to upload exhortation
         public bool UploadExhortation(string email, int churchId, string title, string speaker, DateTime issueDate, HttpPostedFile uploadedFile)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
@@ -65,6 +93,5 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
     }
 }

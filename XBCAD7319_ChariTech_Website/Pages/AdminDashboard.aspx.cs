@@ -1,81 +1,122 @@
 ﻿using System;
 using System.Web;
+using System.Web.UI;
 using XBCAD7319_ChariTech_Website.Classes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
-    public partial class AdminDashboard : System.Web.UI.Page
+    public partial class AdminDashboard : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Check if session exists
-            if (Session["UserEmail"] == null)
+            if (!IsPostBack)
             {
-                Response.Redirect("Login.aspx");
-            }
-
-            if (Session["UserRoleID"] == null || (int)Session["UserRoleID"] != 2)
-            {
-                // Redirect to home if the user is not an admin
-                Response.Redirect("/Pages/Home.aspx");
-            }
-        }
-        // Handles the exhortation upload
-        protected void UploadExhortationButton_Click(object sender, EventArgs e)
-        {
-            string email = Session["UserEmail"].ToString();
-            int churchId = 1; // Replace with actual church ID logic if needed
-            string title = Request.Form["exhortation-title"];
-            string speaker = Request.Form["exhortation-speaker"];
-            DateTime issueDate = DateTime.Parse(Request.Form["exhortation-date"]);
-
-            if (exhortationFileUpload.HasFile && exhortationFileUpload.PostedFile.ContentLength > 0 && exhortationFileUpload.PostedFile.FileName.EndsWith(".mp3"))
-            {
-                HttpPostedFile uploadedFile = exhortationFileUpload.PostedFile;
-                ExhortationManager exhortationManager = new ExhortationManager();
-                bool uploadSuccess = exhortationManager.UploadExhortation(email, churchId, title, speaker, issueDate, uploadedFile);
-
-                if (uploadSuccess)
+                // Ensure user is logged in and has correct role
+                if (Session["UserEmail"] == null || (int)Session["UserRoleID"] != 2)
                 {
-                    Response.Write("<script>alert('Exhortation uploaded successfully!');</script>");
+                    Response.Redirect("Login.aspx");
                 }
-                else
-                {
-                    Response.Write("<script>alert('Failed to upload the exhortation.');</script>");
-                }
-            }
-            else
-            {
-                Response.Write("<script>alert('Please upload a valid MP3 file.');</script>");
             }
         }
 
-        // Handles the newsletter upload
+        // Event handler for uploading newsletter
         protected void UploadNewsletterButton_Click(object sender, EventArgs e)
         {
             string email = Session["UserEmail"].ToString();
-            int churchId = 1; // Replace with actual church ID logic if needed
-            string title = Request.Form["newsletter-title"];
-            DateTime issueDate = DateTime.Parse(Request.Form["newsletter-date"]);
+            ExhortationManager exhortationManager = new ExhortationManager();
+            int churchId = exhortationManager.GetChurchIdByEmail(email); // Get ChurchID by email
 
-            if (fileUploadControl.HasFile && fileUploadControl.PostedFile.ContentLength > 0)
+            if (churchId != -1) // Ensure ChurchID was retrieved successfully
             {
-                HttpPostedFile uploadedFile = fileUploadControl.PostedFile;
-                NewsletterManager newsletterManager = new NewsletterManager();
-                bool uploadSuccess = newsletterManager.UploadNewsletter(email, churchId, title, issueDate, uploadedFile);
+                string title = NewsletterTitle.Text;
+                DateTime date;
 
-                if (uploadSuccess)
+                if (DateTime.TryParse(NewsletterDate.Text, out date) && NewsletterFileUpload.HasFile)
                 {
-                    Response.Write("<script>alert('Newsletter uploaded successfully!');</script>");
+                    HttpPostedFile newsletterFile = NewsletterFileUpload.PostedFile;
+
+                    if (newsletterFile != null && newsletterFile.ContentLength > 0)
+                    {
+                        NewsletterManager newsletterManager = new NewsletterManager();
+                        bool uploadSuccess = newsletterManager.UploadNewsletter(email, churchId, title, date, newsletterFile);
+
+                        if (uploadSuccess)
+                        {
+                            // Clear fields after successful upload
+                            NewsletterTitle.Text = string.Empty;
+                            NewsletterDate.Text = string.Empty;
+                            NewsletterFileUpload.Attributes.Clear(); // Clears the file input
+
+                            // Provide a clear message that the fields have been cleared
+                            Response.Write("<script>alert('Newsletter uploaded successfully!');</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Failed to upload the newsletter.');</script>");
+                        }
+                    }
                 }
                 else
                 {
-                    Response.Write("<script>alert('Failed to upload the newsletter.');</script>");
+                    Response.Write("<script>alert('Please fill all fields and upload a valid file.');</script>");
                 }
             }
             else
             {
-                Response.Write("<script>alert('Please upload a valid file.');</script>");
+                Response.Write("<script>alert('Unable to retrieve Church ID.');</script>");
+            }
+        }
+
+
+
+        // Event handler for uploading exhortation
+        protected void UploadExhortationButton_Click(object sender, EventArgs e)
+        {
+            string email = Session["UserEmail"].ToString();
+            ExhortationManager exhortationManager = new ExhortationManager();
+            int churchId = exhortationManager.GetChurchIdByEmail(email);
+
+            if (churchId != -1)
+            {
+                string title = ExhortationTitle.Text;
+                string speaker = ExhortationSpeaker.Text;
+                DateTime date;
+                if (DateTime.TryParse(ExhortationDate.Text, out date) && ExhortationFileUpload.HasFile)
+                {
+                    HttpPostedFile exhortationFile = ExhortationFileUpload.PostedFile;
+
+                    if (exhortationFile != null && exhortationFile.ContentLength > 0 && exhortationFile.FileName.EndsWith(".mp3"))
+                    {
+                        bool uploadSuccess = exhortationManager.UploadExhortation(email, churchId, title, speaker, date, exhortationFile);
+
+                        if (uploadSuccess)
+                        {
+                            // Clear fields after successful upload
+                            ExhortationTitle.Text = string.Empty;
+                            ExhortationSpeaker.Text = string.Empty;
+                            ExhortationDate.Text = string.Empty;
+                            ExhortationFileUpload.Attributes.Clear(); // Clears the file input
+                            Response.Write("<script>alert('Exhortation uploaded successfully!');</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Failed to upload the exhortation.');</script>");
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Please upload a valid MP3 file.');</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('Please fill all fields.');</script>");
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Unable to retrieve Church ID.');</script>");
             }
         }
     }
