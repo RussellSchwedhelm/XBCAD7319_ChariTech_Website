@@ -309,19 +309,17 @@ footer {
 
 /* Audio Player Section */
 .audio-player {
-    /* Adjust width scaling */
-    width: 50%; /* Using --scale-factor directly */
-    /* Adjust padding scaling */
-    /*padding: calc(20px * var(--scale-factor)); /* Using --scale-factor */
-
+    display: inline-block; /* Scales to width and height of contents */
+    padding: 10px; /* Padding around the contents */
+    width: fit-content; /* Adjusts to content width */
+    height: fit-content; /* Adjusts to content height */
     margin: 0 auto;
-    background-color: #f0f0f0;
-    /* Adjust border-radius scaling */
-    border-radius: calc(10px * var(--scale-factor)); /* Using --scale-factor */
-    /* Adjust box-shadow scaling */
+    background-color: #BBBBBD;
+    border-radius: 20px;
     box-shadow: 0 calc(4px * var(--scale-factor)) calc(6px * var(--scale-factor)) rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
+    box-sizing: border-box; /* Includes padding within dimensions */
 }
+
 
 
 
