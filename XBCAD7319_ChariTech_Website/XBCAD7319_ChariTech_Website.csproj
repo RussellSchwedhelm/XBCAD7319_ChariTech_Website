@@ -355,7 +355,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Classes\AboutManager.cs" />
     <Compile Include="Classes\AISummary.cs" />
     <Compile Include="Classes\AITranscription.cs" />
     <Compile Include="Classes\ChatGPTManager.cs" />
@@ -368,6 +367,7 @@
     <Compile Include="Classes\RegistrationManager.cs" />
     <Compile Include="Classes\Startup.cs" />
     <Compile Include="Classes\TranscriptionManager.cs" />
+    <Compile Include="Classes\UserManager.cs" />
     <Compile Include="Classes\UserPreference.cs" />
     <Compile Include="Classes\UserPreferenceDAL.cs" />
     <Compile Include="Global.asax.cs">

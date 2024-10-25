@@ -9,7 +9,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class UserPreferenceDAL
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["AzureDBConnectionString"].ConnectionString;
+        private string connectionString = ConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
         // Get user preferences by UserID
         public UserPreference GetUserPreferences(int userID)
