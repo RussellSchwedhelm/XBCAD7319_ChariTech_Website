@@ -77,9 +77,15 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
         }
 
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
 
 
-    }
+        }
+
+        }
+
+
 
     //the logic behind the search function
     /*protected void btnSearch_Click(object sender, EventArgs e)

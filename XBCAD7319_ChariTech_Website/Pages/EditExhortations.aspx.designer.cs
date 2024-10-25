@@ -11,7 +11,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
 
 
-    public partial class Exhortations
+    public partial class EditExhortations
     {
 
         /// <summary>

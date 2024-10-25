@@ -5,7 +5,15 @@
     <div class="main-container">
         <!-- Exhortations Section -->
         <div class="section">
+            <div style="text-align: center;">
             <h3 class="headings">Exhortations</h3>
+                <div class="search-container" >
+                    <asp:TextBox ID="txtSearchQuery2" runat="server" CssClass="search-box" placeholder="Search..."></asp:TextBox>
+                    <asp:Button ID="btnSearch" runat="server" CssClass="search-button" Text="Search" OnClick="btnSearch_Click" />
+                </div>
+            </div>
+
+
             <div class="exhortation-list">
                 <asp:Repeater ID="ExhortationListRepeater" runat="server" OnItemCommand="ExhortationListRepeater_ItemCommand">
                     <ItemTemplate>
