@@ -39,6 +39,46 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 ExhortationListRepeater.DataBind();
             }
         }
+
+
+        protected void ExhortationListRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "ShowDetails")
+            {
+                int exhortationId = Convert.ToInt32(e.CommandArgument);
+                DisplayExhortationDetails(exhortationId);  // Call the method to display details
+            }
+        }
+
+        private void DisplayExhortationDetails(int exhortationId)
+        {
+            var exhortation = exhortationManager.GetExhortationById(exhortationId);
+
+            if (exhortation != null)
+            {
+                // Retrieve AI Transcription and Summary if IDs are available
+                AITranscription transcription = exhortation.AITranscriptionID.HasValue
+                    ? exhortationManager.GetAITranscriptionById(exhortation.AITranscriptionID.Value)
+                    : null;
+
+                AISummary summary = exhortation.AISummaryID.HasValue
+                    ? exhortationManager.GetAISummaryById(exhortation.AISummaryID.Value)
+                    : null;
+
+                // Populate the details section
+                TitleLabel.Text = exhortation.Title;
+                SpeakerLabel.Text = exhortation.Speaker;
+                DateLabel.Text = exhortation.Date.ToString("dd-MM-yyyy");
+                TranscriptionLabel.Text = transcription?.TranscriptionText ?? "No transcription available.";
+                SummaryLabel.Text = summary?.SummaryText ?? "No summary available.";
+
+                // Set the audio player source
+                AudioPlayer.Src = $"DownloadExhortation.aspx?id={exhortationId}";
+            }
+        }
+
+
+
     }
 
     //the logic behind the search function

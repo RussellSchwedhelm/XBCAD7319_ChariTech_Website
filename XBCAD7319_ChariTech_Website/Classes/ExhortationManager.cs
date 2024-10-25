@@ -135,5 +135,122 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
 
 
+        public Exhortation GetExhortationById(int exhortationId)
+        {
+            Exhortation exhortation = null;
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Exhortation WHERE ExhortationID = @ExhortationID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
+                    conn.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            exhortation = new Exhortation
+                            {
+                                ExhortationID = (int)reader["ExhortationID"],
+                                UploadedUserID = (int)reader["UploadedUserID"],
+                                ChurchID = (int)reader["ChurchID"],
+                                AITranscriptionID = reader["AITranscriptionID"] as int?,
+                                AISummaryID = reader["AISummaryID"] as int?,
+                                Title = reader["Title"].ToString(),
+                                Date = (DateTime)reader["Date"],
+                                Speaker = reader["Speaker"].ToString(),
+                                TranscriptionPrompt = reader["TranscriptionPrompt"] as string,
+                                SummaryPrompt = reader["SummaryPrompt"] as string,
+                                AudioFile = reader["AudioFile"] as byte[]
+                            };
+                        }
+                    }
+                }
+            }
+
+            return exhortation;
+        }
+
+
+        public AITranscription GetAITranscriptionById(int transcriptionId)
+        {
+            AITranscription transcription = null;
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM AITranscription WHERE AITranscriptionID = @AITranscriptionID";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@AITranscriptionID", transcriptionId);
+                    conn.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            transcription = new AITranscription
+                            {
+                                AITranscriptionID = (int)reader["AITranscriptionID"],
+                                ExhortationID = (int)reader["ExhortationID"],
+                                TranscriptionText = reader["TranscriptionText"] as string,
+                                AIProcessingStatus = reader["AIProcessingStatus"].ToString(),
+                                StartedAt = (DateTime)reader["StartedAt"],
+                                EndedAt = reader["EndedAt"] as DateTime?,
+                                TranscriptionProcessingTime = reader["TranscriptionProcessingTime"] as int?,
+                                IsTranscriptionEdited = (bool)reader["IsTranscriptionEdited"]
+                            };
+                        }
+                    }
+                }
+            }
+
+            return transcription;
+        }
+
+
+        public AISummary GetAISummaryById(int summaryId)
+        {
+            AISummary summary = null;
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM AISummary WHERE AISummaryID = @AISummaryID";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@AISummaryID", summaryId);
+                    conn.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            summary = new AISummary
+                            {
+                                AISummaryID = (int)reader["AISummaryID"],
+                                ExhortationID = (int)reader["ExhortationID"],
+                                SummaryText = reader["SummaryText"] as string,
+                                AIProcessingStatus = reader["AIProcessingStatus"].ToString(),
+                                StartedAt = (DateTime)reader["StartedAt"],
+                                EndedAt = reader["EndedAt"] as DateTime?,
+                                SummaryProcessingTime = reader["SummaryProcessingTime"] as int?,
+                                IsSummaryEdited = (bool)reader["IsSummaryEdited"]
+                            };
+                        }
+                    }
+                }
+            }
+
+            return summary;
+        }
+
+
+
+
     }
 }

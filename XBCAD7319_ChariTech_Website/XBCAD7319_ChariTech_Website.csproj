@@ -356,8 +356,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\AboutManager.cs" />
+    <Compile Include="Classes\AISummary.cs" />
+    <Compile Include="Classes\AITranscription.cs" />
     <Compile Include="Classes\ChatGPTManager.cs" />
     <Compile Include="Classes\ContactManager.cs" />
+    <Compile Include="Classes\Exhortation.cs" />
     <Compile Include="Classes\ExhortationManager.cs" />
     <Compile Include="Classes\LoginManager.cs" />
     <Compile Include="Classes\NewsletterManager.cs" />
