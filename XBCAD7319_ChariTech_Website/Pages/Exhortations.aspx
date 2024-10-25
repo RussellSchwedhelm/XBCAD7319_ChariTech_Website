@@ -1,62 +1,100 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="Exhortations.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Exhortations" %>
+﻿<%@ Page Title="Exhortations" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="Exhortations.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Exhortations" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="main-container">
-    <!-- Exhortations Section -->
-    <div class="section exhortationSelect">
-        <div style="text-align: center;">
-            <h3> Exhortations </h3>
-        </div>
-        <div class="exhortations-list">
-            <!-- Repeat this block for each exhortation dynamically -->
-            <div class="exhortation-item">
-                <div class="exhortation-info">
-                    <p class="title">Talk Title | 01-01-2024</p>
-                    <p class="description">Brief Talk Description</p>
-                </div>
-                <div class="exhortation-actions">
-                    <a href="#" class="details-link">Details ></a>
-                    <button class="play-button">▶</button>
-                </div>
+        <!-- Exhortations Section -->
+        <div class="section">
+            <h3 class="headings">Exhortations</h3>
+            <div class="exhortation-list">
+                <asp:Repeater ID="ExhortationListRepeater" runat="server">
+                    <ItemTemplate>
+                        <div class="exhortation-item">
+                            <div class="exhortation-info">
+                                <p><%# Eval("Title") %> | <%# Eval("Date", "{0:MM-dd-yyyy}") %></p>
+                                <p>Speaker: <%# Eval("Speaker") %></p>
+                            </div>
+                            <a class="details-link" href="#">Details ></a>
+                            <!-- Play/Pause button -->
+                            <button id="playButton_<%# Eval("ExhortationID") %>" class="play-button" onclick="togglePlayPause('<%# Eval("ExhortationID") %>')">▶</button>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
         </div>
-    </div>
 
+        <script type="text/javascript">
+            var currentAudio = null;
+            var currentExhortationId = null;
 
+            function togglePlayPause(exhortationId) {
+                var playButton = document.getElementById("playButton_" + exhortationId);
 
-        <div class="section exhortationDisplay" >
+                if (currentExhortationId === exhortationId && currentAudio !== null) {
+                    if (currentAudio.paused) {
+                        currentAudio.play();
+                        playButton.innerHTML = "❚❚";
+                    } else {
+                        currentAudio.pause();
+                        playButton.innerHTML = "▶";
+                    }
+                } else {
+                    if (currentAudio !== null) {
+                        currentAudio.pause();
+                        var previousButton = document.getElementById("playButton_" + currentExhortationId);
+                        if (previousButton) {
+                            previousButton.innerHTML = "▶";
+                        }
+                    }
+
+                    currentExhortationId = exhortationId;
+                    currentAudio = new Audio("DownloadExhortation.aspx?id=" + exhortationId);
+                    currentAudio.addEventListener('canplaythrough', function () {
+                        currentAudio.play();
+                        playButton.innerHTML = "❚❚";
+                    });
+
+                    currentAudio.onended = function () {
+                        playButton.innerHTML = "▶";
+                        currentAudio = null;
+                        currentExhortationId = null;
+                    };
+                }
+            }
+    </script>
+
+        <div class="section exhortationDisplay">
             <div style="text-align: center;">
-                    <h3> *Talk Title* </h3>
+                <h3>*Talk Title* </h3>
             </div>
             <h4 class="section-heading">*A brief descriptive summary*</h4>
-            
-    <div class="audio-player">
-        <div class="audio-header">
-            <span class="speaker">Marshal</span>
-            <span class="date">01-01-2024</span>
-        </div>
-        <div class="audio-controls">
-            <button class="play-button2" onclick="togglePlayPause()">▶</button>
-            <div class="progress-container">
-                <div class="exh-progress-bar">
-                    <div class="exh-progress"></div>
+
+            <div class="audio-player">
+                <div class="audio-header">
+                    <span class="speaker">Marshal</span>
+                    <span class="date">01-01-2024</span>
                 </div>
-                <div class="timestamps">
-                    <span class="current-time">10:11</span>
-                    <span class="total-time">20:39</span>
+                <div class="audio-controls">
+                    <button class="play-button2" onclick="togglePlayPause()">▶</button>
+                    <div class="progress-container">
+                        <div class="exh-progress-bar">
+                            <div class="exh-progress"></div>
+                        </div>
+                        <div class="timestamps">
+                            <span class="current-time">10:11</span>
+                            <span class="total-time">20:39</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-         
-            
-            <h5 class="section-heading"> </h5>
-         <h5 class="Section-heading">"This is an Autogenerated transcript, that descripes the words and ideas that were covered in an exhortation..."</h5>
+
+
+            <h5 class="section-heading"></h5>
+            <h5 class="Section-heading">"This is an Autogenerated transcript, that descripes the words and ideas that were covered in an exhortation..."</h5>
 
         </div>
 
 
     </div>
-
 
 </asp:Content>

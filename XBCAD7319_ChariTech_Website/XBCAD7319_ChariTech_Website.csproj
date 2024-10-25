@@ -265,6 +265,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\ChurchLogo.png" />
     <Content Include="Images\default_profile.png" />
+    <Content Include="Images\Edit.png" />
     <Content Include="Images\notification.png" />
     <Content Include="Images\Trash 13.png" />
     <Content Include="Pages\About.aspx" />
@@ -273,10 +274,12 @@
     <Content Include="Pages\BibleCourses.aspx" />
     <Content Include="Pages\Contact.aspx" />
     <Content Include="Pages\Default.aspx" />
+    <Content Include="Pages\DownloadExhortation.aspx" />
     <Content Include="Pages\DownloadNewsletter.aspx" />
     <Content Include="Pages\EditExhortations.aspx" />
     <Content Include="Pages\Exhortations.aspx" />
     <Content Include="Pages\FacebookCallback.aspx" />
+    <Content Include="Pages\GetAudioFile.aspx" />
     <Content Include="Pages\GoogleCallback.aspx" />
     <Content Include="Pages\Home.aspx" />
     <Content Include="Pages\Login.aspx" />
@@ -352,7 +355,11 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\AboutManager.cs" />
     <Compile Include="Classes\ChatGPTManager.cs" />
+    <Compile Include="Classes\ContactManager.cs" />
+    <Compile Include="Classes\DonationManager.cs" />
+    <Compile Include="Classes\ExhortationManager.cs" />
     <Compile Include="Classes\LoginManager.cs" />
     <Compile Include="Classes\NewsletterManager.cs" />
     <Compile Include="Classes\RegistrationManager.cs" />
@@ -405,6 +412,13 @@
     <Compile Include="Pages\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\DownloadExhortation.aspx.cs">
+      <DependentUpon>DownloadExhortation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\DownloadExhortation.aspx.designer.cs">
+      <DependentUpon>DownloadExhortation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DownloadNewsletter.aspx.cs">
       <DependentUpon>DownloadNewsletter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -432,6 +446,13 @@
     </Compile>
     <Compile Include="Pages\FacebookCallback.aspx.designer.cs">
       <DependentUpon>FacebookCallback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GetAudioFile.aspx.cs">
+      <DependentUpon>GetAudioFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\GetAudioFile.aspx.designer.cs">
+      <DependentUpon>GetAudioFile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\GoogleCallback.aspx.cs">
       <DependentUpon>GoogleCallback.aspx</DependentUpon>

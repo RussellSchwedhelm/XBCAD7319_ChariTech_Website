@@ -2,7 +2,7 @@
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
-    public partial class Exhortations : System.Web.UI.Page
+    public partial class EditExhortations : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,8 +19,20 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // Use the email for further logic if needed
             }*/
         }
+        // Define the event handler for the button click
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            // Handle the search query here
+            //string searchQuery = txtSearchQuery.Text;
+
+            // Add logic to perform search based on the searchQuery
+            // Example: Display results, search through a database, etc.
+        }
     }
 }
+
+
+
 
 /*
  
