@@ -74,15 +74,50 @@
         <!-- Online Donations Section -->
         <div class="section item-wrap">
             <h3 class="headings">Online Donations</h3>
-            <div class="donation-editable">
-                <div>Blue Bag - <span>General</span> <i class="fa fa-edit"></i></div>
-                <div>Red Bag - <span>Welfare</span> <i class="fa fa-edit"></i></div>
-                <div>Rondebosch Food Drive: <span>2156 / 5200</span> <i class="fa fa-edit"></i></div>
-                <div>New Hymn Books: <span>400 / 800</span> <i class="fa fa-edit"></i></div>
+            
+            <!-- Blue Bag - General -->
+            <div class="upload-form">
+                <label>Blue Bag - </label>
+                <asp:TextBox ID="BlueBagCause" runat="server" CssClass="form-control" placeholder="Cause" Text="General" />
             </div>
+
+            <!-- Red Bag - Welfare -->
+            <div class="upload-form">
+                <label>Red Bag - </label>
+                <asp:TextBox ID="RedBagCause" runat="server" CssClass="form-control" placeholder="Cause" Text="Welfare" />
+            </div>
+
+            <!-- Rondebosch Food Drive -->
+            <div class="upload-form">
+                <label>Drive - </label>
+                <asp:TextBox ID="Drive1Name" runat="server" CssClass="form-control" placeholder="Cause" />
+            </div>
+            <div class="upload-form">
+                <label for="Drive1Amout">Current Amount</label>
+                <asp:TextBox ID="Drive1Amount" runat="server" CssClass="form-control" placeholder="Enter Current Amount" />
+            </div>
+            <div class="upload-form">
+                <label for="Drive1Goal">Goal Amount</label>
+                <asp:TextBox ID="Drive1Goal" runat="server" CssClass="form-control" placeholder="Enter Goal Amount" />
+            </div>
+
+            <!-- New Hymn Books -->
+            <div class="upload-form">
+                <label>Drive - </label>
+                <asp:TextBox ID="Drive2Name" runat="server" CssClass="form-control" placeholder="Cause" Text="Book Drive" />
+            </div>
+            <div class="upload-form">
+                <label for="Drive2Amount">Current Amount</label>
+                <asp:TextBox ID="Drive2Amount" runat="server" CssClass="form-control" placeholder="Enter Current Amount" />
+            </div>
+            <div class="upload-form">
+                <label for="Drive2Goal">Goal Amount</label>
+                <asp:TextBox ID="Drive2Goal" runat="server" CssClass="form-control" placeholder="Enter Goal Amount" />
+            </div>
+
             <div style="align-self: center">
-                <button class="btn cancel-btn">Cancel</button>
-                <button class="btn publish-btn">Publish Changes</button>
+                <asp:Button ID="CancelButton" runat="server" CssClass="btn cancel-btn" Text="Cancel" OnClick="CancelButton_Click" />
+                <asp:Button ID="PublishButton" runat="server" CssClass="btn publish-btn" Text="Publish Changes" OnClick="PublishButton_Click" />
             </div>
         </div>
 

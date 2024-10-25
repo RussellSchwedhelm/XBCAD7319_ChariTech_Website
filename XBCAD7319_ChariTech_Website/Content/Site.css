@@ -1082,3 +1082,14 @@ input:checked + .slider {
         transform: rotate(360deg);
     }
 }
+
+/* Additional styling */
+.donation-input {
+    width: 60px;
+    padding: 0.2rem;
+    border-radius: 5px;
+}
+
+.btn.update-btn {
+    margin-left: 10px;
+}
