@@ -1,4 +1,5 @@
 ﻿using System;
+using XBCAD7319_ChariTech_Website.Classes;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
@@ -6,19 +7,48 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*
-            // Check if the session exists
-            if (Session["UserEmail"] == null)
+            if (!IsPostBack)
             {
-                // If no session, redirect to login page
-                Response.Redirect("Login.aspx");
+                // Load user preferences when the page first loads
+                LoadUserPreferences();
             }
-            else
+        }
+
+        // Event handler for the Save button
+        protected void btnSaveSettings_Click(object sender, EventArgs e)
+        {
+            // Collect user preferences from form inputs
+            UserPreference userPreference = new UserPreference
             {
-                // User is authenticated, you can access their email
-                string email = Session["UserEmail"].ToString();
-                // Use the email for further logic if needed
-            }*/
+                UserID = 123, // Replace this with the actual user ID logic, e.g., from session
+                ThemePreferenceDark = chkDarkModeCustom.Checked,
+                Volume = int.Parse(volume.Value),
+                ButtonClicksSound = chkButtonClickSoundCustom.Checked,
+                BibleBasicsNotifications = chkBibleBasicsCustom.Checked,
+                ResponsibilityUpdates = chkResponsibiltyUpdatesCustom.Checked
+            };
+
+            // Save user preferences to the database
+            UserPreferenceDAL userPreferenceDAL = new UserPreferenceDAL();
+            userPreferenceDAL.UpdateUserPreferences(userPreference);
+        }
+
+        // Method to load user preferences from the database
+        protected void LoadUserPreferences()
+        {
+            int userId = 123; // Replace this with actual user ID logic, e.g., from session
+            UserPreferenceDAL userPreferenceDAL = new UserPreferenceDAL();
+            UserPreference userPreference = userPreferenceDAL.GetUserPreferences(userId);
+
+            // Initialize form controls with loaded user preferences
+            if (userPreference != null)
+            {
+                chkDarkModeCustom.Checked = userPreference.ThemePreferenceDark;
+                volume.Value = userPreference.Volume.ToString();
+                chkButtonClickSoundCustom.Checked = userPreference.ButtonClicksSound;
+                chkBibleBasicsCustom.Checked = userPreference.BibleBasicsNotifications;
+                chkResponsibiltyUpdatesCustom.Checked = userPreference.ResponsibilityUpdates;
+            }
         }
     }
 }

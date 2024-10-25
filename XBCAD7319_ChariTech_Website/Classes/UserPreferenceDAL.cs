@@ -65,7 +65,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 cmd.Parameters.AddWithValue("@ResponsibilityUpdates", userPreference.ResponsibilityUpdates);
 
                 con.Open();
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery(); 
             }
         }
     }
