@@ -224,6 +224,44 @@ namespace XBCAD7319_ChariTech_Website.Pages
         {
             LoadDonations();
         }
+
+        protected void PublishNotificationButton_Click(object sender, EventArgs e)
+        {
+            string title = NotificationTitle.Text;
+            string message = NotificationMessage.Text;
+            DateTime sentAt;
+
+            if (DateTime.TryParse(NotificationDate.Text, out sentAt) && !string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(message))
+            {
+                int churchId = new ExhortationManager().GetChurchIdByEmail(Session["UserEmail"].ToString());
+
+                NotificationManager notificationManager = new NotificationManager();
+                bool success = notificationManager.SaveNotification(title, message, sentAt, churchId);
+
+                if (success)
+                {
+                    NotificationTitle.Text = string.Empty;
+                    NotificationMessage.Text = string.Empty;
+                    NotificationDate.Text = string.Empty;
+                    Response.Write("<script>alert('Notification posted successfully!');</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Failed to post notification.');</script>");
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Please fill all fields correctly.');</script>");
+            }
+        }
+
+        protected void CancelNotification_Click(object sender, EventArgs e)
+        {
+            NotificationTitle.Text = string.Empty;
+            NotificationMessage.Text = string.Empty;
+            NotificationDate.Text = string.Empty;
+        }
     }
 
 }

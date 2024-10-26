@@ -13,7 +13,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
         private string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
         // Method to get the UserID based on session email
-        private int GetUserIdByEmail(string email)
+        public int GetUserIdByEmail(string email)
         {
             try
             {

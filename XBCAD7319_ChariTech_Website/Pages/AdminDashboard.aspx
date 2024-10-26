@@ -121,31 +121,27 @@
             </div>
         </div>
 
-        <!-- Notifications Section -->
-        <div class="section item-wrap">
-            <h3 class="headings">Create Notification</h3>
-            <div class="notification-form exhoration-upload-input-layout">
-                <div class="upload-form">
-                    <label for="notification-date">Date</label>
-                    <input type="text" id="notification-date" placeholder="--/--/----">
+            <!-- Notifications Section -->
+            <div class="section item-wrap">
+                <h3 class="headings">Create Notification</h3>
+                <div class="notification-form exhortation-upload-input-layout">
+                    <div class="upload-form">
+                        <label for="notification-date">Date</label>
+                        <asp:TextBox ID="NotificationDate" runat="server" CssClass="form-control" TextMode="Date" placeholder="--/--/----"></asp:TextBox>
+                    </div>
+                    <div class="upload-form">
+                        <label for="notification-title">Title</label>
+                        <asp:TextBox ID="NotificationTitle" runat="server" CssClass="form-control" placeholder="Enter title"></asp:TextBox>
+                    </div>
                 </div>
-                <div class="upload-form">
-                    <label for="notification-title">Title</label>
-                    <input type="text" id="notification-title" placeholder="-----------------------">
+                <asp:TextBox ID="NotificationMessage" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="4" placeholder="Enter notification text"></asp:TextBox>
+                <div class="buttons-group">
+                    <asp:Button ID="CancelNotificationButton" runat="server" CssClass="btn cancel-btn" Text="Cancel" OnClick="CancelNotification_Click" />
+                    <asp:Button ID="PublishNotificationButton" runat="server" CssClass="btn publish-btn" Text="Publish Notification" OnClick="PublishNotificationButton_Click" />
                 </div>
             </div>
-            <textarea placeholder="Enter notification text"></textarea>
-            <div style="align-self: end" class="dropdown">
-                <label for="destination-filters">Destination Filters</label>
-                <select id="destination-filters">
-                    <option>None</option>
-                </select>
-            </div>
-            <div class="buttons-group">
-                <button>Cancel</button>
-                <button>Publish Notification</button>
-            </div>
-        </div>
+
+
 
         <!-- Bible Course and Next Sunday Information -->
         <div class="dashboard-stack">
@@ -175,34 +171,4 @@
     <!-- Flatpickr CSS and JS for the calendar -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-    <style>
-        /* Button Styling */
-        .btn {
-            background-color: #333;
-            color: white;
-            padding: 0.75rem;
-            width: fit-content;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-size: 1rem;
-            text-align: center;
-            transition: background-color 0.3s ease;
-            margin-top: 0.625rem; /* Consistent margin for all buttons */
-        }
-
-        .btn:hover {
-            background-color: #555; /* Add hover effect */
-        }
-
-        /* Cancel and Publish button styling */
-        .cancel-btn {
-            background-color: #f44336;
-        }
-
-        .publish-btn {
-            background-color: #4CAF50;
-        }
-    </style>
 </asp:Content>
