@@ -64,6 +64,7 @@
                     <asp:Button ID="btnSaveSettings" runat="server" Text="Save Settings" CssClass="btn btn-success" OnClick="btnSaveSettings_Click" />
                 </div>
             </div>
+            <!-- ----------------------------------------------------------------------------- -->
 
             <!-- Right Account Panel -->
             <div class="settings-right">
@@ -86,10 +87,6 @@
                             <asp:TextBox ID="txtSurname" runat="server" ReadOnly="true" style="background-color: transparent; border: none; color: #BBBBBD; padding: 5px; border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
                         </div>
 
-                        <div style="display: flex; align-items: center;">
-                            <asp:Label ID="lblPassword" runat="server" Text="Password" style="padding:10px;"></asp:Label>
-                            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" ReadOnly="true" style="background-color: transparent; border: none; color: #BBBBBD; padding: 5px; border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
-                        </div>
 
                         <div style="display: flex; align-items: center;">
                             <asp:Label ID="lblEcclesia" runat="server" Text="Ecclesia" style="padding:10px;"></asp:Label>
