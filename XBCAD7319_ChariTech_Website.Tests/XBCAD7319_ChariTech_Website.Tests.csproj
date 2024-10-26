@@ -63,12 +63,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XBCAD7319_ChariTech_Website\XBCAD7319_ChariTech_Website.csproj">
-      <Project>{1CBADEC6-002A-4E6A-907B-B73916E572B9}</Project>
-      <Name>XBCAD7319_ChariTech_Website</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
