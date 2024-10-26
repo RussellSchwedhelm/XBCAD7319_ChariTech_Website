@@ -65,7 +65,17 @@
                     </label>
                 </div>
 
-                <!-- Add Save Button -->
+              <asp:Label ID="lblEmailUpdates" runat="server" Text="Email Updates"></asp:Label>
+            <div class="setting-option" style="display: flex; align-items: center;">
+                <small>Switch on/off Email Update Notifications</small>
+                <asp:HiddenField ID="chkEmailNotification" runat="server" />
+                <label class="switch" style="margin-left:auto">
+                    <input type="checkbox" id="chkEmailUpdates" runat="server" />
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+                
                 <div style="text-align: center; margin-top: 20px;">
                     <asp:Button ID="btnSaveSettings" runat="server" Text="Save Settings" CssClass="btn btn-success" OnClick="btnSaveSettings_Click" />
                 </div>

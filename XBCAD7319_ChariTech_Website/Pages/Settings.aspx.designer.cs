@@ -141,6 +141,33 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkResponsibiltyUpdatesCustom;
 
         /// <summary>
+        /// lblEmailUpdates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmailUpdates;
+
+        /// <summary>
+        /// chkEmailNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField chkEmailNotification;
+
+        /// <summary>
+        /// chkEmailUpdates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkEmailUpdates;
+
+        /// <summary>
         /// btnSaveSettings control.
         /// </summary>
         /// <remarks>
