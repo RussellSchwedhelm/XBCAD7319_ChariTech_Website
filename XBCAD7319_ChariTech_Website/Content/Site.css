@@ -1139,7 +1139,7 @@ input:checked + .slider {
 }
 
 .course-card {
-    
+    min-width: 150px;
     max-width: 300px;
     display: flex;
     flex-direction: column;
@@ -1153,7 +1153,7 @@ input:checked + .slider {
 
 .course-description {
     display: block;
-    max-width: 160px; /* Keeps text within card boundaries */
+    max-width: 140px; /* Keeps text within card boundaries */
     white-space: nowrap; /* Prevents text from wrapping */
     overflow: hidden; /* Hides overflow text */
     text-overflow: ellipsis; /* Adds "..." for overflow text */

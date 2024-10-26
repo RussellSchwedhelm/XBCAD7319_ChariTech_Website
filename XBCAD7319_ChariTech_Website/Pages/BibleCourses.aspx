@@ -36,7 +36,14 @@
                 <asp:Label ID="lblDateUploaded" runat="server" Text='<%# Eval("DateUploaded") %>' CssClass="course-date"></asp:Label>
                 <br />
                 <asp:Label ID="lblDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="course-description"></asp:Label>
-                <asp:Button ID="btnOpen" runat="server" Text="Open" CssClass="course-open-btn" />
+                <asp:Button ID="btnOpen" 
+                    runat="server" 
+                    Text="Open" 
+                    CssClass="course-open-btn" 
+                    CommandArgument='<%# Eval("PdfFileUrl") %>' 
+                    OnClientClick='<%# "openPdfInNewTab(\"" + ResolveUrl(Eval("PdfFileUrl").ToString()) + "\"); return false;" %>' />
+
+    </div>
             </div>
         </div>
     </ItemTemplate>
@@ -66,4 +73,18 @@
        
       </div>
     </div>
+
+
+    <script type="text/javascript">
+        function openPdfInNewTab(pdfUrl) {
+            if (pdfUrl) {
+                window.open(pdfUrl, '_blank');
+            } else {
+                alert("No PDF file available for this course.");
+            }
+        }
+    </script>
+
+
 </asp:Content>
+
