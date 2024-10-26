@@ -13,7 +13,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*if (Session["UserEmail"] == null)
+            if (Session["UserEmail"] == null)
             {
                 Response.Redirect("Login.aspx");
             }
@@ -26,7 +26,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     int userChurchId = userManager.GetChurchIdByUserId(userId);
                     LoadExhortations(userChurchId);
                 }
-            }*/
+            }
         }
 
         private void LoadExhortations(int churchId)
