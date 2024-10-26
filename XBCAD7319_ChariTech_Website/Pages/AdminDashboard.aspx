@@ -75,19 +75,18 @@
         <div class="section item-wrap">
             <h3 class="headings">Online Donations</h3>
             
-            <!-- Blue Bag - General -->
+            <!-- Blue Bag -->
             <div class="upload-form">
                 <label>Blue Bag - </label>
                 <asp:TextBox ID="BlueBagCause" runat="server" CssClass="form-control" placeholder="Cause" Text="General" />
             </div>
 
-            <!-- Red Bag - Welfare -->
+            <!-- Red Bag -->
             <div class="upload-form">
                 <label>Red Bag - </label>
                 <asp:TextBox ID="RedBagCause" runat="server" CssClass="form-control" placeholder="Cause" Text="Welfare" />
             </div>
 
-            <!-- Rondebosch Food Drive -->
             <div class="upload-form">
                 <label>Drive - </label>
                 <asp:TextBox ID="Drive1Name" runat="server" CssClass="form-control" placeholder="Cause" />
@@ -101,7 +100,6 @@
                 <asp:TextBox ID="Drive1Goal" runat="server" CssClass="form-control" placeholder="Enter Goal Amount" />
             </div>
 
-            <!-- New Hymn Books -->
             <div class="upload-form">
                 <label>Drive - </label>
                 <asp:TextBox ID="Drive2Name" runat="server" CssClass="form-control" placeholder="Cause" Text="Book Drive" />
@@ -121,46 +119,56 @@
             </div>
         </div>
 
-        <!-- Notifications Section -->
-        <div class="section item-wrap">
-            <h3 class="headings">Create Notification</h3>
-            <div class="notification-form exhoration-upload-input-layout">
-                <div class="upload-form">
-                    <label for="notification-date">Date</label>
-                    <input type="text" id="notification-date" placeholder="--/--/----">
+            <!-- Notifications Section -->
+            <div class="section item-wrap">
+                <h3 class="headings">Create Notification</h3>
+                <div class="notification-form exhortation-upload-input-layout">
+                    <div class="upload-form">
+                        <label for="notification-date">Date</label>
+                        <asp:TextBox ID="NotificationDate" runat="server" CssClass="form-control" TextMode="Date" placeholder="--/--/----"></asp:TextBox>
+                    </div>
+                    <div class="upload-form">
+                        <label for="notification-title">Title</label>
+                        <asp:TextBox ID="NotificationTitle" runat="server" CssClass="form-control" placeholder="Enter title"></asp:TextBox>
+                    </div>
                 </div>
-                <div class="upload-form">
-                    <label for="notification-title">Title</label>
-                    <input type="text" id="notification-title" placeholder="-----------------------">
+                <asp:TextBox ID="NotificationMessage" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="4" placeholder="Enter notification text"></asp:TextBox>
+                <div class="buttons-group">
+                    <asp:Button ID="CancelNotificationButton" runat="server" CssClass="btn cancel-btn" Text="Cancel" OnClick="CancelNotification_Click" />
+                    <asp:Button ID="PublishNotificationButton" runat="server" CssClass="btn publish-btn" Text="Publish Notification" OnClick="PublishNotificationButton_Click" />
                 </div>
             </div>
-            <textarea placeholder="Enter notification text"></textarea>
-            <div style="align-self: end" class="dropdown">
-                <label for="destination-filters">Destination Filters</label>
-                <select id="destination-filters">
-                    <option>None</option>
-                </select>
-            </div>
-            <div class="buttons-group">
-                <button>Cancel</button>
-                <button>Publish Notification</button>
-            </div>
-        </div>
 
-        <!-- Bible Course and Next Sunday Information -->
+       <!-- Bible Course and Next Sunday Information -->
         <div class="dashboard-stack">
             <div class="section bible-course-nav item-wrap">
                 <h3 class="headings">Next Sunday<br>01-01-2024</h3>
-                <p><strong>Presiding:</strong> James Dean <i class="fa fa-edit"></i></p>
-                <p><strong>Exhortation:</strong> Phil Dunphy <i class="fa fa-edit"></i></p>
-                <p><strong>On The Door:</strong> John Doe <i class="fa fa-edit"></i></p>
+
+                <div class="upload-form">
+                    <label for="presiding">Presiding</label>
+                    <asp:TextBox ID="PresidingName" runat="server" CssClass="form-control" placeholder="Enter presiding name" Text="James Dean"></asp:TextBox>
+                </div>
+
+                <div class="upload-form">
+                    <label for="exhortation">Exhortation</label>
+                    <asp:TextBox ID="ExhortationName" runat="server" CssClass="form-control" placeholder="Enter exhortation name" Text="Phil Dunphy"></asp:TextBox>
+                </div>
+
+                <div class="upload-form">
+                    <label for="on-the-door">On The Door</label>
+                    <asp:TextBox ID="OnTheDoorName" runat="server" CssClass="form-control" placeholder="Enter door person's name" Text="John Doe"></asp:TextBox>
+                </div>
+
                 <div class="next-sunday calendar">
-                    <!-- Flatpickr calendar -->
-                    <div id="next-sunday-calendar"></div>
+                    <label for="next-sunday-date">Next Sunday Date</label>
+                    <asp:TextBox ID="NextSundayDate" runat="server" CssClass="form-control" style="width:fit-content;" TextMode="Date" placeholder="Select Date"></asp:TextBox>
                 </div>
+
                 <div class="buttons-group">
-                    <button>Save Sunday Information</button>
+                    <asp:Button ID="SaveSundayInfoButton" runat="server" Text="Save Sunday Information" OnClick="SaveSundayInfoButton_Click" />
+                    <asp:Button ID="ViewScheduleButton" runat="server" CssClass="btn" Text="View Schedule" OnClick="ViewScheduleButton_Click" />
                 </div>
+
             </div>
 
             <!-- Upload Bible Course Section -->
@@ -176,33 +184,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <style>
-        /* Button Styling */
-        .btn {
-            background-color: #333;
-            color: white;
-            padding: 0.75rem;
-            width: fit-content;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-size: 1rem;
-            text-align: center;
-            transition: background-color 0.3s ease;
-            margin-top: 0.625rem; /* Consistent margin for all buttons */
-        }
-
-        .btn:hover {
-            background-color: #555; /* Add hover effect */
-        }
-
-        /* Cancel and Publish button styling */
-        .cancel-btn {
-            background-color: #f44336;
-        }
-
-        .publish-btn {
-            background-color: #4CAF50;
-        }
-    </style>
+    <!-- Initialize Flatpickr with Sunday-only selection -->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr("#<%= NextSundayDate.ClientID %>", {
+                enableTime: false,
+                dateFormat: "Y-m-d",
+                defaultDate: new Date(),
+                "disable": [
+                    function (date) {
+                        // Return true to disable all non-Sunday dates
+                        return date.getDay() !== 0;
+                    }
+                ]
+            });
+        });
+    </script>
 </asp:Content>

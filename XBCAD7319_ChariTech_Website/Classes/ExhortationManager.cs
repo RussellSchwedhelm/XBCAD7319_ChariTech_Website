@@ -38,25 +38,80 @@ namespace XBCAD7319_ChariTech_Website.Classes
         }
 
         // Method to retrieve exhortations by ChurchID
+
+        // Method to retrieve exhortations with their summaries by ChurchID
         public DataTable GetExhortationsByChurchID(int churchID)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                // Only retrieve the essential fields (Title, Date, Speaker), not the audio file
-                string query = "SELECT ExhortationID, Title, Speaker, Date FROM Exhortation WHERE ChurchID = @ChurchID";
+                // Join Exhortation and AISummary tables to retrieve the summary text
+                string query = @"
+            SELECT 
+                e.ExhortationID, 
+                e.Title, 
+                e.Speaker, 
+                e.Date, 
+                s.SummaryText
+            FROM 
+                Exhortation e
+            LEFT JOIN 
+                AISummary s ON e.AISummaryID = s.AISummaryID
+            WHERE 
+                e.ChurchID = @ChurchID";
+
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@ChurchID", churchID);
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable exhortations = new DataTable();
-                    da.Fill(exhortations);  // Fill the DataTable with exhortation metadata
+                    da.Fill(exhortations);  // Fill the DataTable with exhortation metadata including summaries
                     return exhortations;
                 }
             }
         }
+
+
+       
+
+        public DataTable SearchExhortations(int churchID, string searchTerm)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT 
+                e.ExhortationID, 
+                e.Title, 
+                e.Speaker, 
+                e.Date, 
+                s.SummaryText
+            FROM 
+                Exhortation e
+            LEFT JOIN 
+                AISummary s ON e.AISummaryID = s.AISummaryID
+            WHERE 
+                e.ChurchID = @ChurchID 
+                AND 
+                (e.Title LIKE @SearchTerm OR s.SummaryText LIKE @SearchTerm)";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ChurchID", churchID);
+                    cmd.Parameters.AddWithValue("@SearchTerm", "%" + searchTerm + "%");
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable searchResults = new DataTable();
+                    da.Fill(searchResults);
+                    return searchResults;
+                }
+            }
+        }
+
+
 
         // Method to upload exhortation
         public bool UploadExhortation(string email, int churchId, string title, string speaker, DateTime issueDate, HttpPostedFile uploadedFile)

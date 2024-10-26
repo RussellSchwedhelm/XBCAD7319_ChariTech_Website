@@ -1234,3 +1234,16 @@ input:checked + .slider {
 .btn.update-btn {
     margin-left: 10px;
 }
+
+/* Notification Dropdown Style */
+.notification-dropdown {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
+}
