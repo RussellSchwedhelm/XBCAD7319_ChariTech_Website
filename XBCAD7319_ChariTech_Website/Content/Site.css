@@ -1247,3 +1247,31 @@ input:checked + .slider {
     padding: 10px;
     z-index: 1000;
 }
+
+/* Dark Mode Style*/
+/* Default light mode */
+/*body {
+    background-color: #f5f5f5;
+    color: #333;
+}*/
+
+/* Dark mode */
+.dark-mode body {
+    background-color: #333;
+    color: #f5f5f5;
+}
+
+.dark-mode .settings-page, .dark-mode .settings-container, .dark-mode .settings-left, .dark-mode .settings-right {
+    background-color: #444;
+    color: #f5f5f5;
+}
+
+/* Adjust button and text colors in dark mode */
+.dark-mode .btn {
+    background-color: #555;
+    color: #f5f5f5;
+}
+
+.dark-mode h3 {
+    color: #f5f5f5;
+}

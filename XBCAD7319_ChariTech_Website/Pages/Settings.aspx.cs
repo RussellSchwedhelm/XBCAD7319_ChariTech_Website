@@ -22,8 +22,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
             {
                 UserID = 123, // Replace this with the actual user ID logic, e.g., from session
                 ThemePreferenceDark = chkDarkModeCustom.Checked,
-                Volume = int.Parse(volume.Value),
-                ButtonClicksSound = chkButtonClickSoundCustom.Checked,
                 BibleBasicsNotifications = chkBibleBasicsCustom.Checked,
                 ResponsibilityUpdates = chkResponsibiltyUpdatesCustom.Checked
             };
@@ -44,8 +42,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
             if (userPreference != null)
             {
                 chkDarkModeCustom.Checked = userPreference.ThemePreferenceDark;
-                volume.Value = userPreference.Volume.ToString();
-                chkButtonClickSoundCustom.Checked = userPreference.ButtonClicksSound;
                 chkBibleBasicsCustom.Checked = userPreference.BibleBasicsNotifications;
                 chkResponsibiltyUpdatesCustom.Checked = userPreference.ResponsibilityUpdates;
             }
