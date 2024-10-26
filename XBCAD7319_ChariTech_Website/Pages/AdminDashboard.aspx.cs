@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using XBCAD7319_ChariTech_Website.Classes;
@@ -28,7 +29,15 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     Response.Redirect("Login.aspx");
                 }
                 LoadDonations();
-                LoadNextSundayInfo();
+
+                // Calculate the upcoming Sunday
+                DateTime today = DateTime.Today;
+                DateTime nextSunday = today.DayOfWeek == DayOfWeek.Sunday
+                    ? today.AddDays(7) // If today is Sunday, get the next Sunday (7 days later)
+                    : today.AddDays(7 - (int)today.DayOfWeek); // Otherwise, calculate the upcoming Sunday
+
+                // Load next Sunday information
+                LoadNextSundayInfo(nextSunday);
             }
         }
 
@@ -272,34 +281,32 @@ namespace XBCAD7319_ChariTech_Website.Pages
             NotificationDate.Text = string.Empty;
         }
 
-        private void LoadNextSundayInfo()
+        protected void SaveSundayInfoButton_Click(object sender, EventArgs e)
         {
-            DateTime today = DateTime.Today;
-            DateTime nextSunday = today.AddDays((int)DayOfWeek.Sunday - (int)today.DayOfWeek);
+            DateTime selectedDate;
 
-            var (presiding, exhortation, onTheDoor) = nextSundayManager.GetNextSundayInfo(nextSunday);
-
-            if (presiding != null)
+            // Try parsing the selected date from the NextSundayDate TextBox
+            if (DateTime.TryParse(NextSundayDate.Text, out selectedDate))
             {
-                PresidingName.Text = presiding;
-                ExhortationName.Text = exhortation;
-                OnTheDoorName.Text = onTheDoor;
+                // Save the information for the calculated Sunday
+                nextSundayManager.SaveNextSundayInfo(
+                    churchId: new ExhortationManager().GetChurchIdByEmail(Session["UserEmail"].ToString()),
+                    nextSundayDate: selectedDate,
+                    presiding: PresidingName.Text,
+                    exhortation: ExhortationName.Text,
+                    onTheDoor: OnTheDoorName.Text
+                );
+
+                // Provide user feedback
+                Response.Write("<script>alert('Sunday information saved successfully.');</script>");
+            }
+            else
+            {
+                // Handle case where the date is invalid
+                Response.Write("<script>alert('Please select a valid Sunday date.');</script>");
             }
         }
 
-        protected void SaveSundayInfoButton_Click(object sender, EventArgs e)
-        {
-            DateTime today = DateTime.Today;
-            DateTime nextSunday = today.AddDays((int)DayOfWeek.Sunday - (int)today.DayOfWeek);
-
-            nextSundayManager.SaveNextSundayInfo(
-                churchId: new ExhortationManager().GetChurchIdByEmail(Session["UserEmail"].ToString()), 
-                nextSundayDate: nextSunday,
-                presiding: PresidingName.Text,
-                exhortation: ExhortationName.Text,
-                onTheDoor: OnTheDoorName.Text
-            );
-        }
 
         protected void ViewScheduleButton_Click(object sender, EventArgs e)
         {
@@ -356,6 +363,37 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Flush();
                 Response.End();
             }
+
         }
+
+        [WebMethod]
+        public static SundayInfo GetSundayInfo(string selectedDate)
+        {
+            DateTime date;
+            if (DateTime.TryParse(selectedDate, out date))
+            {
+                var manager = new NextSundayManager();
+                var sundayInfo = manager.GetSundayInfoByDate(date);
+                return sundayInfo ?? new SundayInfo(); // Return empty if no data
+            }
+            return new SundayInfo();
         }
+
+        // Loads data for a specific Sunday (used by the date picker and initial load)
+        private void LoadNextSundayInfo(DateTime selectedDate)
+        {
+            var sundayInfo = nextSundayManager.GetSundayInfoByDate(selectedDate);
+            PresidingName.Text = sundayInfo?.Presiding ?? "";
+            ExhortationName.Text = sundayInfo?.Exhortation ?? "";
+            OnTheDoorName.Text = sundayInfo?.OnTheDoor ?? "";
+        }
+
+
+    }
+    public class SundayInfo
+    {
+        public string Presiding { get; set; }
+        public string Exhortation { get; set; }
+        public string OnTheDoor { get; set; }
+    }
 }

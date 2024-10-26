@@ -139,37 +139,37 @@
                 </div>
             </div>
 
-       <!-- Bible Course and Next Sunday Information -->
-        <div class="dashboard-stack">
-            <div class="section bible-course-nav item-wrap">
-                <h3 class="headings">Next Sunday<br>01-01-2024</h3>
+            <!-- Next Sunday Section with Dynamic Title Date -->
+            <div class="dashboard-stack">
+                <div class="section bible-course-nav item-wrap">
+                    <h3 class="headings" id="nextSundayTitle">Next Sunday</h3>
 
-                <div class="upload-form">
-                    <label for="presiding">Presiding</label>
-                    <asp:TextBox ID="PresidingName" runat="server" CssClass="form-control" placeholder="Enter presiding name" Text="James Dean"></asp:TextBox>
-                </div>
+                    <div class="upload-form">
+                        <label for="presiding">Presiding</label>
+                        <asp:TextBox ID="PresidingName" runat="server" CssClass="form-control" placeholder="Enter presiding name"></asp:TextBox>
+                    </div>
 
-                <div class="upload-form">
-                    <label for="exhortation">Exhortation</label>
-                    <asp:TextBox ID="ExhortationName" runat="server" CssClass="form-control" placeholder="Enter exhortation name" Text="Phil Dunphy"></asp:TextBox>
-                </div>
+                    <div class="upload-form">
+                        <label for="exhortation">Exhortation</label>
+                        <asp:TextBox ID="ExhortationName" runat="server" CssClass="form-control" placeholder="Enter exhortation name"></asp:TextBox>
+                    </div>
 
-                <div class="upload-form">
-                    <label for="on-the-door">On The Door</label>
-                    <asp:TextBox ID="OnTheDoorName" runat="server" CssClass="form-control" placeholder="Enter door person's name" Text="John Doe"></asp:TextBox>
-                </div>
+                    <div class="upload-form">
+                        <label for="on-the-door">On The Door</label>
+                        <asp:TextBox ID="OnTheDoorName" runat="server" CssClass="form-control" placeholder="Enter door person's name"></asp:TextBox>
+                    </div>
 
-                <div class="next-sunday calendar">
-                    <label for="next-sunday-date">Next Sunday Date</label>
-                    <asp:TextBox ID="NextSundayDate" runat="server" CssClass="form-control" style="width:fit-content;" TextMode="Date" placeholder="Select Date"></asp:TextBox>
-                </div>
+                    <div class="next-sunday calendar">
+                        <label for="next-sunday-date">Next Sunday Date</label>
+                        <asp:TextBox ID="NextSundayDate" runat="server" CssClass="form-control" TextMode="Date" placeholder="Select Date" onchange="onDateChange()" />
+                    </div>
 
-                <div class="buttons-group">
-                    <asp:Button ID="SaveSundayInfoButton" runat="server" Text="Save Sunday Information" OnClick="SaveSundayInfoButton_Click" />
-                    <asp:Button ID="ViewScheduleButton" runat="server" CssClass="btn" Text="View Schedule" OnClick="ViewScheduleButton_Click" />
-                </div>
+                    <div class="buttons-group">
+                        <asp:Button ID="SaveSundayInfoButton" runat="server" Text="Save Sunday Information" OnClick="SaveSundayInfoButton_Click" />
+                        <asp:Button ID="ViewScheduleButton" runat="server" CssClass="btn" Text="View Schedule" OnClick="ViewScheduleButton_Click" />
+                    </div>
+                 </div>
 
-            </div>
 
             <!-- Upload Bible Course Section -->
             <div class="section bible-course-nav item-wrap">
@@ -200,4 +200,31 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        // JavaScript to handle date change and fetch data via AJAX
+        function onDateChange() {
+            var selectedDate = document.getElementById('<%= NextSundayDate.ClientID %>').value;
+
+        // Set the title dynamically
+        document.getElementById("nextSundayTitle").innerText = "Next Sunday - " + selectedDate;
+
+        // Make AJAX call to fetch data for the selected date
+        $.ajax({
+            type: "POST",
+            url: "AdminDashboard.aspx/GetSundayInfo",
+            data: JSON.stringify({ selectedDate: selectedDate }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var data = response.d;
+                document.getElementById('<%= PresidingName.ClientID %>').value = data.Presiding || "";
+                document.getElementById('<%= ExhortationName.ClientID %>').value = data.Exhortation || "";
+                document.getElementById('<%= OnTheDoorName.ClientID %>').value = data.OnTheDoor || "";
+            },
+            error: function () {
+                alert("Error loading data for the selected Sunday.");
+            }
+        });
+        }
+</script>
 </asp:Content>

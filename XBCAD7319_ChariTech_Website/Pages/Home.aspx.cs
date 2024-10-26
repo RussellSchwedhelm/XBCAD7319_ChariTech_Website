@@ -1,6 +1,11 @@
-﻿using System;
+﻿using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Web.UI.WebControls;
 using XBCAD7319_ChariTech_Website.Classes;
 
@@ -12,6 +17,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         private readonly DonationManager donationManager = new DonationManager();
         private readonly NewsletterManager newsletterManager = new NewsletterManager();
         private readonly ExhortationManager exhortationManager = new ExhortationManager();
+        private readonly NextSundayManager nextSundayManager = new NextSundayManager();
 
         // Temporary list for prayer requests
         private List<string> temp;
@@ -30,6 +36,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 LoadDonations();
                 LoadNewsletters();
                 LoadExhortations();
+                LoadNextSundayDetails();
             }
         }
 
@@ -145,6 +152,89 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             PrayerRequestsRepeater.DataSource = temp;
             PrayerRequestsRepeater.DataBind();
+        }
+        // Load details for the upcoming Sunday or current Sunday if today is Sunday
+        private void LoadNextSundayDetails()
+        {
+            DateTime today = DateTime.Today;
+            DateTime nextSunday = today.DayOfWeek == DayOfWeek.Sunday
+                ? today.AddDays(7) // If today is Sunday, get the next Sunday (7 days later)
+                : today.AddDays(7 - (int)today.DayOfWeek); // Otherwise, calculate the upcoming Sunday
+
+
+            var sundayInfo = nextSundayManager.GetSundayInfoByDate(nextSunday);
+            if (sundayInfo != null)
+            {
+                PresidingLabel.Text = sundayInfo.Presiding ?? "TBD";
+                ExhortationLabel.Text = sundayInfo.Exhortation ?? "TBD";
+                OnTheDoorLabel.Text = sundayInfo.OnTheDoor ?? "TBD";
+                nextSundayTitle.Text = $"Next Sunday - {nextSunday:yyyy-MM-dd}";
+            }
+            else
+            {
+                // Clear fields if no data is available for the upcoming Sunday
+                PresidingLabel.Text = "TBD";
+                ExhortationLabel.Text = "TBD";
+                OnTheDoorLabel.Text = "TBD";
+                nextSundayTitle.Text = $"Next Sunday - {nextSunday:yyyy-MM-dd}";
+            }
+        }
+
+
+        // Handle the click event for View Schedule button to generate PDF
+        protected void ViewScheduleButton_Click(object sender, EventArgs e)
+        {
+            // Get future Sundays with data
+            List<(DateTime Date, string Presiding, string Exhortation, string OnTheDoor)> futureSundays = nextSundayManager.GetFutureSundays();
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (PdfWriter writer = new PdfWriter(ms))
+                using (PdfDocument pdf = new PdfDocument(writer))
+                using (Document document = new Document(pdf))
+                {
+                    // Add title to the PDF
+                    document.Add(new Paragraph("Future Sundays Schedule")
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetFontSize(16)
+                        .SetBold());
+
+                    // Create a table with headers
+                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(UnitValue.CreatePercentArray(new float[] { 1, 2, 2, 2 })).UseAllAvailableWidth();
+
+                    // Define header cells and style
+                    Cell headerCell1 = new Cell().Add(new Paragraph("Date")).SetBackgroundColor(iText.Kernel.Colors.ColorConstants.LIGHT_GRAY).SetBold();
+                    Cell headerCell2 = new Cell().Add(new Paragraph("Presiding")).SetBackgroundColor(iText.Kernel.Colors.ColorConstants.LIGHT_GRAY).SetBold();
+                    Cell headerCell3 = new Cell().Add(new Paragraph("Exhortation")).SetBackgroundColor(iText.Kernel.Colors.ColorConstants.LIGHT_GRAY).SetBold();
+                    Cell headerCell4 = new Cell().Add(new Paragraph("On The Door")).SetBackgroundColor(iText.Kernel.Colors.ColorConstants.LIGHT_GRAY).SetBold();
+
+                    // Add headers to the table
+                    table.AddCell(headerCell1);
+                    table.AddCell(headerCell2);
+                    table.AddCell(headerCell3);
+                    table.AddCell(headerCell4);
+
+                    // Add each future Sunday’s data to the table
+                    foreach (var sunday in futureSundays)
+                    {
+                        table.AddCell(sunday.Date.ToString("yyyy-MM-dd"));
+                        table.AddCell(sunday.Presiding);
+                        table.AddCell(sunday.Exhortation);
+                        table.AddCell(sunday.OnTheDoor);
+                    }
+
+                    // Add table to document
+                    document.Add(table);
+                }
+
+                // Send the PDF to the client
+                byte[] pdfBytes = ms.ToArray();
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "inline; filename=Future_Sundays_Schedule.pdf");
+                Response.BinaryWrite(pdfBytes);
+                Response.Flush();
+                Response.End();
+            }
         }
     }
 }

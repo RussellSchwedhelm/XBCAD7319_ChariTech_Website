@@ -33,6 +33,51 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.Repeater newsListRepeater;
 
         /// <summary>
+        /// nextSundayTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label nextSundayTitle;
+
+        /// <summary>
+        /// PresidingLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PresidingLabel;
+
+        /// <summary>
+        /// ExhortationLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ExhortationLabel;
+
+        /// <summary>
+        /// OnTheDoorLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label OnTheDoorLabel;
+
+        /// <summary>
+        /// ViewScheduleButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ViewScheduleButton;
+
+        /// <summary>
         /// PrayerRequestsRepeater control.
         /// </summary>
         /// <remarks>

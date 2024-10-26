@@ -48,14 +48,17 @@
             <div class="right-section">
                 <!-- Next Sunday Section -->
                 <div class="section">
-                    <h5 class="headings">Next Sunday - 01-01-2024</h5>
+                    <!-- Use a Label to dynamically set the text for "Next Sunday" -->
+                    <asp:Label ID="nextSundayTitle" runat="server" CssClass="headings" Text="Next Sunday"></asp:Label>
                     <div class="content next-sunday">
-                        <p><strong>Presiding:</strong> James Dean</p>
-                        <p><strong>Exhortation:</strong> Phil Dunphy</p>
-                        <p><strong>On The Door:</strong> John Doe</p>
-                        <button>View Schedule</button>
+                        <p><strong>Presiding:</strong> <asp:Label ID="PresidingLabel" runat="server" Text="TBD"></asp:Label></p>
+                        <p><strong>Exhortation:</strong> <asp:Label ID="ExhortationLabel" runat="server" Text="TBD"></asp:Label></p>
+                        <p><strong>On The Door:</strong> <asp:Label ID="OnTheDoorLabel" runat="server" Text="TBD"></asp:Label></p>
+                        <asp:Button ID="ViewScheduleButton" runat="server" Text="View Schedule" OnClick="ViewScheduleButton_Click" />
                     </div>
                 </div>
+
+
 
                 <!-- Prayer Requests Section -->
                 <div class="section">

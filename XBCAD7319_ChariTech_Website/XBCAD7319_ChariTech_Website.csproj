@@ -434,6 +434,7 @@
     <Compile Include="Classes\NextSundayManager.cs" />
     <Compile Include="Classes\Notification.cs" />
     <Compile Include="Classes\NotificationManager.cs" />
+    <Compile Include="Classes\PrayerRequestManager.cs" />
     <Compile Include="Classes\RegistrationManager.cs" />
     <Compile Include="Classes\Startup.cs" />
     <Compile Include="Classes\TranscriptionManager.cs" />

@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using XBCAD7319_ChariTech_Website.Pages;
 
 namespace XBCAD7319_ChariTech_Website.Classes
 {
@@ -12,33 +13,33 @@ namespace XBCAD7319_ChariTech_Website.Classes
         string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
         // Method to get next Sunday information from the database
-        public (string Presiding, string Exhortation, string OnTheDoor) GetNextSundayInfo(DateTime nextSundayDate)
+        public SundayInfo GetSundayInfoByDate(DateTime sundayDate)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT TOP 1 Presiding, Exhortation, OnTheDoor
-                    FROM dbo.NextSunday
-                    WHERE NextSundayDate = @NextSundayDate
-                    ORDER BY NextSundayDate";
+                SELECT Presiding, Exhortation, OnTheDoor
+                FROM dbo.NextSunday
+                WHERE NextSundayDate = @sundayDate";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@NextSundayDate", nextSundayDate);
+                    command.Parameters.AddWithValue("@sundayDate", sundayDate);
                     connection.Open();
-
                     SqlDataReader reader = command.ExecuteReader();
+
                     if (reader.Read())
                     {
-                        return (
-                            reader["Presiding"].ToString(),
-                            reader["Exhortation"].ToString(),
-                            reader["OnTheDoor"].ToString()
-                        );
+                        return new SundayInfo
+                        {
+                            Presiding = reader["Presiding"].ToString(),
+                            Exhortation = reader["Exhortation"].ToString(),
+                            OnTheDoor = reader["OnTheDoor"].ToString()
+                        };
                     }
                 }
             }
-            return (null, null, null); // Return nulls if no data found for next Sunday
+            return null; // No entry found for the selected date
         }
 
         // Method to save or update next Sunday information in the database
