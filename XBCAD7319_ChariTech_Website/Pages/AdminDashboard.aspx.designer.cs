@@ -60,6 +60,33 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.Button UploadNewsletterButton;
 
         /// <summary>
+        /// TodayDateLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TodayDateLabel;
+
+        /// <summary>
+        /// PrayerRequestsRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater PrayerRequestsRepeater;
+
+        /// <summary>
+        /// SavePrayerRequestChangesButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SavePrayerRequestChangesButton;
+
+        /// <summary>
         /// exhortationPanel control.
         /// </summary>
         /// <remarks>
