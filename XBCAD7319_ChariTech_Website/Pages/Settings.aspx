@@ -97,6 +97,7 @@
                         </div>
                     </div>
 
+                    <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" CssClass="btn btn-secondary" />
                     <asp:Button ID="btnLogout" runat="server" Text="Log Out" CssClass="btn btn-primary" />
                     <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" CssClass="btn btn-secondary" />
                     <asp:Button ID="btnUpdateEmail" runat="server" Text="Update Your Email" CssClass="btn btn-secondary" />
