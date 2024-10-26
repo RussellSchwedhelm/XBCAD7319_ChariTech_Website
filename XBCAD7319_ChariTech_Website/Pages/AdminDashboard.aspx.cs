@@ -1,5 +1,12 @@
-﻿using System;
+﻿using iText.Kernel.Colors;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,6 +17,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class AdminDashboard : Page
     {
+        private NextSundayManager nextSundayManager = new NextSundayManager();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -20,6 +28,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     Response.Redirect("Login.aspx");
                 }
                 LoadDonations();
+                LoadNextSundayInfo();
             }
         }
 
@@ -262,6 +271,91 @@ namespace XBCAD7319_ChariTech_Website.Pages
             NotificationMessage.Text = string.Empty;
             NotificationDate.Text = string.Empty;
         }
-    }
 
+        private void LoadNextSundayInfo()
+        {
+            DateTime today = DateTime.Today;
+            DateTime nextSunday = today.AddDays((int)DayOfWeek.Sunday - (int)today.DayOfWeek);
+
+            var (presiding, exhortation, onTheDoor) = nextSundayManager.GetNextSundayInfo(nextSunday);
+
+            if (presiding != null)
+            {
+                PresidingName.Text = presiding;
+                ExhortationName.Text = exhortation;
+                OnTheDoorName.Text = onTheDoor;
+            }
+        }
+
+        protected void SaveSundayInfoButton_Click(object sender, EventArgs e)
+        {
+            DateTime today = DateTime.Today;
+            DateTime nextSunday = today.AddDays((int)DayOfWeek.Sunday - (int)today.DayOfWeek);
+
+            nextSundayManager.SaveNextSundayInfo(
+                churchId: new ExhortationManager().GetChurchIdByEmail(Session["UserEmail"].ToString()), 
+                nextSundayDate: nextSunday,
+                presiding: PresidingName.Text,
+                exhortation: ExhortationName.Text,
+                onTheDoor: OnTheDoorName.Text
+            );
+        }
+
+        protected void ViewScheduleButton_Click(object sender, EventArgs e)
+        {
+            // Get future Sundays with data
+            List<(DateTime Date, string Presiding, string Exhortation, string OnTheDoor)> futureSundays = nextSundayManager.GetFutureSundays();
+
+            // Create a MemoryStream for the PDF
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // Initialize the PDF document
+                using (PdfWriter writer = new PdfWriter(ms))
+                using (PdfDocument pdf = new PdfDocument(writer))
+                using (Document document = new Document(pdf))
+                {
+                    // Add title to the PDF
+                    document.Add(new Paragraph("Future Sundays Schedule")
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetFontSize(16)
+                        .SetBold());
+
+                    // Create a table with headers
+                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(UnitValue.CreatePercentArray(new float[] { 1, 2, 2, 2 })).UseAllAvailableWidth();
+
+                    // Define header cells and style
+                    Cell headerCell1 = new Cell().Add(new Paragraph("Date")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold();
+                    Cell headerCell2 = new Cell().Add(new Paragraph("Presiding")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold();
+                    Cell headerCell3 = new Cell().Add(new Paragraph("Exhortation")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold();
+                    Cell headerCell4 = new Cell().Add(new Paragraph("On The Door")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold();
+
+                    // Add headers to the table
+                    table.AddCell(headerCell1);
+                    table.AddCell(headerCell2);
+                    table.AddCell(headerCell3);
+                    table.AddCell(headerCell4);
+
+                    // Add each future Sunday’s data to the table
+                    foreach (var sunday in futureSundays)
+                    {
+                        table.AddCell(sunday.Date.ToString("yyyy-MM-dd"));
+                        table.AddCell(sunday.Presiding);
+                        table.AddCell(sunday.Exhortation);
+                        table.AddCell(sunday.OnTheDoor);
+                    }
+
+                    // Add table to document
+                    document.Add(table);
+                }
+
+                // Send the PDF to the client
+                byte[] pdfBytes = ms.ToArray();
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "inline; filename=Future_Sundays_Schedule.pdf");
+                Response.BinaryWrite(pdfBytes);
+                Response.Flush();
+                Response.End();
+            }
+        }
+        }
 }
