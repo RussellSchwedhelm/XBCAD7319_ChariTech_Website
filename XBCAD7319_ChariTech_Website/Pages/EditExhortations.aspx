@@ -1,4 +1,4 @@
-﻿<%@ Page Title="EditExhortations" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="EditExhortations.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Exhortations" %>
+﻿<%@ Page Title="EditExhortations" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="EditExhortations.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.EditExhortations" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="main-container">
