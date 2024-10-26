@@ -1019,14 +1019,12 @@ input:checked + .slider {
         transform: translateX(20px);
     }
 
-/*Bible Course related components*/
-.courseFilterSelect {
-    grid-column: 1 / 1;
-    grid-row: 2 / 4;
-    display: flex;
-    flex-direction: column;
-}
 
+
+
+
+
+/* Bible Course related components */
 
 .courseSearchDisplay {
     grid-column: 1 / 4;
@@ -1035,31 +1033,176 @@ input:checked + .slider {
     flex-direction: column;
 }
 
-.scrollable-list {
-    overflow-y: auto; /* Enable vertical scrolling */
-    border: 1px solid #ccc;
-    padding: 10px;
-    flex: 1;
-    max-height: calc(5px * var(--scale-factor));
+.courseDisplay {
+    grid-column: 2 / 4;
+    grid-row: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 70vh;
 }
+
+
+.courseFilterSelect {
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f6f6; /* Light background */
+    padding: 15px;
+
+    grid-column: 1 / 1;
+    grid-row: 2 / 4;
+
+
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 30vw;
+    max-width: 30vw;
+    height: 70vh;
+}
+
+.scrollable-list {
+    overflow-y: auto;
+    border: none; /* No border */
+    padding: 0;
+    flex: 1;
+    max-height: 400px; /* Adjust for scrolling */
+}
+
 
 .filter-list-item {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 12px;
     border-bottom: 1px solid #e0e0e0; /* Divider line */
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 10px; /* Add some spacing between items */
 }
 
-.item-icon {
-    width: 24px; /* Set the size of the icon */
-    height: 24px;
-    margin-right: 10px;
+.filter-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: #d9d9d9; /* Light gray header background */
+    padding: 10px;
+    border-radius: 8px 8px 0 0; /* Rounded top corners */
 }
+
+.icon-wrapper {
+    background-color: #e3d8ff; /* Light purple background for icons */
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+}
+
+.icon-letter {
+    width: 24px; /* Set width and height as needed */
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #21005D; /* Text color (white) */
+    font-size: 20px; /* Adjust font size as needed */
+    font-weight: bold;
+    border-radius: 5px; /* Rounded corners, if desired */
+}
+
+
 
 .item-text {
-    flex-grow: 1; /* Allow the text to take available space */
+    flex-grow: 1;
     font-size: 16px;
+    color: #333; /* Dark text */
 }
+
+.custom-checkbox {
+    margin-left: auto;
+}
+
+    .custom-checkbox input[type=checkbox] {
+        transform: scale(1.2); /* Make the checkbox slightly larger */
+        cursor: pointer;
+    }
+
+/*Items for the BibleCourse Datagrid*/
+
+/* Main container for the DataList */
+.course-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.course-card {
+    
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.course-description {
+    display: block;
+    max-width: 160px; /* Keeps text within card boundaries */
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Hides overflow text */
+    text-overflow: ellipsis; /* Adds "..." for overflow text */
+}
+
+
+.course-title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.course-theme {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.course-image {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: cover;
+}
+
+.course-duration,
+.course-date/*,
+.course-description*/ {
+    margin: 5px 0;
+    font-size: 0.85em;
+    color: #333;
+}
+
+.course-open-btn {
+    margin-top: 10px;
+    padding: 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .course-open-btn:hover {
+        background-color: #0056b3;
+    }
+
+
+
+
 
 .loading-icon {
     width: 20px;
