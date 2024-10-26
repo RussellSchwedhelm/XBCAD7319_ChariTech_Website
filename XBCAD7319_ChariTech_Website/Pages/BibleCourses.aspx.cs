@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
@@ -20,8 +21,18 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // Use the email for further logic if needed
             }*/
 
+            /*
+            foreach (DataListItem item in dlCourses.Items)
+            {
+                Label lblDescription = (Label)item.FindControl("lblDescription");
+                if (lblDescription != null && lblDescription.Text.Length > 30)
+                {
+                    lblDescription.Text = lblDescription.Text.Substring(0, 28) + "...";
+                }
+            }
+            */
 
-            
+
             if (!IsPostBack)
             {
                 BindRepeater();
@@ -65,7 +76,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             List<Course> courses = new List<Course>()
             {
                 new Course { CourseTitle = "Course 1", Theme = "New Believers", Duration = "10-11 weeks", DateUploaded = "Oct 2023", Description = "Course 1 description", ImageUrl = "~/Images/Media.png" },
-                new Course { CourseTitle = "Course 2", Theme = "Old Testament", Duration = "6-8 weeks", DateUploaded = "Sept 2023", Description = "Course 2 description", ImageUrl = "~/Images/Media.png" },
+                new Course { CourseTitle = "Course 2", Theme = "Old Testament", Duration = "6-8 weeks", DateUploaded = "Sept 2023", Description = "Course 2 description 100000000000000000000", ImageUrl = "~/Images/Media.png" },
                 new Course { CourseTitle = "Course 3", Theme = "Special Topics", Duration = "10-11 weeks", DateUploaded = "Nov 2023", Description = "Course 1 description", ImageUrl = "~/Images/Media.png" },
                 new Course { CourseTitle = "Course 4", Theme = "Biblical Theology", Duration = "10-11 weeks", DateUploaded = "Dec 2023", Description = "Course 1 description", ImageUrl = "~/Images/Media.png" },
                 

@@ -1069,7 +1069,6 @@ input:checked + .slider {
 }
 
 
-
 .filter-list-item {
     display: flex;
     align-items: center;
@@ -1140,14 +1139,26 @@ input:checked + .slider {
 }
 
 .course-card {
-    width: 100%;
+    
     max-width: 300px;
+    display: flex;
+    flex-direction: column;
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 5px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+
+.course-description {
+    display: block;
+    max-width: 160px; /* Keeps text within card boundaries */
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Hides overflow text */
+    text-overflow: ellipsis; /* Adds "..." for overflow text */
+}
+
 
 .course-title {
     font-size: 1.2em;
@@ -1167,8 +1178,8 @@ input:checked + .slider {
 }
 
 .course-duration,
-.course-date,
-.course-description {
+.course-date/*,
+.course-description*/ {
     margin: 5px 0;
     font-size: 0.85em;
     color: #333;
