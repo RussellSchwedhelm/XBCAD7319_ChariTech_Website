@@ -23,14 +23,6 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-
-                <div class="setting-option">
-                    <asp:Label ID="lblVolume" runat="server" Text="Volume"></asp:Label>
-                    <br />
-                    <input type="range" id="volume" name="volume" min="0" max="100" runat="server" />
-                    <small>Volume Intensity</small>
-                </div>
-
                 
 
                 <div style="text-align: center;">
