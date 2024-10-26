@@ -60,33 +60,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl volume;
 
         /// <summary>
-        /// lblButtonClickSound control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblButtonClickSound;
-
-        /// <summary>
-        /// chcButtonSoundHidden control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField chcButtonSoundHidden;
-
-        /// <summary>
-        /// chkButtonClickSoundCustom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkButtonClickSoundCustom;
-
-        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>

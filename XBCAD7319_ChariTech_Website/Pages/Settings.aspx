@@ -31,15 +31,7 @@
                     <small>Volume Intensity</small>
                 </div>
 
-                <asp:Label ID="lblButtonClickSound" runat="server" Text="Button Click Sound"></asp:Label>
-                <div class="setting-option" style="display: flex; align-items: center;">
-                    <small>Make Clicking Sounds When Buttons Are Clicked</small>
-                    <asp:HiddenField ID="chcButtonSoundHidden" runat="server" />
-                    <label class="switch" style="margin-left:auto">
-                        <input type="checkbox" id="chkButtonClickSoundCustom" runat="server" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
+                
 
                 <div style="text-align: center;">
                     <h3>Notifications</h3>
