@@ -27,22 +27,23 @@
 
         <!-- Prayer Request Review Section -->
         <div class="section prayer-requests-review item-wrap">
-            <h3 class="headings">Prayer Request Review<br> 01-01-2024</h3>
-            <ul class="prayer-requests-list">
-                <li>Emily Johnson <i class="fa fa-times-circle"></i></li>
-                <li>Michael Smith <i class="fa fa-check-circle"></i></li>
-                <li>Olivia Brown <i class="fa fa-times-circle"></i></li>
-                <li>Benjamin Davis <i class="fa fa-check-circle"></i></li>
-                <li>Sophia Martinez <i class="fa fa-check-circle"></i></li>
-                <li>Jacob Wilson <i class="fa fa-check-circle"></i></li>
-                <li>Isabella Thompson <i class="fa fa-check-circle"></i></li>
-                <li>Ethan Garcia <i class="fa fa-times-circle"></i></li>
-            </ul>
+            <h3 class="headings">Prayer Request Review - <asp:Label ID="TodayDateLabel" runat="server"></asp:Label></h3>
+            <asp:Repeater ID="PrayerRequestsRepeater" runat="server">
+                <ItemTemplate>
+                    <div class="prayer-request-item">
+                        <asp:HiddenField ID="PrayerRequestId" runat="server" Value='<%# Eval("RequestID") %>' />
+                        <label>
+                            <%# Eval("PrayerTarget") %>
+                            <asp:CheckBox ID="ApprovalCheckBox" runat="server" Checked='<%# Eval("Approved") %>' />
+                        </label>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
             <div class="buttons-group">
-                <button>Accept Changes</button>
-                <button>Revert Changes</button>
+                <asp:Button ID="SavePrayerRequestChangesButton" runat="server" Text="Accept Changes" OnClick="SavePrayerRequestChangesButton_Click" />
             </div>
         </div>
+
 
         <!-- Exhortation Upload Section -->
         <asp:Panel ID="exhortationPanel" runat="server" CssClass="dashboard-stack">

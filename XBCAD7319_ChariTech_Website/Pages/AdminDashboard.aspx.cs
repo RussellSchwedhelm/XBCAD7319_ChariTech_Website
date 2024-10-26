@@ -19,6 +19,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
     public partial class AdminDashboard : Page
     {
         private NextSundayManager nextSundayManager = new NextSundayManager();
+        private readonly PrayerRequestManager prayerRequestManager = new PrayerRequestManager();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -29,6 +31,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     Response.Redirect("Login.aspx");
                 }
                 LoadDonations();
+                TodayDateLabel.Text = DateTime.Now.ToString("MM-dd-yyyy");
+                LoadPrayerRequests();
 
                 // Calculate the upcoming Sunday
                 DateTime today = DateTime.Today;
@@ -388,6 +392,33 @@ namespace XBCAD7319_ChariTech_Website.Pages
             OnTheDoorName.Text = sundayInfo?.OnTheDoor ?? "";
         }
 
+        // Load prayer requests with approval status
+        private void LoadPrayerRequests()
+        {
+            var prayerRequests = prayerRequestManager.GetAllPrayerRequests();
+            PrayerRequestsRepeater.DataSource = prayerRequests;
+            PrayerRequestsRepeater.DataBind();
+        }
+
+        // Save changes to prayer request approval status
+        protected void SavePrayerRequestChangesButton_Click(object sender, EventArgs e)
+        {
+            foreach (RepeaterItem item in PrayerRequestsRepeater.Items)
+            {
+                var approvalCheckBox = (CheckBox)item.FindControl("ApprovalCheckBox");
+                var prayerRequestIdHiddenField = (HiddenField)item.FindControl("PrayerRequestId");
+
+                // Retrieve the RequestID and the Approval status
+                int prayerRequestId = int.Parse(prayerRequestIdHiddenField.Value);
+                bool isApproved = approvalCheckBox.Checked;
+
+                // Update approval status in the database
+                prayerRequestManager.UpdatePrayerRequestApprovalStatus(prayerRequestId, isApproved);
+            }
+
+            // Refresh the list to reflect changes
+            LoadPrayerRequests();
+        }
 
     }
     public class SundayInfo

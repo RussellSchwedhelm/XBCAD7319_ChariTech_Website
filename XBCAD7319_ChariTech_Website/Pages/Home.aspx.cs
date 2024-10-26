@@ -18,9 +18,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         private readonly NewsletterManager newsletterManager = new NewsletterManager();
         private readonly ExhortationManager exhortationManager = new ExhortationManager();
         private readonly NextSundayManager nextSundayManager = new NextSundayManager();
-
-        // Temporary list for prayer requests
-        private List<string> temp;
+        private readonly PrayerRequestManager prayerRequestManager = new PrayerRequestManager();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,11 +30,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             if (!IsPostBack)
             {
-                PopulateNames();
                 LoadDonations();
                 LoadNewsletters();
                 LoadExhortations();
                 LoadNextSundayDetails();
+                LoadPrayerRequests();
+
+                TodayDateLabel.Text = DateTime.Now.ToString("MM-dd-yyyy");
             }
         }
 
@@ -134,25 +134,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.End();
             }
         }
-
-        // Populate names for the prayer requests section with a temporary list
-        private void PopulateNames()
-        {
-            temp = new List<string>
-            {
-                "Emily Johnson",
-                "Michael Smith",
-                "Olivia Brown",
-                "Benjamin Davis",
-                "Sophia Martinez",
-                "Jacob Wilson",
-                "Isabella Thompson",
-                "Ethan Garcia"
-            };
-
-            PrayerRequestsRepeater.DataSource = temp;
-            PrayerRequestsRepeater.DataBind();
-        }
         // Load details for the upcoming Sunday or current Sunday if today is Sunday
         private void LoadNextSundayDetails()
         {
@@ -235,6 +216,28 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Flush();
                 Response.End();
             }
+        }
+
+        // Method to load prayer requests using PrayerRequestManager
+        private void LoadPrayerRequests()
+        {
+            List<PrayerRequest> prayerRequests = prayerRequestManager.GetApprovedPrayerRequests();
+            PrayerRequestsRepeater.DataSource = prayerRequests;
+            PrayerRequestsRepeater.DataBind();
+        }
+
+        // Method to handle submission of a new prayer request
+        protected void SubmitPrayerRequestButton_Click(object sender, EventArgs e)
+        {
+            UserManager userManager = new UserManager();
+            int userId = userManager.GetUserIdByEmail(Session["UserEmail"].ToString());
+            string prayerTarget = PrayerTargetTextBox.Text;
+
+            // Submit the prayer request using PrayerRequestManager
+            prayerRequestManager.SubmitPrayerRequest(userId, prayerTarget);
+
+            // Refresh the prayer request list
+            LoadPrayerRequests();
         }
     }
 }
