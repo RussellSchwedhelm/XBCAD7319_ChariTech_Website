@@ -356,12 +356,12 @@
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\LoginExternal.aspx" />
     <Content Include="Pages\Register.aspx" />
-    <Content Include="Pages\Settings.aspx" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Pages\UserSettings.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -564,12 +564,12 @@
     <Compile Include="Pages\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings.aspx.cs">
-      <DependentUpon>Settings.aspx</DependentUpon>
+    <Compile Include="Pages\UserSettings.aspx.cs">
+      <DependentUpon>UserSettings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Settings.aspx.designer.cs">
-      <DependentUpon>Settings.aspx</DependentUpon>
+    <Compile Include="Pages\UserSettings.aspx.designer.cs">
+      <DependentUpon>UserSettings.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site Masters\Site.LogReg.Master.cs">

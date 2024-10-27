@@ -1,5 +1,4 @@
-﻿<%@ Page Title="Settings" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="Settings.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Settings" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="UserSettings.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.UserSettings" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
 

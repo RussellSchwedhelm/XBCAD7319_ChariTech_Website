@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using XBCAD7319_ChariTech_Website.Classes;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
-    public partial class Settings : System.Web.UI.Page
+    public partial class UserSettings : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -13,6 +18,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 LoadUserPreferences();
             }
         }
+
+
 
         // Event handler for the Save button
         protected void btnSaveSettings_Click(object sender, EventArgs e)
