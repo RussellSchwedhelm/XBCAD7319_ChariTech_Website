@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI.WebControls;
 using XBCAD7319_ChariTech_Website.Classes;
 
@@ -238,6 +241,59 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             // Refresh the prayer request list
             LoadPrayerRequests();
+        }
+
+        // Web method to fetch exhortation audio in memory
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = true)]
+        public static byte[] GetExhortationAudio(int exhortationId)
+        {
+            ExhortationManager exhortationManager = new ExhortationManager();
+            byte[] audioData = exhortationManager.GetExhortationAudio(exhortationId);
+            return audioData;
+        }
+        protected void PlayExhortation(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            int exhortationId = int.Parse(button.CommandArgument);
+
+            // Retrieve audio data for the specified exhortation
+            byte[] audioData = exhortationManager.GetExhortationAudio(exhortationId);
+
+            if (audioData != null && audioData.Length > 0)
+            {
+                try
+                {
+                    // Define the file path for the temporary audio file
+                    string tempFileName = $"exhortation_{exhortationId}.mp3";
+                    string tempFilePath = Server.MapPath("~/TempAudio/" + tempFileName);
+
+                    // Ensure TempAudio folder exists
+                    string tempDirectory = Server.MapPath("~/TempAudio/");
+                    if (!Directory.Exists(tempDirectory))
+                    {
+                        Directory.CreateDirectory(tempDirectory);
+                    }
+
+                    // Save the audio file temporarily
+                    File.WriteAllBytes(tempFilePath, audioData);
+
+                    // Redirect to the temporary file so it can be played directly
+                    Response.Redirect("~/TempAudio/" + tempFileName, false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                }
+                catch (Exception ex)
+                {
+                    // Log the error if needed and show an error message
+                    System.Diagnostics.Debug.WriteLine("Error saving or redirecting to audio file: " + ex.Message);
+                    Response.Write("<script>alert('There was an issue playing the audio. Please try again.');</script>");
+                }
+            }
+            else
+            {
+                // Handle the case where audio data is null or empty
+                Response.Write("<script>alert('Audio file not found or is empty.');</script>");
+            }
         }
     }
 }

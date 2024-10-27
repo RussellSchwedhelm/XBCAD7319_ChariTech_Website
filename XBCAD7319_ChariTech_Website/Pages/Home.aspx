@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Home" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.Home" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <!-- Main Container -->
@@ -16,8 +17,8 @@
                                 <p>Speaker: <%# Eval("Speaker") %></p>
                             </div>
                             <a class="details-link" href="#">Details ></a>
-                            <!-- Play/Pause button -->
-                            <button id="playButton_<%# Eval("ExhortationID") %>" class="play-button" onclick="togglePlayPause('<%# Eval("ExhortationID") %>')">▶</button>
+                            <!-- Play button with server-side click event -->
+                            <asp:Button ID="PlayButton" runat="server" Text="▶" CommandArgument='<%# Eval("ExhortationID") %>' OnClick="PlayExhortation" CssClass="play-button" />
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -50,16 +51,26 @@
             <div class="section">
                 <asp:Label ID="nextSundayTitle" runat="server" CssClass="headings" Text="Next Sunday"></asp:Label>
                 <div class="content next-sunday">
-                    <p><strong>Presiding:</strong> <asp:Label ID="PresidingLabel" runat="server" Text="TBD"></asp:Label></p>
-                    <p><strong>Exhortation:</strong> <asp:Label ID="ExhortationLabel" runat="server" Text="TBD"></asp:Label></p>
-                    <p><strong>On The Door:</strong> <asp:Label ID="OnTheDoorLabel" runat="server" Text="TBD"></asp:Label></p>
+                    <p>
+                        <strong>Presiding:</strong>
+                        <asp:Label ID="PresidingLabel" runat="server" Text="TBD"></asp:Label>
+                    </p>
+                    <p>
+                        <strong>Exhortation:</strong>
+                        <asp:Label ID="ExhortationLabel" runat="server" Text="TBD"></asp:Label>
+                    </p>
+                    <p>
+                        <strong>On The Door:</strong>
+                        <asp:Label ID="OnTheDoorLabel" runat="server" Text="TBD"></asp:Label>
+                    </p>
                     <asp:Button ID="ViewScheduleButton" runat="server" Text="View Schedule" OnClick="ViewScheduleButton_Click" />
                 </div>
             </div>
 
             <!-- Prayer Requests Section -->
             <div class="section">
-                <h5 class="headings">Prayer Requests - <asp:Label ID="TodayDateLabel" runat="server"></asp:Label></h5>
+                <h5 class="headings">Prayer Requests -
+                    <asp:Label ID="TodayDateLabel" runat="server"></asp:Label></h5>
                 <div class="prayer-requests-home prayer-requests">
                     <asp:Repeater ID="PrayerRequestsRepeater" runat="server">
                         <ItemTemplate>
@@ -70,12 +81,11 @@
                 <button id="submitPrayerRequestBtn" type="button" onclick="togglePrayerRequestPopup()">Submit Prayer Request</button>
             </div>
 
-
             <!-- Online Donations Section -->
             <div class="section">
                 <h5 class="headings">Donations</h5>
                 <div class="donations">
-                    <div class="donation-grid" style="width:100%;">
+                    <div class="donation-grid" style="width: 100%;">
                         <!-- Blue Bag -->
                         <div>
                             <asp:Label ID="BlueBagLabel" runat="server" Text="Blue Bag - General"></asp:Label>
@@ -111,7 +121,6 @@
 
         </div>
     </div>
-
     <!-- Script to open PDF in a new window -->
     <script type="text/javascript">
         function openPdf(newsletterId) {
@@ -121,55 +130,58 @@
     </script>
 
     <script type="text/javascript">
-        // Global variables to track the currently playing audio and its ID
-        var currentAudio = null;
+        var currentPlayer = null;
         var currentExhortationId = null;
 
-        // Function to toggle between play and pause
-        function togglePlayPause(exhortationId) {
-            var playButton = document.getElementById("playButton_" + exhortationId);
+       function togglePlayPause(exhortationId) {
+    const playButton = document.getElementById("playButton_" + exhortationId);
 
-            // If the same exhortation is playing, toggle between play and pause
-            if (currentExhortationId === exhortationId && currentAudio !== null) {
-                if (currentAudio.paused) {
-                    currentAudio.play();
-                    playButton.innerHTML = "❚❚";  // Change to pause icon
-                } else {
-                    currentAudio.pause();
-                    playButton.innerHTML = "▶";  // Change to play icon
-                }
-            } else {
-                // Pause any currently playing audio
-                if (currentAudio !== null) {
-                    currentAudio.pause();
-                    var previousButton = document.getElementById("playButton_" + currentExhortationId);
-                    if (previousButton) {
-                        previousButton.innerHTML = "▶";  // Reset the previous button to play icon
-                    }
-                }
-
-                // Play the new exhortation
-                currentExhortationId = exhortationId;
-                currentAudio = new Audio("DownloadExhortation.aspx?id=" + exhortationId);
-
-                // Add an event listener to start playing only when the audio is ready
-                currentAudio.addEventListener('canplaythrough', function () {
-                    currentAudio.play();
-                    playButton.innerHTML = "❚❚";  // Change to pause icon
-                });
-
-                // Handle the case when the audio ends
-                currentAudio.onended = function () {
-                    playButton.innerHTML = "▶";  // Reset button to play icon when audio ends
-                    currentAudio = null;
-                    currentExhortationId = null;
-                };
-            }
+    if (currentExhortationId === exhortationId && currentPlayer) {
+        // Toggle play/pause if the same exhortation is clicked
+        if (currentPlayer.paused) {
+            currentPlayer.play();
+            playButton.innerHTML = "❚❚";
+        } else {
+            currentPlayer.pause();
+            playButton.innerHTML = "▶";
         }
+    } else {
+        // Stop the current player if a new exhortation is clicked
+        if (currentPlayer) {
+            currentPlayer.pause();
+            document.getElementById("playButton_" + currentExhortationId).innerHTML = "▶";
+        }
+
+        // Fetch audio data through AJAX
+        fetch(/Pages/Home.aspx/GetExhortationAudio?exhortationId=${exhortationId}, {
+            method: 'GET'
+        })
+        .then(response => response.arrayBuffer())
+        .then(audioBuffer => {
+            const audioBlob = new Blob([audioBuffer], { type: "audio/mpeg" });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            currentPlayer = new Audio(audioUrl);
+
+            currentExhortationId = exhortationId;
+            
+            // Start playing the new audio file and update UI
+            currentPlayer.play().then(() => {
+                playButton.innerHTML = "❚❚";
+            }).catch(error => {
+                alert("Audio playback failed. Please try again.");
+                playButton.innerHTML = "▶";
+            });
+        })
+        .catch(error => {
+            alert("There was an error loading the audio. Please try again later.");
+        });
+    }
+}
+
     </script>
 
     <!-- Popup for submitting prayer request -->
-    <div id="prayerRequestPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background-color:white; padding:20px; border:1px solid #ccc;">
+    <div id="prayerRequestPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc;">
         <h4>Submit Prayer Request</h4>
         <asp:TextBox ID="PrayerTargetTextBox" runat="server" Placeholder="Prayer Target" />
         <asp:Button ID="SubmitPrayerRequestButton" runat="server" Text="Submit" OnClick="SubmitPrayerRequestButton_Click" />
@@ -182,5 +194,4 @@
             popup.style.display = popup.style.display === "none" ? "block" : "none";
         }
     </script>
-
 </asp:Content>

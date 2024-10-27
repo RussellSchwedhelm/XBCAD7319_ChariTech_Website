@@ -307,19 +307,18 @@ footer {
 
 
 
-/* Audio Player Section */
 .audio-player {
-    display: inline-block; /* Scales to width and height of contents */
-    padding: 10px; /* Padding around the contents */
-    width: fit-content; /* Adjusts to content width */
-    height: fit-content; /* Adjusts to content height */
-    margin: 0 auto;
-    background-color: #BBBBBD;
-    border-radius: 20px;
-    box-shadow: 0 calc(4px * var(--scale-factor)) calc(6px * var(--scale-factor)) rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Includes padding within dimensions */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
+.details-link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 
 
@@ -465,7 +464,7 @@ li {
     color: white;
     border: 0px;
     height: 100%; /* Make the height 100% of the parent container */
-    aspect-ratio: 1 / 1; /* This ensures the width equals the height */
+    width: 3.6rem;
     border-radius: 0 0.375rem 0.375rem 0; /* Apply radius only to the top-right and bottom-right */
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -1200,30 +1199,6 @@ input:checked + .slider {
         background-color: #0056b3;
     }
 
-
-
-
-
-.loading-icon {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    border: 2px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 2px solid #3498db;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 /* Additional styling */
 .donation-input {
     width: 60px;
@@ -1377,4 +1352,33 @@ input:checked + .slider {
 
 .dark-mode h3 {
     color: #f5f5f5;
+}
+}
+
+.audio-controls {
+    display: block;
+    width: 100%; /* Ensure it doesn't expand beyond the section */
+    max-width: 300px; /* Set a max-width to prevent taking the full width */
+    margin: 0 auto; /* Center align within the section */
+}
+
+audio {
+    width: 100%; /* Make the audio element fit its container */
+    max-width: 100%;
+}
+
+.spinner {
+    font-size: 20px;
+    color: gray;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
