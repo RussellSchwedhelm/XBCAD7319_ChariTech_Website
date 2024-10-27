@@ -464,6 +464,7 @@
     <Compile Include="Classes\ChatGPTManager.cs" />
     <Compile Include="Classes\ContactManager.cs" />
     <Compile Include="Classes\CourseClass.cs" />
+    <Compile Include="Classes\CourseManager.cs" />
     <Compile Include="Classes\Exhortation.cs" />
     <Compile Include="Classes\DonationManager.cs" />
     <Compile Include="Classes\ExhortationManager.cs" />

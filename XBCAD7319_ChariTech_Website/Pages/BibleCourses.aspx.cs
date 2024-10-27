@@ -61,47 +61,38 @@ namespace XBCAD7319_ChariTech_Website.Pages
             };
         }
 
-        
-        
+
+
         private void BindCourses()
         {
-            // Example data source: A list of courses (could come from a database)
-            List<CourseClass> courses = new List<CourseClass>()
+            CourseManager courseManager = new CourseManager();
+            List<CourseClass> courses = courseManager.GetAllCourses();
+
+            foreach (var course in courses)
             {
-                new CourseClass { CourseTitle = "Course 1", Theme = "New Believers", Duration = "10-11 weeks", DateUploaded = "Oct 2023", Description = "Course 1 description", ImageUrl = "~/Images/Media.png", PdfFileUrl="~/Content/CoursePdfs/FinanceTextbook.pdf" },
-                new CourseClass { CourseTitle = "Course 2", Theme = "Old Testament", Duration = "6-8 weeks", DateUploaded = "Sept 2023", Description = "Course 2 description 100000000000000000000", ImageUrl = "~/Images/Media.png",PdfFileUrl="~/Content/CoursePdfs/FinanceTextbook.pdf" },
-                new CourseClass { CourseTitle = "Course 3", Theme = "Special Topics", Duration = "10-11 weeks", DateUploaded = "Nov 2023", Description = "Course 1 description", ImageUrl = "~/Images/Media.png",PdfFileUrl="~/Content/CoursePdfs/FinanceTextbook.pdf" },
-                new CourseClass { CourseTitle = "Course 4", Theme = "Biblical Theology", Duration = "10-11 weeks", DateUploaded = "Dec 2023", Description = "Course 1 description", ImageUrl = "~/Images/Media.png", PdfFileUrl="~/Content/CoursePdfs/FinanceTextbook.pdf" },
-                
-                
-                // Add more courses here
-            };
+                // Save PDF and get URL
+                course.PdfFileUrl = courseManager.SavePdfFromByteArray(course.PdfFileContent, course.CourseTitle.Replace(" ", "_"));
+            }
+
 
             dlCourses.DataSource = courses;
             dlCourses.DataBind();
         }
 
 
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            //To be finished later
         }
 
 
    }
 
-
-    //temporary testing class
-
+    //For Filter UI
     public class ItemOption
     {
         public string IconUrl { get; set; }  // URL to the icon image
         public string Text { get; set; }      // Display text for the option
     }
-
-
-
-
-
-
-
 }

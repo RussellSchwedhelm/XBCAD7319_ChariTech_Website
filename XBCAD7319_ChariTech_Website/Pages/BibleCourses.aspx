@@ -28,7 +28,7 @@
                 <asp:Label ID="lblTheme" runat="server" Text='<%# Eval("Theme") %>' CssClass="course-theme"></asp:Label>
             </div>
             <div class="course-body">
-                <asp:Image ID="imgThumbnail" runat="server" CssClass="course-image" ImageUrl='<%# Eval("ImageUrl") %>' />
+                <asp:Image ID="imgThumbnail" runat="server" CssClass="course-image" ImageUrl='<%# ResolveUrl("~/Images/Media.png") %>' />
             </div>
             <div class="course-footer">
                 <asp:Label ID="lblTimeToComplete" runat="server" Text='<%# Eval("Duration") %>' CssClass="course-duration"></asp:Label>
@@ -42,6 +42,7 @@
                     CssClass="course-open-btn" 
                     CommandArgument='<%# Eval("PdfFileUrl") %>' 
                     OnClientClick='<%# "openPdfInNewTab(\"" + ResolveUrl(Eval("PdfFileUrl").ToString()) + "\"); return false;" %>' />
+
 
     </div>
             </div>
@@ -84,6 +85,7 @@
             }
         }
     </script>
+
 
 
 </asp:Content>

@@ -34,12 +34,16 @@
 
 
             <!-- File Upload Field -->
-            <asp:Label AssociatedControlID="FileUpload1" runat="server" Text="Upload Pdf"></asp:Label>
-            <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-input" style="background-color: #ffffff" />
+            <asp:Label AssociatedControlID="FileUpload1" runat="server" Text="Upload PDF"></asp:Label>
+            <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-input" style="background-color: #ffffff" 
+                accept="application/pdf"/>
+
             
 
+
             <asp:Label AssociatedControlID="TextBoxCompletionTime" runat="server" Text="Estimated Completion Time"></asp:Label>
-            <asp:TextBox ID="TextBoxCompletionTime" runat="server" CssClass="form-input" Placeholder="10 - 11 Weeks"></asp:TextBox>
+            <asp:TextBox ID="TextBoxCompletionTime" runat="server" CssClass="form-input" 
+                Placeholder="10 - 11 Weeks"></asp:TextBox>
 
             <!-- Buttons -->
             <div class="button-group">
