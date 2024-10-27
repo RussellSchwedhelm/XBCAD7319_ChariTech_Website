@@ -26,9 +26,10 @@ namespace XBCAD7319_ChariTech_Website.Pages
         {
             TextBoxCourseTitle.Text = string.Empty;
             TextBoxDescription.Text = string.Empty;
-            TextBoxTheme.Text = string.Empty;
+            
+            ddlTheme.SelectedValue= string.Empty;
             TextBoxCompletionTime.Text = string.Empty;
-            FileUploadCoverImage.Attributes.Clear();
+            FileUpload1.Attributes.Clear();
         }
 
         protected void ButtonConfirm_Click(object sender, EventArgs e)
@@ -36,12 +37,12 @@ namespace XBCAD7319_ChariTech_Website.Pages
             // Code to handle form submission, e.g., saving to database
             string courseTitle = TextBoxCourseTitle.Text;
             string description = TextBoxDescription.Text;
-            string theme = TextBoxTheme.Text;
+            string theme = ddlTheme.SelectedValue;
             string completionTime = TextBoxCompletionTime.Text;
 
-            if (FileUploadCoverImage.HasFile)
+            if (FileUpload1.HasFile)
             {
-                string fileName = FileUploadCoverImage.FileName;
+                string fileName = FileUpload1.FileName;
                 // Save the file, handle errors, etc.
             }
 
