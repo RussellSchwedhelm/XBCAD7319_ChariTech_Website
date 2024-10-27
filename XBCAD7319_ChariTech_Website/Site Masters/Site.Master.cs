@@ -78,6 +78,10 @@ namespace XBCAD7319_ChariTech_Website
                 }
             }
         }
+        protected void ProfilePicture_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/UserSettings.aspx");
+        }
 
         protected void ClearNotifications(object sender, EventArgs e)
         {
