@@ -331,6 +331,7 @@
     <Content Include="Images\ChurchLogo.png" />
     <Content Include="Images\default_profile.png" />
     <Content Include="Images\Edit.png" />
+    <Content Include="Images\Image.png" />
     <Content Include="Images\Media.png" />
     <Content Include="Images\notification.png" />
     <Content Include="Images\notification_read.png" />
