@@ -31,8 +31,6 @@
                                 CommandArgument='<%# Eval("ExhortationID") %>'
                                 Text="▶" CssClass="play-button"
                                 data-exhortationid='<%# Eval("ExhortationID") %>' />
-
-
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
