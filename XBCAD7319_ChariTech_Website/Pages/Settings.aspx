@@ -23,23 +23,7 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-
-                <div class="setting-option">
-                    <asp:Label ID="lblVolume" runat="server" Text="Volume"></asp:Label>
-                    <br />
-                    <input type="range" id="volume" name="volume" min="0" max="100" runat="server" />
-                    <small>Volume Intensity</small>
-                </div>
-
-                <asp:Label ID="lblButtonClickSound" runat="server" Text="Button Click Sound"></asp:Label>
-                <div class="setting-option" style="display: flex; align-items: center;">
-                    <small>Make Clicking Sounds When Buttons Are Clicked</small>
-                    <asp:HiddenField ID="chcButtonSoundHidden" runat="server" />
-                    <label class="switch" style="margin-left:auto">
-                        <input type="checkbox" id="chkButtonClickSoundCustom" runat="server" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
+                
 
                 <div style="text-align: center;">
                     <h3>Notifications</h3>
@@ -65,11 +49,22 @@
                     </label>
                 </div>
 
-                <!-- Add Save Button -->
+              <asp:Label ID="lblEmailUpdates" runat="server" Text="Email Updates"></asp:Label>
+            <div class="setting-option" style="display: flex; align-items: center;">
+                <small>Switch on/off Email Update Notifications</small>
+                <asp:HiddenField ID="chkEmailNotification" runat="server" />
+                <label class="switch" style="margin-left:auto">
+                    <input type="checkbox" id="chkEmailUpdates" runat="server" />
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+                
                 <div style="text-align: center; margin-top: 20px;">
                     <asp:Button ID="btnSaveSettings" runat="server" Text="Save Settings" CssClass="btn btn-success" OnClick="btnSaveSettings_Click" />
                 </div>
             </div>
+            <!-- ----------------------------------------------------------------------------- -->
 
             <!-- Right Account Panel -->
             <div class="settings-right">
@@ -92,10 +87,6 @@
                             <asp:TextBox ID="txtSurname" runat="server" ReadOnly="true" style="background-color: transparent; border: none; color: #BBBBBD; padding: 5px; border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
                         </div>
 
-                        <div style="display: flex; align-items: center;">
-                            <asp:Label ID="lblPassword" runat="server" Text="Password" style="padding:10px;"></asp:Label>
-                            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" ReadOnly="true" style="background-color: transparent; border: none; color: #BBBBBD; padding: 5px; border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
-                        </div>
 
                         <div style="display: flex; align-items: center;">
                             <asp:Label ID="lblEcclesia" runat="server" Text="Ecclesia" style="padding:10px;"></asp:Label>
@@ -106,6 +97,7 @@
                         </div>
                     </div>
 
+                    <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" CssClass="btn btn-secondary" />
                     <asp:Button ID="btnLogout" runat="server" Text="Log Out" CssClass="btn btn-primary" />
                     <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" CssClass="btn btn-secondary" />
                     <asp:Button ID="btnUpdateEmail" runat="server" Text="Update Your Email" CssClass="btn btn-secondary" />
