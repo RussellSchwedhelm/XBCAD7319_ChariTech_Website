@@ -80,7 +80,14 @@
                     data-toggle="modal" data-target="#notificationModal"
                 />
                 <span class="username ml-3">Username</span>
-                <img src="path_to_user_profile_picture.jpg" alt="(DP)" class="profile-picture ml-2" />
+                <!-- Profile Picture -->
+                <asp:Image 
+                    ID="ProfilePicture" 
+                    runat="server" 
+                    CssClass="profile-picture ml-2" 
+                    style="width:3rem; height:3rem; border-radius:50%;" 
+                    AlternateText="User Profile Picture" 
+                />
             </div>
         </nav>
 

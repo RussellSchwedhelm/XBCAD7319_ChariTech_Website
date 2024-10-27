@@ -43,5 +43,22 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return usersTable;
         }
+
+        public byte[] GetProfilePictureByEmail(string email)
+        {
+            byte[] profilePicture = null;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT ProfilePicture FROM Users WHERE Email = @Email";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    profilePicture = cmd.ExecuteScalar() as byte[];
+                }
+            }
+            return profilePicture;
+        }
+
     }
 }
