@@ -15,7 +15,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
         public byte[] PdfFileContent { get; set; }
 
-        public string PdfFileUrl = "";
+        public string PdfFileUrl { get; set; }
 
 
 
