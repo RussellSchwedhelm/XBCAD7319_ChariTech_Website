@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using XBCAD7319_ChariTech_Website.Classes;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
@@ -34,19 +36,72 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
         protected void ButtonConfirm_Click(object sender, EventArgs e)
         {
-            // Code to handle form submission, e.g., saving to database
-            string courseTitle = TextBoxCourseTitle.Text;
-            string description = TextBoxDescription.Text;
-            string theme = ddlTheme.SelectedValue;
-            string completionTime = TextBoxCompletionTime.Text;
+
 
             if (FileUpload1.HasFile)
             {
-                string fileName = FileUpload1.FileName;
-                // Save the file, handle errors, etc.
-            }
+                string fileExtension = System.IO.Path.GetExtension(FileUpload1.FileName).ToLower();
 
-            // Perform additional operations like saving to database, showing success message, etc.
+                // Check if the uploaded file is a PDF
+                if (fileExtension == ".pdf")
+                {
+                    // Gather input values
+                    string courseTitle = TextBoxCourseTitle.Text.Trim();
+                    string description = TextBoxDescription.Text.Trim();
+                    string theme = ddlTheme.SelectedValue;
+                    string completionTime = TextBoxCompletionTime.Text.Trim();
+
+                    // Check for empty fields
+                    if (string.IsNullOrEmpty(courseTitle) ||
+                        string.IsNullOrEmpty(description) ||
+                        string.IsNullOrEmpty(theme) ||
+                        string.IsNullOrEmpty(completionTime) ||
+                        !FileUpload1.HasFile)
+                    {
+                        // Display an error message 
+                        Response.Write("<script>alert('Please fill in all fields and upload a PDF.');</script>");
+                        return; // Exit the method
+                    }
+
+                    // Convert PDF file to byte array
+                    byte[] pdfBytes;
+                    using (var binaryReader = new BinaryReader(FileUpload1.PostedFile.InputStream))
+                    {
+                        pdfBytes = binaryReader.ReadBytes(FileUpload1.PostedFile.ContentLength);
+                    }
+
+                    // Create a CourseClass object
+                    CourseClass newCourse = new CourseClass
+                    {
+                        CourseTitle = courseTitle,
+                        Theme = theme,
+                        Duration = completionTime,
+                        DateUploaded = DateTime.Now.ToString("yyyy-MM-dd"), // Or use a DateTime property if necessary
+                        Description = description,
+                        //PdfFileUrl = null
+                        PdfFileContent = pdfBytes 
+                    };
+
+                    // Save the course to the database
+                    CourseManager courseManagerHere = new CourseManager();
+                    bool isSuccess = courseManagerHere.SaveCourse(newCourse);
+
+                    if (isSuccess)
+                    {
+                        // Display a success message
+                        Response.Write("<script>alert('Course sucessfully uploaded!');</script>");
+                    }
+                    else
+                    {
+                        // Display an error message
+                        Response.Write("<script>alert('Error Uploading course.');</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("Please upload a valid PDF file.");
+                }
+            }          
         }
     }
 }
