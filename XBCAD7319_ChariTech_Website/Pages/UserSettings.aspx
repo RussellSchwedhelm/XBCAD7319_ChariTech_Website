@@ -28,35 +28,40 @@
                     <h3>Notifications</h3>
                 </div>
 
-                <asp:Label ID="Label1" runat="server" Text="Bible Basics"></asp:Label>
-                <div class="setting-option" style="display: flex; align-items: center;">
-                    <small>Switch on/off Bible Basic Notifications</small>
-                    <asp:HiddenField ID="chkBibleBasicsHidden" runat="server" />
-                    <label class="switch" style="margin-left:auto">
-                        <input type="checkbox" id="chkBibleBasicsCustom" runat="server" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
+<!-- Bible Basics -->
+<asp:Label ID="Label1" runat="server" Text="Bible Basics" style="color: #888;"></asp:Label>
+<div class="setting-option" style="display: flex; align-items: center;">
+    <small style="color: #888;">Switch on/off Bible Basic Notifications</small>
+    <asp:HiddenField ID="chkBibleBasicsHidden" runat="server" />
+    <label class="switch" style="margin-left:auto">
+        <input type="checkbox" id="chkBibleBasicsCustom" runat="server" disabled />
+        <span class="slider" style="background-color: #ccc;"></span>
+    </label>
+</div>
 
-                <asp:Label ID="lblResponsibilityUpdates" runat="server" Text="Responsibility Updates"></asp:Label>
-                <div class="setting-option" style="display: flex; align-items: center;">
-                    <small>Switch on/off Responsibility Update Notifications</small>
-                    <asp:HiddenField ID="chkResponsibilityHidden" runat="server" />
-                    <label class="switch" style="margin-left:auto">
-                        <input type="checkbox" id="chkResponsibiltyUpdatesCustom" runat="server" />
-                        <span class="slider"></span>
-                    </label>
-                </div>
+<!-- Responsibility Updates -->
+<asp:Label ID="lblResponsibilityUpdates" runat="server" Text="Responsibility Updates" style="color: #888;"></asp:Label>
+<div class="setting-option" style="display: flex; align-items: center;">
+    <small style="color: #888;">Switch on/off Responsibility Update Notifications</small>
+    <asp:HiddenField ID="chkResponsibilityHidden" runat="server" />
+    <label class="switch" style="margin-left:auto">
+        <input type="checkbox" id="chkResponsibiltyUpdatesCustom" runat="server" disabled />
+        <span class="slider" style="background-color: #ccc;"></span>
+    </label>
+</div>
 
-              <asp:Label ID="lblEmailUpdates" runat="server" Text="Email Updates"></asp:Label>
-            <div class="setting-option" style="display: flex; align-items: center;">
-                <small>Switch on/off Email Update Notifications</small>
-                <asp:HiddenField ID="chkEmailNotification" runat="server" />
-                <label class="switch" style="margin-left:auto">
-                    <input type="checkbox" id="chkEmailUpdates" runat="server" />
-                    <span class="slider"></span>
-                </label>
-            </div>
+<!-- Email Updates -->
+<asp:Label ID="lblEmailUpdates" runat="server" Text="Email Updates" style="color: #888;"></asp:Label>
+<div class="setting-option" style="display: flex; align-items: center;">
+    <small style="color: #888;">Switch on/off Email Update Notifications</small>
+    <asp:HiddenField ID="chkEmailNotification" runat="server" />
+    <label class="switch" style="margin-left:auto">
+        <input type="checkbox" id="chkEmailUpdates" runat="server" disabled />
+        <span class="slider" style="background-color: #ccc;"></span>
+    </label>
+</div>
+
+
 
                 
                 <div style="text-align: center; margin-top: 20px;">
@@ -68,7 +73,8 @@
             <!-- Right Account Panel -->
             <div class="settings-right">
                 <div class="account-info">
-                    <img src="~/Images/ProfilePic.png" alt="Profile Picture" class="profile-pic" />
+                    <img id="userProfilePic" runat="server" alt="Profile Picture" class="profile-pic" />
+
                     <h3>My Account</h3>
                     <div class="account-fields">
                         <div style="display: flex; align-items: center;">
@@ -97,12 +103,40 @@
                     </div>
 
                     <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" CssClass="btn btn-secondary" />
-                    <asp:Button ID="btnLogout" runat="server" Text="Log Out" CssClass="btn btn-primary" />
-                    <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" CssClass="btn btn-secondary" />
-                    <asp:Button ID="btnUpdateEmail" runat="server" Text="Update Your Email" CssClass="btn btn-secondary" />
+                    <asp:Button ID="btnLogout" runat="server" Text="Log Out" CssClass="btn btn-primary" OnClick="btnLogout_Click" />
+                    <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" CssClass="btn btn-secondary" OnClick="btnChangePassword_Click" />
                     <asp:Button ID="btnDeleteAccount" runat="server" Text="Delete Your Account" CssClass="btn btn-danger" />
                 </div>
             </div>
         </div>
     </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const darkModeToggle = document.getElementById("<%= chkDarkModeCustom.ClientID %>");
+
+        // Retrieve dark mode preference from localStorage
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+        // Apply initial mode based on saved preference
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+
+        // Listen for toggle changes
+        darkModeToggle.addEventListener("change", function () {
+            if (darkModeToggle.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'true'); // Save to localStorage
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'false'); // Save to localStorage
+            }
+        });
+    });
+</script>
+
+
+
 </asp:Content>

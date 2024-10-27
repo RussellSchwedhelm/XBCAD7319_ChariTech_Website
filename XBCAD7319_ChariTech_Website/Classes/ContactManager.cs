@@ -9,6 +9,26 @@ namespace XBCAD7319_ChariTech_Website.Classes
     {
         private string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
+        public DataTable GetUserDataByEmail(string email)
+        {
+            DataTable dt = new DataTable();
+            string query = "SELECT FirstName, Surname, Email, ProfilePicture FROM Users WHERE Email = @Email";
+
+            using (SqlConnection conn = new SqlConnection("YourConnectionStringHere"))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+
+            return dt;
+        }
+
         // Method to fetch ChurchID of the current logged-in user by their email
         public int GetChurchIDByEmail(string email)
         {
