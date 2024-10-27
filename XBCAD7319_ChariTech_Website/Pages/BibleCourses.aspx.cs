@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
 using XBCAD7319_ChariTech_Website.Classes;
 
@@ -11,7 +12,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the session exists
-            /*if (Session["UserEmail"] == null)
+            if (Session["UserEmail"] == null)
             {
                 // If no session, redirect to login page
                 Response.Redirect("Login.aspx");
@@ -21,7 +22,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // User is authenticated, you can access their email
                 string email = Session["UserEmail"].ToString();
                 // Use the email for further logic if needed
-            }*/
+            }
 
             
 
@@ -61,51 +62,61 @@ namespace XBCAD7319_ChariTech_Website.Pages
             };
         }
 
-        
-        
+
+
         private void BindCourses()
         {
-            // Example data source: A list of courses (could come from a database)
-            List<CourseClass> courses = new List<CourseClass>()
+            CourseManager courseManager = new CourseManager();
+            List<CourseClass> courses = courseManager.GetAllCourses();
+
+            foreach (var course in courses)
             {
-                new CourseClass { CourseTitle = "Course 1", Theme = "New Believers", Duration = "10-11 weeks", DateUploaded = "Oct 2023", Description = "Course 1 description", ImageUrl = "~/Images/Media.png", PdfFileUrl="~/Content/CoursePdfs/FinanceTextbook.pdf" },
-                new CourseClass { CourseTitle = "Course 2", Theme = "Old Testament", Duration = "6-8 weeks", DateUploaded = "Sept 2023", Description = "Course 2 description 100000000000000000000", ImageUrl = "~/Images/Media.png",PdfFileUrl="~/Content/CoursePdfs/FinanceTextbook.pdf" },
-                new CourseClass { CourseTitle = "Course 3", Theme = "Special Topics", Duration = "10-11 weeks", DateUploaded = "Nov 2023", Description = "Course 1 description", ImageUrl = "~/Images/Media.png",PdfFileUrl="~/Content/CoursePdfs/FinanceTextbook.pdf" },
-                new CourseClass { CourseTitle = "Course 4", Theme = "Biblical Theology", Duration = "10-11 weeks", DateUploaded = "Dec 2023", Description = "Course 1 description", ImageUrl = "~/Images/Media.png", PdfFileUrl="~/Content/CoursePdfs/FinanceTextbook.pdf" },
-                
-                
-                // Add more courses here
-            };
+                // Save PDF and get URL
+                course.PdfFileUrl = courseManager.SavePdfFromByteArray(course.PdfFileContent, course.CourseTitle.Replace(" ", "_"));
+            }
+
 
             dlCourses.DataSource = courses;
             dlCourses.DataBind();
         }
 
 
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+           CourseManager courseMHere = new CourseManager();
+
+            string searchQuery = txtSearchQuery2.Text.ToLower();
+
+            if (string.IsNullOrWhiteSpace(searchQuery))
+            {
+                // If empty, display the original full course list
+                var fullList = courseMHere.GetAllCourses();
+                dlCourses.DataSource = fullList;
+                dlCourses.DataBind();
+            }
+            else
+            {
+
+
+                // Filter courses based on the search query
+                var filteredCourses = courseMHere.GetAllCourses().Where(course =>
+                course.CourseTitle.ToLower().Contains(searchQuery) ||
+                course.Description.ToLower().Contains(searchQuery)).ToList();
+
+                // Bind the filtered list to dlCourses
+                dlCourses.DataSource = filteredCourses;
+                dlCourses.DataBind();
+            }
         }
-
-
-
-
 
 
    }
 
-
-    //temporary testing class
-
+    //For Filter UI
     public class ItemOption
     {
         public string IconUrl { get; set; }  // URL to the icon image
         public string Text { get; set; }      // Display text for the option
     }
-
-
-
-
-
-
-
 }

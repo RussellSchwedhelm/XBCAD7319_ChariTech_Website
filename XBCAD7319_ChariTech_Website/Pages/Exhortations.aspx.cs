@@ -84,23 +84,19 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             if (exhortation != null)
             {
-                // Retrieve AI Transcription and Summary if IDs are available
-                AITranscription transcription = exhortation.AITranscriptionID.HasValue
-                    ? exhortationManager.GetAITranscriptionById(exhortation.AITranscriptionID.Value)
-                    : null;
-
-                AISummary summary = exhortation.AISummaryID.HasValue
-                    ? exhortationManager.GetAISummaryById(exhortation.AISummaryID.Value)
-                    : null;
-
-                // Populate the details section
+                // Populate the details section with data from the Exhortation object
                 TitleLabel.Text = exhortation.Title;
                 SpeakerLabel.Text = exhortation.Speaker;
                 DateLabel.Text = exhortation.Date.ToString("dd-MM-yyyy");
-                TranscriptionLabel.Text = transcription?.TranscriptionText ?? "No transcription available.";
-                SummaryLabel.Text = summary?.SummaryText ?? "No summary available.";
+                TranscriptionLabel.Text = !string.IsNullOrEmpty(exhortation.AITranscriptionText)
+                    ? exhortation.AITranscriptionText
+                    : "No transcription available.";
+                SummaryLabel.Text = !string.IsNullOrEmpty(exhortation.AISummaryText)
+                    ? exhortation.AISummaryText
+                    : "No summary available.";
             }
         }
+
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {

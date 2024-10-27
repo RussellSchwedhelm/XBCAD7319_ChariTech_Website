@@ -15,13 +15,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
 
         /// <summary>
-        /// FileUploadCoverImage control.
+        /// FileUploadCourse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUploadCoverImage;
+        protected global::System.Web.UI.WebControls.FileUpload FileUploadCourse;
 
         /// <summary>
         /// TextBoxCourseTitle control.
@@ -42,13 +42,22 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.TextBox TextBoxDescription;
 
         /// <summary>
-        /// TextBoxTheme control.
+        /// ddlTheme control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxTheme;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTheme;
+
+        /// <summary>
+        /// FileUpload1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
 
         /// <summary>
         /// TextBoxCompletionTime control.

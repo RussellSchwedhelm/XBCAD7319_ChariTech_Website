@@ -1,65 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
+﻿// Required namespaces for Azure Speech and SQL functionalities
+using Microsoft.CognitiveServices.Speech.Audio; // Handles audio input for speech recognition
+using Microsoft.CognitiveServices.Speech;       // Provides access to Azure Speech services
+using System;                                   // Provides basic system functions
+using System.Configuration;                     // Allows access to configuration settings
+using System.Data;                              // Supports ADO.NET and data handling
+using System.Data.SqlClient;                    // Provides SQL Server data provider
+using System.IO;                                // Provides I/O capabilities for file handling
+using System.Linq;                              // Supports LINQ queries
+using System.Threading.Tasks;                   // Enables asynchronous programming
+using System.Web;                               // Supports web applications
+using System.Web.Configuration;                 // Allows access to web configuration
+using NAudio.Wave;
+using System.Diagnostics;
 
 namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class ExhortationManager
     {
-        // Method to retrieve ChurchID by Email from the Users table
+        // Method to retrieve ChurchID using Email from the Users table
         public int GetChurchIdByEmail(string email)
         {
+            // Retrieve the connection string from Web.config
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
-            int churchId = -1;
+            int churchId = -1; // Default ID in case no match is found
 
+            // Using block for SQL connection to ensure disposal after use
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                // SQL query to select ChurchID where email matches
                 string query = "SELECT ChurchID FROM Users WHERE Email = @Email";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Email", email); // Add parameter to prevent SQL injection
 
-                    conn.Open();
-                    object result = cmd.ExecuteScalar();
+                    conn.Open(); // Open SQL connection
+                    object result = cmd.ExecuteScalar(); // Execute query, expecting a single result
 
                     if (result != null)
                     {
-                        churchId = Convert.ToInt32(result);
+                        churchId = Convert.ToInt32(result); // Convert result to int if not null
                     }
                 }
             }
 
-            return churchId;
+            return churchId; // Return retrieved ChurchID or -1 if not found
         }
 
-        // Method to retrieve exhortations by ChurchID
-
-        // Method to retrieve exhortations with their summaries by ChurchID
+        // Method to retrieve exhortations for a given ChurchID
         public DataTable GetExhortationsByChurchID(int churchID)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                // Join Exhortation and AISummary tables to retrieve the summary text
                 string query = @"
-            SELECT 
-                e.ExhortationID, 
-                e.Title, 
-                e.Speaker, 
-                e.Date, 
-                s.SummaryText
-            FROM 
-                Exhortation e
-            LEFT JOIN 
-                AISummary s ON e.AISummaryID = s.AISummaryID
-            WHERE 
-                e.ChurchID = @ChurchID";
+                    SELECT 
+                        ExhortationID, 
+                        Title, 
+                        Speaker, 
+                        Date, 
+                        AISummaryText,
+                        AITranscriptionText
+                    FROM 
+                        Exhortation
+                    WHERE 
+                        ChurchID = @ChurchID";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -67,15 +72,14 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable exhortations = new DataTable();
-                    da.Fill(exhortations);  // Fill the DataTable with exhortation metadata including summaries
+                    da.Fill(exhortations);
                     return exhortations;
                 }
             }
         }
 
 
-       
-
+        // Method to search exhortations by church ID and search term
         public DataTable SearchExhortations(int churchID, string searchTerm)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
@@ -83,20 +87,19 @@ namespace XBCAD7319_ChariTech_Website.Classes
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-            SELECT 
-                e.ExhortationID, 
-                e.Title, 
-                e.Speaker, 
-                e.Date, 
-                s.SummaryText
-            FROM 
-                Exhortation e
-            LEFT JOIN 
-                AISummary s ON e.AISummaryID = s.AISummaryID
-            WHERE 
-                e.ChurchID = @ChurchID 
-                AND 
-                (e.Title LIKE @SearchTerm OR s.SummaryText LIKE @SearchTerm)";
+        SELECT 
+            ExhortationID, 
+            Title, 
+            Speaker, 
+            Date, 
+            AISummaryText,
+            AITranscriptionText
+        FROM 
+            Exhortation
+        WHERE 
+            ChurchID = @ChurchID 
+            AND 
+            (Title LIKE @SearchTerm OR AISummaryText LIKE @SearchTerm OR AITranscriptionText LIKE @SearchTerm)";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -112,44 +115,184 @@ namespace XBCAD7319_ChariTech_Website.Classes
         }
 
 
-
-        // Method to upload exhortation
+        // Method to upload an exhortation with details and audio file
         public bool UploadExhortation(string email, int churchId, string title, string speaker, DateTime issueDate, HttpPostedFile uploadedFile)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+            int exhortationId = -1; // Default ID if upload fails
+            byte[] audioFileData;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                // SQL query to insert new exhortation data and get the generated ExhortationID
                 string query = @"
-                    INSERT INTO Exhortation (UploadedUserID, ChurchID, Title, Speaker, Date, AudioFile) 
-                    VALUES ((SELECT UserID FROM Users WHERE Email = @Email), @ChurchID, @Title, @Speaker, @Date, @AudioFile)";
+            INSERT INTO Exhortation (UploadedUserID, ChurchID, Title, Speaker, Date, AudioFile) 
+            OUTPUT INSERTED.ExhortationID
+            VALUES ((SELECT UserID FROM Users WHERE Email = @Email), @ChurchID, @Title, @Speaker, @Date, @AudioFile)";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    // Get the MP3 file as binary data
-                    byte[] audioFileData;
                     using (BinaryReader br = new BinaryReader(uploadedFile.InputStream))
                     {
-                        audioFileData = br.ReadBytes(uploadedFile.ContentLength);
+                        audioFileData = br.ReadBytes(uploadedFile.ContentLength); // Convert uploaded audio file to byte array
                     }
 
-                    // Add parameters
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@ChurchID", churchId);
                     cmd.Parameters.AddWithValue("@Title", title);
                     cmd.Parameters.AddWithValue("@Speaker", speaker);
                     cmd.Parameters.AddWithValue("@Date", issueDate);
-                    cmd.Parameters.AddWithValue("@AudioFile", audioFileData); // Store binary data
+                    cmd.Parameters.AddWithValue("@AudioFile", audioFileData);
 
-                    // Open connection and execute query
                     conn.Open();
-                    int result = cmd.ExecuteNonQuery();
+                    exhortationId = (int)cmd.ExecuteScalar(); // Execute and retrieve inserted ExhortationID
+                }
+            }
 
-                    return result > 0;
+            if (exhortationId > 0)
+            {
+                // Start transcription process asynchronously
+                Task.Run(async () => await StartTranscriptionAsync(exhortationId, audioFileData));
+            }
+
+            return exhortationId > 0;
+        }
+
+        private async Task StartTranscriptionAsync(int exhortationId, byte[] mp3FileData)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("Starting transcription for ExhortationID: " + exhortationId);
+                var speechServiceKey = ConfigurationManager.AppSettings["SpeechServiceKey"];
+                var speechServiceRegion = ConfigurationManager.AppSettings["SpeechServiceRegion"];
+                var config = SpeechConfig.FromSubscription(speechServiceKey, speechServiceRegion);
+
+                // Convert MP3 to PCM WAV in memory and set it to required format
+                using (var mp3Stream = new MemoryStream(mp3FileData))
+                using (var mp3Reader = new Mp3FileReader(mp3Stream))
+                using (var resampledStream = new WaveFormatConversionStream(new WaveFormat(16000, 16, 1), mp3Reader))
+                using (var wavStream = new MemoryStream())
+                {
+                    WaveFileWriter.WriteWavFileToStream(wavStream, resampledStream);
+                    wavStream.Position = 0;  // Reset stream position for reading
+
+                    // Create audio configuration directly from the entire WAV stream
+                    using (var audioConfig = AudioConfig.FromStreamInput(AudioInputStream.CreatePullStream(new BinaryAudioStreamReader(wavStream))))
+                    using (var recognizer = new SpeechRecognizer(config, audioConfig))
+                    {
+                        // Initialize an empty string to collect the results
+                        string fullTranscriptionText = string.Empty;
+
+                        // Create TaskCompletionSource to signal the end of transcription
+                        var stopRecognition = new TaskCompletionSource<int>();
+
+                        // Register event handlers for recognizing results and completed recognition
+                        recognizer.Recognizing += (s, e) =>
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Recognizing: {e.Result.Text}");
+                        };
+
+                        recognizer.Recognized += (s, e) =>
+                        {
+                            if (e.Result.Reason == ResultReason.RecognizedSpeech)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Recognized: {e.Result.Text}");
+                                fullTranscriptionText += e.Result.Text + " ";
+                            }
+                        };
+
+                        recognizer.SessionStopped += (s, e) =>
+                        {
+                            System.Diagnostics.Debug.WriteLine("Session stopped. Transcription complete.");
+                            stopRecognition.TrySetResult(0);  // Signal completion
+                        };
+
+                        recognizer.Canceled += (s, e) =>
+                        {
+                            System.Diagnostics.Debug.WriteLine($"Recognition canceled: {e.Reason}");
+                            if (e.Reason == CancellationReason.Error)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Error details: {e.ErrorDetails}");
+                            }
+                            stopRecognition.TrySetResult(0);  // Signal completion even on cancellation
+                        };
+
+                        // Start continuous recognition
+                        await recognizer.StartContinuousRecognitionAsync();
+
+                        // Wait for transcription to complete
+                        await stopRecognition.Task;
+
+                        // Stop recognition explicitly (in case of unexpected errors)
+                        await recognizer.StopContinuousRecognitionAsync();
+
+                        // Update the transcription in the database
+                        if (!string.IsNullOrEmpty(fullTranscriptionText))
+                        {
+                            UpdateExhortationTranscription(exhortationId, fullTranscriptionText.Trim());
+                            System.Diagnostics.Debug.WriteLine("Full Transcription: " + fullTranscriptionText);
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("No transcription result was obtained.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in StartTranscriptionAsync: " + ex.Message);
+            }
+        }
+
+
+        // Custom class to enable reading from a MemoryStream
+        public class BinaryAudioStreamReader : PullAudioInputStreamCallback
+        {
+            private readonly Stream _stream;
+
+            public BinaryAudioStreamReader(Stream stream)
+            {
+                _stream = stream;
+            }
+
+            public override int Read(byte[] buffer, uint size)
+            {
+                return _stream.Read(buffer, 0, (int)size);
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                _stream.Dispose();
+                base.Dispose(disposing);
+            }
+        }
+
+
+
+
+        // Method to update transcription text in the database for a specific exhortation
+        private void UpdateExhortationTranscription(int exhortationId, string transcriptionText)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Exhortation SET AITranscriptionText = @TranscriptionText WHERE ExhortationID = @ExhortationID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@TranscriptionText", transcriptionText);
+                    cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
 
+
+        // Method to retrieve audio data for a given ExhortationID
         public byte[] GetExhortationAudio(int exhortationId)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
@@ -164,32 +307,25 @@ namespace XBCAD7319_ChariTech_Website.Classes
                     {
                         cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
                         conn.Open();
-                        audioBytes = cmd.ExecuteScalar() as byte[];  // Retrieve the MP3 binary data
+                        audioBytes = cmd.ExecuteScalar() as byte[]; // Retrieve audio data as byte array
                     }
                 }
             }
             catch (SqlException ex)
             {
-                // Log the error if needed
                 System.Diagnostics.Debug.WriteLine("SQL error occurred: " + ex.Message);
-
-                // Reload the page in case of an SQL error
                 HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl, true);
             }
             catch (Exception ex)
             {
-                // Log the error if needed
                 System.Diagnostics.Debug.WriteLine("An error occurred: " + ex.Message);
-
-                // Reload the page in case of any other error
                 HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl, true);
             }
 
             return audioBytes;
         }
 
-
-
+        // Method to retrieve an exhortation by ExhortationID
         public Exhortation GetExhortationById(int exhortationId)
         {
             Exhortation exhortation = null;
@@ -213,14 +349,12 @@ namespace XBCAD7319_ChariTech_Website.Classes
                                 ExhortationID = (int)reader["ExhortationID"],
                                 UploadedUserID = (int)reader["UploadedUserID"],
                                 ChurchID = (int)reader["ChurchID"],
-                                AITranscriptionID = reader["AITranscriptionID"] as int?,
-                                AISummaryID = reader["AISummaryID"] as int?,
                                 Title = reader["Title"].ToString(),
                                 Date = (DateTime)reader["Date"],
                                 Speaker = reader["Speaker"].ToString(),
-                                TranscriptionPrompt = reader["TranscriptionPrompt"] as string,
-                                SummaryPrompt = reader["SummaryPrompt"] as string,
-                                AudioFile = reader["AudioFile"] as byte[]
+                                AudioFile = reader["AudioFile"] as byte[],
+                                AISummaryText = reader["AISummaryText"] as string,
+                                AITranscriptionText = reader["AITranscriptionText"] as string
                             };
                         }
                     }
@@ -231,6 +365,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
         }
 
 
+        // Method to retrieve AI transcription details by AITranscriptionID
         public AITranscription GetAITranscriptionById(int transcriptionId)
         {
             AITranscription transcription = null;
@@ -248,6 +383,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                     {
                         if (reader.Read())
                         {
+                            // Populate AITranscription object with data
                             transcription = new AITranscription
                             {
                                 AITranscriptionID = (int)reader["AITranscriptionID"],
@@ -264,10 +400,10 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
 
-            return transcription;
+            return transcription; // Return populated AITranscription object
         }
 
-
+        // Method to retrieve AI summary details by AISummaryID
         public AISummary GetAISummaryById(int summaryId)
         {
             AISummary summary = null;
@@ -285,6 +421,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                     {
                         if (reader.Read())
                         {
+                            // Populate AISummary object with data
                             summary = new AISummary
                             {
                                 AISummaryID = (int)reader["AISummaryID"],
@@ -301,11 +438,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
 
-            return summary;
+            return summary; // Return populated AISummary object
         }
-
-
-
-
     }
 }

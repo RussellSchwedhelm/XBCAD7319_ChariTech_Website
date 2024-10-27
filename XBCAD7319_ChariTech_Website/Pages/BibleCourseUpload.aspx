@@ -4,8 +4,9 @@
     <div class="add-course-container">
         <!-- Image Upload Section -->
         <div class="image-placeholder">
-            <asp:FileUpload ID="FileUploadCoverImage" runat="server" CssClass="upload-input" />
-            <span class="upload-text">Upload File</span>
+            <asp:FileUpload ID="FileUploadCourse" runat="server" CssClass="upload-input" />
+            <img style="margin: 0 auto;width: 200px; height: 200px;" src='<%= ResolveUrl("~/Images/Image.png") %>' alt="Icon" class="item-icon" />
+            
         </div>
 
         <!-- Course Form Section -->
@@ -18,11 +19,31 @@
             <asp:Label AssociatedControlID="TextBoxDescription" runat="server" Text="Brief Description"></asp:Label>
             <asp:TextBox ID="TextBoxDescription" runat="server" CssClass="form-input" Placeholder="Value"></asp:TextBox>
 
-            <asp:Label AssociatedControlID="TextBoxTheme" runat="server" Text="Theme/Topic"></asp:Label>
-            <asp:TextBox ID="TextBoxTheme" runat="server" CssClass="form-input" Placeholder="Value"></asp:TextBox>
+            <asp:Label AssociatedControlID="ddlTheme" runat="server" Text="Theme/Topic"></asp:Label>
+            
+            <asp:DropDownList ID="ddlTheme" runat="server" CssClass="form-input">
+                <asp:ListItem Value="New Believers">New Believers</asp:ListItem>
+                <asp:ListItem Value="Old Testiment">Old Testiment</asp:ListItem>
+                <asp:ListItem Value="New Testament">New Testament</asp:ListItem>
+                <asp:ListItem Value="Biblical Theology">Biblical Theology</asp:ListItem>
+                <asp:ListItem Value="Christian Living">Christian Living</asp:ListItem>
+                <asp:ListItem Value="Spiritual Growth">Spiritual Growth</asp:ListItem>
+                <asp:ListItem Value="Ministry Training">Ministry Training</asp:ListItem>
+                <asp:ListItem Value="Special Topics">Special Topics</asp:ListItem>
+            </asp:DropDownList>
+
+
+            <!-- File Upload Field -->
+            <asp:Label AssociatedControlID="FileUpload1" runat="server" Text="Upload PDF"></asp:Label>
+            <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-input" style="background-color: #ffffff" 
+                accept="application/pdf"/>
+
+            
+
 
             <asp:Label AssociatedControlID="TextBoxCompletionTime" runat="server" Text="Estimated Completion Time"></asp:Label>
-            <asp:TextBox ID="TextBoxCompletionTime" runat="server" CssClass="form-input" Placeholder="10 - 11 Weeks"></asp:TextBox>
+            <asp:TextBox ID="TextBoxCompletionTime" runat="server" CssClass="form-input" 
+                Placeholder="10 - 11 Weeks"></asp:TextBox>
 
             <!-- Buttons -->
             <div class="button-group">

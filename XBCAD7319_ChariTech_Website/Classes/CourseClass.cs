@@ -12,10 +12,11 @@ namespace XBCAD7319_ChariTech_Website.Classes
         public string Duration { get; set; }
         public string DateUploaded { get; set; }
         public string Description { get; set; }
-        public string ImageUrl { get; set; }
 
+        public byte[] PdfFileContent { get; set; }
 
         public string PdfFileUrl { get; set; }
+
 
 
     }
