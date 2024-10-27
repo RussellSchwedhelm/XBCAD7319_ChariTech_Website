@@ -80,7 +80,18 @@
                     data-toggle="modal" data-target="#notificationModal"
                 />
                 <span class="username ml-3">Username</span>
-                <img src="path_to_user_profile_picture.jpg" alt="(DP)" class="profile-picture ml-2" />
+                <!-- Profile Picture -->
+                <asp:HyperLink ID="ProfileLink" runat="server" NavigateUrl="~/Pages/UserSettings.aspx">
+                    <asp:Image 
+                        ID="ProfilePicture" 
+                        runat="server" 
+                        CssClass="profile-picture ml-2" 
+                        style="width:2.5rem; height:2.5rem; border-radius:50%; cursor:pointer;" 
+                        AlternateText="User Profile Picture" 
+                        OnClick="ProfilePicture_Click" 
+                    />
+                </asp:HyperLink>
+
             </div>
         </nav>
 
