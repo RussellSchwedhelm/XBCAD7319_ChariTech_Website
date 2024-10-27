@@ -4,7 +4,7 @@
 
     <!-- Settings Layout -->
     <div class="settings-page">
-        <div class="settings-container">
+        <div class="settings-container" style="width: 70vw; border-color: transparent;">
             <!-- Left Settings Panel -->
             <div class="settings-left">
                 <div style="text-align: center;">

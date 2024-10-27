@@ -1,76 +1,91 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Web;
-using XBCAD7319_ChariTech_Website.Classes;
 
-namespace XBCAD7319_ChariTech_Website.Pages
+public partial class DownloadExhortation : System.Web.UI.Page
 {
-    public partial class DownloadExhortation : System.Web.UI.Page
+    protected void Page_Load(object sender, EventArgs e)
     {
-        private ExhortationManager exhortationManager = new ExhortationManager();
-        private const int BufferSize = 1024 * 16; // 16 KB buffer size for chunked streaming
-
-        protected void Page_Load(object sender, EventArgs e)
+        int exhortationId;
+        if (int.TryParse(Request.QueryString["id"], out exhortationId))
         {
-            if (int.TryParse(Request.QueryString["id"], out int exhortationId))
+            byte[] audioBytes = GetExhortationAudio(exhortationId);
+            if (audioBytes != null)
             {
-                byte[] audioFile = exhortationManager.GetExhortationAudio(exhortationId);
-
-                if (audioFile != null)
+                try
                 {
-                    StreamAudioFile(audioFile);
+                    Response.Clear();
+                    Response.ContentType = "audio/mpeg"; // Set MIME type to audio
+                    Response.AddHeader("Content-Disposition", "inline; filename=exhortation_" + exhortationId + ".mp3");
+                    Response.OutputStream.Write(audioBytes, 0, audioBytes.Length);
+                    Response.Flush();
                 }
-                else
+                catch (HttpException ex)
                 {
-                    // Handle not found case
-                    Response.StatusCode = 404;
-                    Response.StatusDescription = "Audio file not found.";
+                    // Log HTTP errors (if logging is available)
+                    System.Diagnostics.Debug.WriteLine($"HTTP error occurred: {ex.Message}");
+                    Response.StatusCode = 500;
+                }
+                finally
+                {
                     Response.End();
                 }
             }
             else
             {
-                // Handle invalid ID case
-                Response.StatusCode = 400;
-                Response.StatusDescription = "Invalid exhortation ID.";
+                // Log the missing file issue
+                System.Diagnostics.Debug.WriteLine($"Audio file for ExhortationID {exhortationId} not found.");
+                Response.StatusCode = 404;
+                Response.StatusDescription = "Audio file not found.";
                 Response.End();
             }
         }
-
-
-        private void StreamAudioFile(byte[] audioFile)
+        else
         {
-            try
+            // Log invalid query parameter
+            System.Diagnostics.Debug.WriteLine("Invalid ExhortationID query parameter.");
+            Response.StatusCode = 400;
+            Response.StatusDescription = "Invalid ExhortationID parameter.";
+            Response.End();
+        }
+    }
+
+    private byte[] GetExhortationAudio(int exhortationId)
+    {
+        // Retrieve the audio file binary from the database based on exhortationId
+        string connectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+        byte[] audioBytes = null;
+
+        try
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                Response.Clear();
-                Response.ContentType = "audio/mpeg";
-                Response.BufferOutput = false; // Disable output buffering for faster response
-
-                // Stream the audio in smaller chunks
-                using (var stream = new System.IO.MemoryStream(audioFile))
+                string query = "SELECT AudioFile FROM Exhortation WHERE ExhortationID = @ExhortationID";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    byte[] buffer = new byte[BufferSize];
-                    int bytesRead;
+                    cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
+                    conn.Open();
+                    audioBytes = cmd.ExecuteScalar() as byte[];
 
-                    while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                    // Check if audioBytes was retrieved and log if null
+                    if (audioBytes == null)
                     {
-                        Response.OutputStream.Write(buffer, 0, bytesRead);
-                        Response.Flush(); // Send the data immediately to the client
+                        System.Diagnostics.Debug.WriteLine($"No audio found for ExhortationID {exhortationId}.");
                     }
                 }
-
-                Response.End(); // Ensure the response ends properly
-            }
-            catch (HttpException ex)
-            {
-                // Handle cases where the client cancels the download
-                Console.WriteLine("Client disconnected: " + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                // Log or handle unexpected exceptions
-                Console.WriteLine("Error streaming audio: " + ex.Message);
             }
         }
+        catch (SqlException ex)
+        {
+            // Log SQL errors for diagnostics
+            System.Diagnostics.Debug.WriteLine($"SQL error occurred: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Log any other types of errors
+            System.Diagnostics.Debug.WriteLine($"An unexpected error occurred: {ex.Message}");
+        }
 
+        return audioBytes;
     }
 }

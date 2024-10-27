@@ -11,7 +11,11 @@ namespace XBCAD7319_ChariTech_Website.Pages
     public partial class UserSettings : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {   // Redirect to login if user is not authenticated
+            if (Session["UserEmail"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             if (!IsPostBack)
             {
                 // Load user preferences when the page first loads
