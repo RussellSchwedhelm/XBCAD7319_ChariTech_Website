@@ -63,7 +63,9 @@
                                     <!--<img src='<%# Eval("IconUrl") %>' alt="Icon" class="item-icon" />-->
                                 </div>
                                 <span class="item-text"><%# Eval("Text") %></span>
-                                <asp:CheckBox ID="CheckBoxItem" runat="server" CssClass="custom-checkbox" />
+                                <asp:CheckBox ID="CheckBoxItem" runat="server" CssClass="custom-checkbox" 
+                                    onclick="handleCheckboxSelection(this)" />
+
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
@@ -86,6 +88,16 @@
         }
     </script>
 
+    <script type="text/javascript">
+        function handleCheckboxSelection(clickedCheckbox) {
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            checkboxes.forEach((checkbox) => {
+                if (checkbox !== clickedCheckbox) {
+                    checkbox.checked = false;
+                }
+            });
+        }
+</script>
 
 
 </asp:Content>

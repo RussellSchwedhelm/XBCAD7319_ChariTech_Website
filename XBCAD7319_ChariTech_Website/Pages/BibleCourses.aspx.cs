@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
 using XBCAD7319_ChariTech_Website.Classes;
 
@@ -10,7 +11,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Check if the session exists
+            /*// Check if the session exists
             if (Session["UserEmail"] == null)
             {
                 // If no session, redirect to login page
@@ -21,7 +22,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // User is authenticated, you can access their email
                 string email = Session["UserEmail"].ToString();
                 // Use the email for further logic if needed
-            }
+            }*/
 
             
 
@@ -83,11 +84,63 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            //To be finished later
+            CourseManager courseMHere = new CourseManager();
+            string selectedTheme = GetSelectedTheme(); // New method to get the selected theme
+
+            string searchQuery = txtSearchQuery2.Text.ToLower();
+
+            if (string.IsNullOrWhiteSpace(searchQuery))
+            {
+                // If empty, display the original full course list
+                var fullList = courseMHere.GetAllCourses();
+                dlCourses.DataSource = fullList;
+                dlCourses.DataBind();
+            }
+            else
+            {
+
+
+                // Filter courses based on the search query
+                var filteredCourses = courseMHere.GetAllCourses().Where(course =>
+                course.CourseTitle.ToLower().Contains(searchQuery) ||
+                course.Description.ToLower().Contains(searchQuery)).ToList();
+
+                if (!string.IsNullOrWhiteSpace(selectedTheme))
+                {
+                    filteredCourses = filteredCourses.Where(course => course.Theme.Equals(selectedTheme, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+
+
+                // Bind the filtered list to dlCourses
+                dlCourses.DataSource = filteredCourses;
+                dlCourses.DataBind();
+
+                
+            }
         }
 
 
-   }
+
+        // Helper method to get the selected theme from RepeaterOptions
+        private string GetSelectedTheme()
+        {
+            foreach (RepeaterItem item in RepeaterOptions.Items)
+            {
+                var checkBox = item.FindControl("CheckBoxItem") as CheckBox;
+                var themeText = item.FindControl("item-text") as Label;
+
+                if (checkBox != null && checkBox.Checked && themeText != null)
+                {
+                    return themeText.Text;
+                }
+            }
+            return string.Empty;
+        }
+
+
+
+
+    }
 
     //For Filter UI
     public class ItemOption
