@@ -121,5 +121,33 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return pdfBytes;
         }
+
+        // Method to search newsletters by church ID and search term (title)
+        public DataTable SearchNewsletters(int churchId, string searchTerm)
+        {
+            DataTable newslettersTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT NewsletterID, Title, IssueDate 
+            FROM dbo.Newsletter 
+            WHERE ChurchID = @ChurchID AND Title LIKE @SearchTerm
+            ORDER BY Title";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ChurchID", churchId);
+                    command.Parameters.AddWithValue("@SearchTerm", "%" + searchTerm + "%");
+                    connection.Open();
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(newslettersTable);
+                }
+            }
+
+            return newslettersTable;
+        }
+
     }
 }

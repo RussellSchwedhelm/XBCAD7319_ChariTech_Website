@@ -298,16 +298,42 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected void btnExhortationSearch_Click(object sender, EventArgs e)
         {
             string searchQuery = txtExhortationSearch.Text.Trim();
-            // Implement search logic for Exhortations using searchQuery
-            // Example: Bind ExhortationListRepeater to the filtered data source
+            int churchId = exhortationManager.GetChurchIdByEmail(Session["UserEmail"].ToString());
+
+            // If search query is empty, load default exhortations
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                LoadExhortations();
+            }
+            else
+            {
+                // Perform search with prioritization on title, then summary
+                DataTable searchResults = exhortationManager.SearchExhortations(churchId, searchQuery);
+                ExhortationListRepeater.DataSource = searchResults;
+                ExhortationListRepeater.DataBind();
+            }
         }
+
 
         protected void btnNewsSearch_Click(object sender, EventArgs e)
         {
             string searchQuery = txtNewsSearch.Text.Trim();
-            // Implement search logic for Ecclesial News using searchQuery
-            // Example: Bind newsListRepeater to the filtered data source
+            int churchId = newsletterManager.GetUserIdByEmail(Session["UserEmail"].ToString());
+
+            // If search query is empty, load the default list of newsletters
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                LoadNewsletters();
+            }
+            else
+            {
+                // Perform search using the title filter
+                DataTable searchResults = newsletterManager.SearchNewsletters(churchId, searchQuery);
+                newsListRepeater.DataSource = searchResults;
+                newsListRepeater.DataBind();
+            }
         }
+
 
     }
 }
