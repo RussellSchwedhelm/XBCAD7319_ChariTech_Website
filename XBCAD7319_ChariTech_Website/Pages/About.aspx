@@ -2,14 +2,14 @@
 
 <asp:Content ID="AboutUsPage" ContentPlaceHolderID="MainContent" runat="server">
     <div class="about-us">
-        <div class="right-section centered-content" style="max-width: 40rem; min-height: 100%;">
-            <div class="section" style="height: fit-content;">
+        <div class="right-section centered-content" style="max-width: 40rem; height: 100vh;">
+            <div class="section" style="min-height: fit-content; ">
                 <h2 class="headings">Our Mission</h2>
                 Our mission as Christadelphians is to fulfill the charge given by our Lord, as stated in Mark 16:15-16: "Go into all the world and preach the gospel to every creature. He who believes and is baptized will be saved, but he who does not believe will be condemned."
                 We are dedicated to preaching the Truth of God's Word and encouraging and strengthening the lives of our brothers and sisters in Christ with pastoral and welfare assistance.
                 We believe in the centrality of Jesus Christ's mission, which includes his divine son-ship, his call to repentance, and the proclamation of God's kingdom. We acknowledge that Jesus' sacrifice provides the basis for the remission of sins, and we seek salvation through belief in the gospel, repentance, baptism, and obedience to Christ's teachings.
             </div>
-            <div class="section" style="height: fit-content">
+            <div class="section" style="min-height: fit-content;">
                 <h2 class="headings">Our Vision</h2>
                 Our vision for our website is to create a resourceful and supportive online community for our members. This includes providing a digital archive for accessing exhortations and newsletters, implementing AI technology to transcribe and summarize content, and offering interactive Bible study courses. We aim to facilitate communication and organization within our community through features like announcements and scheduling tools. Additionally, we seek to support our members through online prayer request submissions and secure donation options.
             </div>
