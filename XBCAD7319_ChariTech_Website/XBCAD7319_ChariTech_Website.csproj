@@ -401,10 +401,9 @@
     <Content Include="Images\Edit.png" />
     <Content Include="Images\Image.png" />
     <Content Include="Images\Media.png" />
-    <Content Include="Images\notification.png" />
     <Content Include="Images\notification_read.png" />
     <Content Include="Images\notification_unread.png" />
-    <Content Include="Images\Trash 13.png" />
+    <Content Include="Images\Trash13.png" />
     <Content Include="Pages\About.aspx" />
     <Content Include="Pages\AdminDashboard.aspx" />
     <Content Include="Pages\BibleCourseUpload.aspx" />

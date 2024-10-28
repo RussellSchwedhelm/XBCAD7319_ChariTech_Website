@@ -28,6 +28,32 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return dt;
         }
+        public bool UpdateUserProfilePicture(string email, byte[] profilePicture)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "UPDATE Users SET ProfilePicture = @ProfilePicture WHERE Email = @Email";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ProfilePicture", (object)profilePicture ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
 
         // Method to fetch ChurchID of the current logged-in user by their email
         public int GetChurchIDByEmail(string email)

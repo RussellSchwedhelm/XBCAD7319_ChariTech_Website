@@ -155,6 +155,42 @@ namespace XBCAD7319_ChariTech_Website.Pages
         {
             Response.Redirect("ChangePassword.aspx");
         }
+        protected void btnUploadPicture_Click(object sender, EventArgs e)
+        {
+            if (profilePictureUpload.HasFile)
+            {
+                try
+                {
+                    // Read the uploaded file into a byte array
+                    byte[] profilePictureBytes = profilePictureUpload.FileBytes;
+
+                    // Get the email of the authenticated user
+                    string email = Session["UserEmail"].ToString();
+
+                    // Update the profile picture in the database
+                    bool updateSuccess = contactManager.UpdateUserProfilePicture(email, profilePictureBytes);
+
+                    if (updateSuccess)
+                    {
+                        // Update the displayed image
+                        userProfilePic.Attributes["src"] = "data:image/png;base64," + Convert.ToBase64String(profilePictureBytes);
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Profile picture updated successfully!');", true);
+                    }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Failed to update profile picture.');", true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Error uploading profile picture: " + ex.Message + "');", true);
+                }
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please select a profile picture to upload.');", true);
+            }
+        }
 
     }
 }
