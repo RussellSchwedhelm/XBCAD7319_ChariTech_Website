@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using XBCAD7319_ChariTech_Website.Classes;
+using System.Web.UI.WebControls;
+
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
@@ -10,20 +12,52 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Redirect to login if user is not authenticated
-          /*  if (Session["UserEmail"] == null)
+            if (Session["UserEmail"] == null)
             {
                 Response.Redirect("Login.aspx");
             }
             if (!IsPostBack)
             {
-                // Load user preferences when the page first loads
                 LoadUserPreferences();
-
-                // Load profile picture
                 LoadUserProfilePicture();
-            }*/
+                LoadUserAccountDetails(); // Load account details on page load
+
+                // Assuming churchID is fetched as part of user details, here is an example:
+                int churchID = GetUserChurchID(); // This method should retrieve churchID for the logged-in user
+                PopulateEcclesiaDropdown(churchID); // Pass churchID to the dropdown population method
+            }
         }
+
+        // Example method to retrieve churchID (replace with actual retrieval logic)
+        private int GetUserChurchID()
+        {
+            // Example: Retrieve churchID for the user from session or database
+            return Convert.ToInt32(Session["UserChurchID"]);
+        }
+
+
+        // Method to populate the ecclesia drop-down list
+        private void PopulateEcclesiaDropdown(int churchID)
+        {
+            RegistrationManager registrationManager = new RegistrationManager();
+            DataTable churches = registrationManager.GetSortedChurches();
+
+            // Clear any existing items in the drop-down list
+            ddlEcclesia.Items.Clear();
+
+            // Add church items from the fetched list
+            foreach (DataRow row in churches.Rows)
+            {
+                ddlEcclesia.Items.Add(new ListItem(row["ChurchName"].ToString(), row["ChurchID"].ToString()));
+            }
+
+            // Set the selected index based on churchID + 1
+            if (churchID >= 0 && churchID < ddlEcclesia.Items.Count)
+            {
+                ddlEcclesia.SelectedIndex = churchID + 1;
+            }
+        }
+
 
         // Method to load profile picture from the database
         private void LoadUserProfilePicture()
@@ -53,10 +87,26 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
         }
 
+        // Method to load user account details (name, surname)
+        private void LoadUserAccountDetails()
+        {
+            string email = Session["UserEmail"].ToString();
+            DataTable userData = contactManager.GetUserDataByEmail(email);
+
+            if (userData.Rows.Count > 0)
+            {
+                DataRow row = userData.Rows[0];
+                txtName.Text = row["FirstName"].ToString();
+                txtSurname.Text = row["Surname"].ToString();
+                txtEmail.Text = row["Email"].ToString();
+            }
+        }
+
         // Existing method to load user preferences
         protected void LoadUserPreferences()
         {
-            int userId = 123; // Replace this with actual user ID logic, e.g., from session
+            UserManager userManager = new UserManager();
+            int userId = userManager.GetUserIdByEmail(Session["UserEmail"].ToString());
             UserPreferenceDAL userPreferenceDAL = new UserPreferenceDAL();
             UserPreference userPreference = userPreferenceDAL.GetUserPreferences(userId);
 
@@ -81,6 +131,16 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             UserPreferenceDAL userPreferenceDAL = new UserPreferenceDAL();
             userPreferenceDAL.UpdateUserPreferences(userPreference);
+        }
+        protected void btnSaveChanges_Click(object sender, EventArgs e)
+        {
+            string email = Session["UserEmail"].ToString();
+            string newName = txtName.Text.Trim();
+            string newSurname = txtSurname.Text.Trim();
+
+            contactManager.UpdateUserDetails(email, newName, newSurname);
+            // Optionally, display a message to the user indicating the changes were saved
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Changes saved successfully!');", true);
         }
 
         // Handler for logging out

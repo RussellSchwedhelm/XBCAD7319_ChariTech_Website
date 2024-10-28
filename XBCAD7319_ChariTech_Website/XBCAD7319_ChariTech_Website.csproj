@@ -497,7 +497,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\AISummary.cs" />
     <Compile Include="Classes\AITranscription.cs" />
-    <Compile Include="Classes\ChatGPTManager.cs" />
     <Compile Include="Classes\ContactManager.cs" />
     <Compile Include="Classes\CourseClass.cs" />
     <Compile Include="Classes\CourseManager.cs" />
@@ -513,7 +512,6 @@
     <Compile Include="Classes\PrayerRequestManager.cs" />
     <Compile Include="Classes\RegistrationManager.cs" />
     <Compile Include="Classes\Startup.cs" />
-    <Compile Include="Classes\TranscriptionManager.cs" />
     <Compile Include="Classes\UserManager.cs" />
     <Compile Include="Classes\UserPreference.cs" />
     <Compile Include="Classes\UserPreferenceDAL.cs" />

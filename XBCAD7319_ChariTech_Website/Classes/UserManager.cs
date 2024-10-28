@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CognitiveServices.Speech.Transcription;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,7 +10,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class UserManager
     {
-
         // Get the connection string from Web.config
         private string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
@@ -61,7 +61,28 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
         }
 
-
+        public string GetFirstNameByEmail(string email)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "SELECT FirstName FROM Users WHERE Email = @Email";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        object result = cmd.ExecuteScalar();
+                        return result.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error fetching first name: " + ex.Message);
+                return "";
+            }
+        }
 
     }
 }

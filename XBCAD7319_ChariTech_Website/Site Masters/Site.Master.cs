@@ -7,12 +7,12 @@ namespace XBCAD7319_ChariTech_Website
     public partial class SiteMaster : MasterPage
     {
         private ContactManager contactManager = new ContactManager();
+        private UserManager userManager = new UserManager();    
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                // Register the Page_PreRender event handler to ensure controls are available before rendering
                 Page.PreRender += Page_PreRender;
             }
 
@@ -21,19 +21,25 @@ namespace XBCAD7319_ChariTech_Website
                 // Set the profile image for the user on each page load
                 SetProfileImage();
 
+                usernameLink.Text = userManager.GetFirstNameByEmail(Session["UserEmail"].ToString());
+
                 NewsletterManager newsletterManager = new NewsletterManager();
                 int userId = newsletterManager.GetUserIdByEmail(Session["UserEmail"].ToString());
                 NotificationManager notificationManager = new NotificationManager();
 
-                // Check for unread notifications and update session variable
                 bool hasUnreadNotifications = notificationManager.HasUnreadNotifications(userId);
                 Session["HasUnreadNotifications"] = hasUnreadNotifications;
 
-                // Update the notification icon based on unread notifications
                 NotificationIcon.ImageUrl = hasUnreadNotifications
                     ? ResolveUrl("~/Images/notification_unread.png")
                     : ResolveUrl("~/Images/notification_read.png");
             }
+        }
+
+        protected void UsernameLink_Click(object sender, EventArgs e)
+        {
+            // Redirect to UserSettings.aspx
+            Response.Redirect("~/Pages/UserSettings.aspx");
         }
 
         private void SetProfileImage()

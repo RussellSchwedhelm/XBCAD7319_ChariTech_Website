@@ -887,8 +887,8 @@ input[type="date"], input[type="text"] {
 }
 
 .profile-pic {
-    width: 1rem;
-    height: 1rem;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
 }
 
@@ -1436,3 +1436,66 @@ body.dark-mode {
         overflow-y: auto;
     }
 }
+
+/* Page Layout */
+.change-password-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+
+/* Card Style */
+.change-password-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    /* Title */
+    .change-password-card h2 {
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Input Fields */
+    .change-password-card input[type="password"] {
+        width: 100%;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+/* Error Message */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    display: none; /* Hide initially */
+}
+
+/* Button */
+.change-password-card button {
+    background-color: #333;
+    color: white;
+    padding: 0.8rem;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .change-password-card button:hover {
+        background-color: #555;
+    }

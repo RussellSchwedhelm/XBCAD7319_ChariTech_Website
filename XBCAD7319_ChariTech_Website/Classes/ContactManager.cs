@@ -14,7 +14,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             DataTable dt = new DataTable();
             string query = "SELECT FirstName, Surname, Email, ProfilePicture FROM Users WHERE Email = @Email";
 
-            using (SqlConnection conn = new SqlConnection("YourConnectionStringHere"))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -78,6 +78,24 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
             return profilePicture;
+        }
+
+        public void UpdateUserDetails(string email, string newName, string newSurname)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "UPDATE Users SET FirstName = @FirstName, Surname = @Surname WHERE Email = @Email";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@FirstName", newName);
+                    cmd.Parameters.AddWithValue("@Surname", newSurname);
+                    cmd.Parameters.AddWithValue("@Email", email);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
     }
