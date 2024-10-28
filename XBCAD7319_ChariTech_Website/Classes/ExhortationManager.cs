@@ -11,7 +11,9 @@ using System.Threading.Tasks;                   // Enables asynchronous programm
 using System.Web;                               // Supports web applications
 using System.Web.Configuration;                 // Allows access to web configuration
 using NAudio.Wave;
-using System.Diagnostics;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Net.Http;
 
 namespace XBCAD7319_ChariTech_Website.Classes
 {
@@ -78,7 +80,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
         }
 
-
         // Method to search exhortations by church ID and search term with prioritization
         public DataTable SearchExhortations(int churchID, string searchTerm)
         {
@@ -121,8 +122,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
-
 
         // Method to upload an exhortation with details and audio file
         public bool UploadExhortation(string email, int churchId, string title, string speaker, DateTime issueDate, HttpPostedFile uploadedFile)
@@ -176,74 +175,45 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 var speechServiceRegion = ConfigurationManager.AppSettings["SpeechServiceRegion"];
                 var config = SpeechConfig.FromSubscription(speechServiceKey, speechServiceRegion);
 
-                // Convert MP3 to PCM WAV in memory and set it to required format
                 using (var mp3Stream = new MemoryStream(mp3FileData))
                 using (var mp3Reader = new Mp3FileReader(mp3Stream))
                 using (var resampledStream = new WaveFormatConversionStream(new WaveFormat(16000, 16, 1), mp3Reader))
                 using (var wavStream = new MemoryStream())
                 {
                     WaveFileWriter.WriteWavFileToStream(wavStream, resampledStream);
-                    wavStream.Position = 0;  // Reset stream position for reading
+                    wavStream.Position = 0;
 
-                    // Create audio configuration directly from the entire WAV stream
                     using (var audioConfig = AudioConfig.FromStreamInput(AudioInputStream.CreatePullStream(new BinaryAudioStreamReader(wavStream))))
                     using (var recognizer = new SpeechRecognizer(config, audioConfig))
                     {
-                        // Initialize an empty string to collect the results
                         string fullTranscriptionText = string.Empty;
-
-                        // Create TaskCompletionSource to signal the end of transcription
                         var stopRecognition = new TaskCompletionSource<int>();
-
-                        // Register event handlers for recognizing results and completed recognition
-                        recognizer.Recognizing += (s, e) =>
-                        {
-                            System.Diagnostics.Debug.WriteLine($"Recognizing: {e.Result.Text}");
-                        };
 
                         recognizer.Recognized += (s, e) =>
                         {
                             if (e.Result.Reason == ResultReason.RecognizedSpeech)
                             {
-                                System.Diagnostics.Debug.WriteLine($"Recognized: {e.Result.Text}");
                                 fullTranscriptionText += e.Result.Text + " ";
                             }
                         };
 
-                        recognizer.SessionStopped += (s, e) =>
-                        {
-                            System.Diagnostics.Debug.WriteLine("Session stopped. Transcription complete.");
-                            stopRecognition.TrySetResult(0);  // Signal completion
-                        };
+                        recognizer.SessionStopped += (s, e) => stopRecognition.TrySetResult(0);
+                        recognizer.Canceled += (s, e) => stopRecognition.TrySetResult(0);
 
-                        recognizer.Canceled += (s, e) =>
-                        {
-                            System.Diagnostics.Debug.WriteLine($"Recognition canceled: {e.Reason}");
-                            if (e.Reason == CancellationReason.Error)
-                            {
-                                System.Diagnostics.Debug.WriteLine($"Error details: {e.ErrorDetails}");
-                            }
-                            stopRecognition.TrySetResult(0);  // Signal completion even on cancellation
-                        };
-
-                        // Start continuous recognition
                         await recognizer.StartContinuousRecognitionAsync();
-
-                        // Wait for transcription to complete
                         await stopRecognition.Task;
-
-                        // Stop recognition explicitly (in case of unexpected errors)
                         await recognizer.StopContinuousRecognitionAsync();
 
-                        // Update the transcription in the database
                         if (!string.IsNullOrEmpty(fullTranscriptionText))
                         {
                             UpdateExhortationTranscription(exhortationId, fullTranscriptionText.Trim());
-                            System.Diagnostics.Debug.WriteLine("Full Transcription: " + fullTranscriptionText);
-                        }
-                        else
-                        {
-                            System.Diagnostics.Debug.WriteLine("No transcription result was obtained.");
+
+                            // Generate summary based on transcription text
+                            string summaryText = await GenerateSummaryWithRetryAsync(fullTranscriptionText.Trim(), GetSpeakerNameByExhortationId(exhortationId));
+                            if (!string.IsNullOrEmpty(summaryText))
+                            {
+                                UpdateExhortationSummary(exhortationId, summaryText);
+                            }
                         }
                     }
                 }
@@ -251,6 +221,91 @@ namespace XBCAD7319_ChariTech_Website.Classes
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Exception in StartTranscriptionAsync: " + ex.Message);
+            }
+        }
+
+        private async Task<string> GenerateSummaryWithRetryAsync(string transcriptionText, string speakerName)
+        {
+            string summaryPrompt = $"Based on the following transcription by {speakerName}, create a summary of no more than 2 paragraphs. The summary should capture what the exhortation was all about: {transcriptionText}";
+            int maxRetries = 5;
+            int delay = 1000; // initial delay of 1 second
+
+            for (int i = 0; i < maxRetries; i++)
+            {
+                try
+                {
+                    var apiKey = ConfigurationManager.AppSettings["OpenAIApiKey"];
+                    var client = new HttpClient();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+                    var requestBody = new
+                    {
+                        model = "gpt-3.5-turbo", // Change to the preferred model
+                        messages = new[]
+                        {
+                    new {
+                        role = "user",
+                        content = new[] { new { type = "text", text = summaryPrompt } }
+                    }
+                }
+                    };
+
+                    var response = await client.PostAsync("https://api.openai.com/v1/chat/completions",
+                        new StringContent(JsonConvert.SerializeObject(requestBody), System.Text.Encoding.UTF8, "application/json"));
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseBody = await response.Content.ReadAsStringAsync();
+                        dynamic result = JsonConvert.DeserializeObject(responseBody);
+
+                        // Extract the generated message content
+                        string generatedMessage = result.choices[0].message.content.ToString();
+
+                        // Print the generated message to the debug console
+                        System.Diagnostics.Debug.WriteLine("Generated Summary: " + generatedMessage);
+
+                        // Return the generated message
+                        return generatedMessage;
+                    }
+                    else if ((int)response.StatusCode == 429)
+                    {
+                        // Log and delay before retry
+                        System.Diagnostics.Debug.WriteLine("Rate limit hit. Retrying in " + delay + "ms.");
+                        await Task.Delay(delay);
+                        delay *= 2; // exponential backoff
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Request failed with status code: " + response.StatusCode);
+                        System.Diagnostics.Debug.WriteLine("Reason: " + response.ReasonPhrase);
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error in GenerateSummaryAsync: " + ex.Message);
+                    break;
+                }
+            }
+            return null;
+        }
+
+        private void UpdateExhortationSummary(int exhortationId, string summaryText)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Exhortation SET AISummaryText = @SummaryText WHERE ExhortationID = @ExhortationID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@SummaryText", summaryText);
+                    cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
@@ -368,7 +423,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
             return exhortation;
         }
 
-
         // Method to retrieve AI transcription details by AITranscriptionID
         public AITranscription GetAITranscriptionById(int transcriptionId)
         {
@@ -444,5 +498,32 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return summary; // Return populated AISummary object
         }
+        public string GetSpeakerNameByExhortationId(int exhortationId)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+            string speakerName = null;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                // SQL query to select the Speaker's name based on ExhortationID
+                string query = "SELECT Speaker FROM Exhortation WHERE ExhortationID = @ExhortationID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
+
+                    conn.Open(); // Open the SQL connection
+                    object result = cmd.ExecuteScalar(); // Execute query and retrieve the speaker name
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        speakerName = result.ToString(); // Convert result to string if not null
+                    }
+                }
+            }
+
+            return speakerName; // Return the speaker's name or null if not found
+        }
+
     }
 }
