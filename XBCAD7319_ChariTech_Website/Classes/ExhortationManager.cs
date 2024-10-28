@@ -79,27 +79,35 @@ namespace XBCAD7319_ChariTech_Website.Classes
         }
 
 
-        // Method to search exhortations by church ID and search term
+        // Method to search exhortations by church ID and search term with prioritization
         public DataTable SearchExhortations(int churchID, string searchTerm)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+                // Modified query to prioritize Title matches first, then Summary matches
                 string query = @"
-        SELECT 
-            ExhortationID, 
-            Title, 
-            Speaker, 
-            Date, 
-            AISummaryText,
-            AITranscriptionText
-        FROM 
-            Exhortation
-        WHERE 
-            ChurchID = @ChurchID 
-            AND 
-            (Title LIKE @SearchTerm OR AISummaryText LIKE @SearchTerm OR AITranscriptionText LIKE @SearchTerm)";
+            SELECT 
+                ExhortationID, 
+                Title, 
+                Speaker, 
+                Date, 
+                AISummaryText,
+                AITranscriptionText,
+                CASE 
+                    WHEN Title LIKE @SearchTerm THEN 1 
+                    WHEN AISummaryText LIKE @SearchTerm THEN 2 
+                    ELSE 3 
+                END AS SortOrder
+            FROM 
+                Exhortation
+            WHERE 
+                ChurchID = @ChurchID 
+                AND 
+                (Title LIKE @SearchTerm OR AISummaryText LIKE @SearchTerm OR AITranscriptionText LIKE @SearchTerm)
+            ORDER BY 
+                SortOrder, Title";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -113,6 +121,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
+
 
 
         // Method to upload an exhortation with details and audio file
@@ -245,7 +254,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
         }
 
-
         // Custom class to enable reading from a MemoryStream
         public class BinaryAudioStreamReader : PullAudioInputStreamCallback
         {
@@ -268,9 +276,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
         }
 
-
-
-
         // Method to update transcription text in the database for a specific exhortation
         private void UpdateExhortationTranscription(int exhortationId, string transcriptionText)
         {
@@ -290,7 +295,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
 
         // Method to retrieve audio data for a given ExhortationID
         public byte[] GetExhortationAudio(int exhortationId)

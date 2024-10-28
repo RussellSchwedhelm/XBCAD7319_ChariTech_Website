@@ -295,5 +295,19 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('Audio file not found or is empty.');</script>");
             }
         }
+        protected void btnExhortationSearch_Click(object sender, EventArgs e)
+        {
+            string searchQuery = txtExhortationSearch.Text.Trim();
+            // Implement search logic for Exhortations using searchQuery
+            // Example: Bind ExhortationListRepeater to the filtered data source
+        }
+
+        protected void btnNewsSearch_Click(object sender, EventArgs e)
+        {
+            string searchQuery = txtNewsSearch.Text.Trim();
+            // Implement search logic for Ecclesial News using searchQuery
+            // Example: Bind newsListRepeater to the filtered data source
+        }
+
     }
 }

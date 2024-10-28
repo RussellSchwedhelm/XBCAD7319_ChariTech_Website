@@ -104,11 +104,20 @@ namespace XBCAD7319_ChariTech_Website.Pages
             string email = Session["UserEmail"].ToString();
             int userId = userManager.GetUserIdByEmail(email);
             int userChurchId = userManager.GetChurchIdByUserId(userId);
-            int churchId = userManager.GetChurchIdByUserId(userId);
 
-            DataTable exhortationsTable = exhortationManager.GetExhortationsByChurchID(churchId);
-
-            PerformSearch(exhortationsTable, searchTerm);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                // Fetch prioritized search results
+                DataTable searchResults = exhortationManager.SearchExhortations(userChurchId, searchTerm);
+                ExhortationListRepeater.DataSource = searchResults;
+            }
+            else
+            {
+                // Load default exhortations list if search term is empty
+                DataTable exhortations = exhortationManager.GetExhortationsByChurchID(userChurchId);
+                ExhortationListRepeater.DataSource = exhortations;
+            }
+            ExhortationListRepeater.DataBind();
         }
 
         private void PerformSearch(DataTable exhortationsTable, string searchTerm)

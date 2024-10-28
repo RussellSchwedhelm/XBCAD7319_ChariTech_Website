@@ -15,6 +15,24 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
 
         /// <summary>
+        /// txtExhortationSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtExhortationSearch;
+
+        /// <summary>
+        /// btnExhortationSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExhortationSearch;
+
+        /// <summary>
         /// ExhortationListRepeater control.
         /// </summary>
         /// <remarks>
@@ -22,6 +40,24 @@ namespace XBCAD7319_ChariTech_Website.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater ExhortationListRepeater;
+
+        /// <summary>
+        /// txtNewsSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNewsSearch;
+
+        /// <summary>
+        /// btnNewsSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNewsSearch;
 
         /// <summary>
         /// newsListRepeater control.

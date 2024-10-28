@@ -1381,3 +1381,16 @@ audio {
         transform: rotate(360deg);
     }
 }
+
+/* Fixed size with scrollable content for Exhortations and Ecclesial News */
+.exhortation-list, .news-list {
+    max-height: 300px; /* Set fixed height */
+    overflow-y: auto; /* Enables vertical scrolling */
+}
+
+@media (min-width: 768px) {
+    .exhortation-list, .news-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+}

@@ -3,10 +3,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <!-- Main Container -->
-    <div class="main-container" style="column-count: 2;">
+    <div class="main-container">
         <!-- Left Section: Exhortations -->
         <div class="section">
             <h3 class="headings">Exhortations</h3>
+            <!-- Search Bar for Exhortations -->
+            <div class="search-container">
+                <asp:TextBox ID="txtExhortationSearch" runat="server" CssClass="search-box" placeholder="Search Exhortations..."></asp:TextBox>
+                <asp:Button ID="btnExhortationSearch" runat="server" CssClass="search-button" Text="Search" OnClick="btnExhortationSearch_Click" />
+            </div>
             <div class="exhortation-list">
                 <!-- Dynamic list of Exhortations -->
                 <asp:Repeater ID="ExhortationListRepeater" runat="server">
@@ -28,6 +33,11 @@
         <!-- Middle Section: Ecclesial News -->
         <div class="section">
             <h3 class="headings">Ecclesial News</h3>
+            <!-- Search Bar for Ecclesial News -->
+            <div class="search-container">
+                <asp:TextBox ID="txtNewsSearch" runat="server" CssClass="search-box" placeholder="Search News..."></asp:TextBox>
+                <asp:Button ID="btnNewsSearch" runat="server" CssClass="search-button" Text="Search" OnClick="btnNewsSearch_Click" />
+            </div>
             <div class="news-list">
                 <!-- Dynamic list of News Letters -->
                 <asp:Repeater ID="newsListRepeater" runat="server">
@@ -121,6 +131,7 @@
 
         </div>
     </div>
+
     <!-- Script to open PDF in a new window -->
     <script type="text/javascript">
         function openPdf(newsletterId) {
@@ -133,51 +144,50 @@
         var currentPlayer = null;
         var currentExhortationId = null;
 
-       function togglePlayPause(exhortationId) {
-    const playButton = document.getElementById("playButton_" + exhortationId);
+        function togglePlayPause(exhortationId) {
+            const playButton = document.getElementById("playButton_" + exhortationId);
 
-    if (currentExhortationId === exhortationId && currentPlayer) {
-        // Toggle play/pause if the same exhortation is clicked
-        if (currentPlayer.paused) {
-            currentPlayer.play();
-            playButton.innerHTML = "❚❚";
-        } else {
-            currentPlayer.pause();
-            playButton.innerHTML = "▶";
+            if (currentExhortationId === exhortationId && currentPlayer) {
+                // Toggle play/pause if the same exhortation is clicked
+                if (currentPlayer.paused) {
+                    currentPlayer.play();
+                    playButton.innerHTML = "❚❚";
+                } else {
+                    currentPlayer.pause();
+                    playButton.innerHTML = "▶";
+                }
+            } else {
+                // Stop the current player if a new exhortation is clicked
+                if (currentPlayer) {
+                    currentPlayer.pause();
+                    document.getElementById("playButton_" + currentExhortationId).innerHTML = "▶";
+                }
+
+                // Fetch audio data through AJAX
+                fetch(`/Pages/Home.aspx/GetExhortationAudio?exhortationId=${exhortationId}`, {
+                    method: 'GET'
+                })
+                .then(response => response.arrayBuffer())
+                .then(audioBuffer => {
+                    const audioBlob = new Blob([audioBuffer], { type: "audio/mpeg" });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    currentPlayer = new Audio(audioUrl);
+
+                    currentExhortationId = exhortationId;
+                    
+                    // Start playing the new audio file and update UI
+                    currentPlayer.play().then(() => {
+                        playButton.innerHTML = "❚❚";
+                    }).catch(error => {
+                        alert("Audio playback failed. Please try again.");
+                        playButton.innerHTML = "▶";
+                    });
+                })
+                .catch(error => {
+                    alert("There was an error loading the audio. Please try again later.");
+                });
+            }
         }
-    } else {
-        // Stop the current player if a new exhortation is clicked
-        if (currentPlayer) {
-            currentPlayer.pause();
-            document.getElementById("playButton_" + currentExhortationId).innerHTML = "▶";
-        }
-
-        // Fetch audio data through AJAX
-        fetch(/Pages/Home.aspx/GetExhortationAudio?exhortationId=${exhortationId}, {
-            method: 'GET'
-        })
-        .then(response => response.arrayBuffer())
-        .then(audioBuffer => {
-            const audioBlob = new Blob([audioBuffer], { type: "audio/mpeg" });
-            const audioUrl = URL.createObjectURL(audioBlob);
-            currentPlayer = new Audio(audioUrl);
-
-            currentExhortationId = exhortationId;
-            
-            // Start playing the new audio file and update UI
-            currentPlayer.play().then(() => {
-                playButton.innerHTML = "❚❚";
-            }).catch(error => {
-                alert("Audio playback failed. Please try again.");
-                playButton.innerHTML = "▶";
-            });
-        })
-        .catch(error => {
-            alert("There was an error loading the audio. Please try again later.");
-        });
-    }
-}
-
     </script>
 
     <!-- Popup for submitting prayer request -->
