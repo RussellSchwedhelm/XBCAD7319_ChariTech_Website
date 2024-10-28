@@ -4,7 +4,7 @@
 
         <!-- Settings Layout -->
         <div class="settings-page">
-            <div class="settings-container" style="width: 70vw; border-color: transparent;">
+            <div class="settings-container" style="width: 60vw; border-color: transparent;">
                 <!-- Left Settings Panel -->
                 <div class="settings-left">
                     <div style="text-align: center;">
@@ -60,8 +60,8 @@
                         </label>
                     </div>
             
-                    <div style="text-align: center; margin-top: 20px;">
-                        <asp:Button ID="btnSaveSettings" runat="server" Text="Save Settings" CssClass="btn btn-success" OnClick="btnSaveSettings_Click" />
+                    <div style="text-align: center; margin-top: 20px; margin-left: 15px;">
+                        <asp:Button ID="btnSaveSettings" runat="server" Text="Save Settings" CssClass="btn btn-secondary" OnClick="btnSaveSettings_Click" />
                     </div>
                 </div>
                 <!-- ----------------------------------------------------------------------------- -->

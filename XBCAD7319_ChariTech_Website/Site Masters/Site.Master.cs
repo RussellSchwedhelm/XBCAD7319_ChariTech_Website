@@ -34,6 +34,9 @@ namespace XBCAD7319_ChariTech_Website
                     ? ResolveUrl("~/Images/notification_unread.png")
                     : ResolveUrl("~/Images/notification_read.png");
             }
+
+
+
         }
 
         protected void UsernameLink_Click(object sender, EventArgs e)

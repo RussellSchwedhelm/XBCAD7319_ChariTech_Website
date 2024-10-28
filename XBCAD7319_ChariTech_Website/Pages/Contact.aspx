@@ -6,6 +6,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            
         }
 
         .profile-pic {
@@ -22,8 +23,10 @@
         }
     </style>
         <div class="main-container" style="display: flex; justify-content: center; align-items: center; min-height: 100%; grid-template-columns: 1fr;">
-            <div class="section" style="max-width: 40rem;" id="contactSection" runat="server">
-                <!-- Contact cards will be dynamically generated here -->
+            <div class="section" style="width: 60vw; justify-content: center; align-items: center;">
+                <div id="contactSection" runat="server">
+                    <!-- Contact cards will be dynamically generated here -->
+                </div> 
             </div>
         </div>
 

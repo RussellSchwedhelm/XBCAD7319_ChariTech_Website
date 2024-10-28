@@ -4,14 +4,13 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using XBCAD7319_ChariTech_Website.Classes;
 
-
 namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class BibleCourses : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*// Check if the session exists
+            // Check if the session exists
             if (Session["UserEmail"] == null)
             {
                 // If no session, redirect to login page
@@ -19,35 +18,25 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
             else
             {
-                // User is authenticated, you can access their email
                 string email = Session["UserEmail"].ToString();
-                // Use the email for further logic if needed
-            }*/
-
-            
-
+            }
 
             if (!IsPostBack)
             {
                 BindRepeater();
                 BindCourses();
             }
-            
         }
-
 
         private void BindRepeater()
         {
-            // Bind the repeater to the list of item options
             RepeaterOptions.DataSource = GetItemOptions();
             RepeaterOptions.DataBind();
         }
 
-
-        //Temp proof of concept method
         public List<ItemOption> GetItemOptions()
         {
-            string imagePath = ResolveUrl("~/Images/Trash 13.png");//This currently doesnt have a use but is good as a parameter placeholder
+            string imagePath = ResolveUrl("~/Images/Trash 13.png");
 
             return new List<ItemOption>
             {
@@ -62,8 +51,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
             };
         }
 
-
-
         private void BindCourses()
         {
             CourseManager courseManager = new CourseManager();
@@ -75,53 +62,46 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 course.PdfFileUrl = courseManager.SavePdfFromByteArray(course.PdfFileContent, course.CourseTitle.Replace(" ", "_"));
             }
 
-
             dlCourses.DataSource = courses;
             dlCourses.DataBind();
         }
 
-
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            CourseManager courseMHere = new CourseManager();
-            string selectedTheme = GetSelectedTheme(); // New method to get the selected theme
+            CourseManager courseManager = new CourseManager();
+            string selectedTheme = GetSelectedTheme();
+            string searchQuery = txtSearchQuery2.Text?.ToLower() ?? string.Empty;
 
-            string searchQuery = txtSearchQuery2.Text.ToLower();
-
-            if (string.IsNullOrWhiteSpace(searchQuery))
+            try
             {
-                // If empty, display the original full course list
-                var fullList = courseMHere.GetAllCourses();
-                dlCourses.DataSource = fullList;
-                dlCourses.DataBind();
-            }
-            else
-            {
+                List<CourseClass> allCourses = courseManager.GetAllCourses();
 
-
-                // Filter courses based on the search query
-                var filteredCourses = courseMHere.GetAllCourses().Where(course =>
-                course.CourseTitle.ToLower().Contains(searchQuery) ||
-                course.Description.ToLower().Contains(searchQuery)).ToList();
+                // Filter courses based on search query and selected theme
+                var filteredCourses = allCourses
+                    .Where(course => 
+                        (course.CourseTitle?.ToLower().Contains(searchQuery) ?? false) || 
+                        (course.Description?.ToLower().Contains(searchQuery) ?? false))
+                    .ToList();
 
                 if (!string.IsNullOrWhiteSpace(selectedTheme))
                 {
-                    filteredCourses = filteredCourses.Where(course => course.Theme.Equals(selectedTheme, StringComparison.OrdinalIgnoreCase)).ToList();
+                    filteredCourses = filteredCourses
+                        .Where(course => course.Theme?.Equals(selectedTheme, StringComparison.OrdinalIgnoreCase) ?? false)
+                        .ToList();
                 }
-
 
                 // Bind the filtered list to dlCourses
                 dlCourses.DataSource = filteredCourses;
                 dlCourses.DataBind();
-
+            }
+            catch (Exception ex)
+            {
+                // Display error message
+                Response.Write("<script>alert('An error occurred while filtering courses.');</script>");
                 
             }
         }
 
-
-
-        // Helper method to get the selected theme from RepeaterOptions
         private string GetSelectedTheme()
         {
             foreach (RepeaterItem item in RepeaterOptions.Items)
@@ -136,16 +116,11 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
             return string.Empty;
         }
-
-
-
-
     }
 
-    //For Filter UI
     public class ItemOption
     {
-        public string IconUrl { get; set; }  // URL to the icon image
-        public string Text { get; set; }      // Display text for the option
+        public string IconUrl { get; set; }
+        public string Text { get; set; }
     }
 }

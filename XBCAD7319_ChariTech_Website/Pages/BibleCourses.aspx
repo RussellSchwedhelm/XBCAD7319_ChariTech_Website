@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <!-- Main Container -->
-    <div class="section" style="width:100%; padding:10px; margin-top: 10px; margin-bottom: 10px;">
+    <div class="section" style="width :90%; padding:10px; margin-top: 20px; margin-bottom: 20px;">
         <div class="main-container">
 
             <div class=" courseSearchDisplay">

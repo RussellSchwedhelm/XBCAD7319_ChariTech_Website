@@ -1,4 +1,5 @@
 ﻿/* Root variables for easy scalability */
+@import url('site.css');
 :root {
     /* Base sizes based on 1920px width */
     --base-font-size: 16px;
@@ -1410,7 +1411,7 @@ body.dark-mode {
 
 /* CHANGE PASSWORD BUTTON */
 .btn-change-password {
-    background-color: #007bff; /* Blue color */
+    background-color: #333; 
     color: white;
     padding: 10px 20px;
     border: none;
@@ -1420,7 +1421,7 @@ body.dark-mode {
 }
 
     .btn-change-password:hover {
-        background-color: #0056b3; /* Darker blue for hover */
+        background-color: #555; /* Darker blue for hover */
     }
 
 
