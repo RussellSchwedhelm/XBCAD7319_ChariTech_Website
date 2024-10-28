@@ -21,12 +21,16 @@
                                 <p><%# Eval("Title") %> | <%# Eval("Date", "{0:MM-dd-yyyy}") %></p>
                                 <p>Speaker: <%# Eval("Speaker") %></p>
                             </div>
-                            <a class="details-link" href="#">Details ></a>
-                            <!-- Play button with server-side click event -->
-                            <asp:Button ID="PlayButton" runat="server" Text="▶" CommandArgument='<%# Eval("ExhortationID") %>' OnClick="PlayExhortation" CssClass="play-button" />
+                            <!-- Details button: Navigate to Exhortations.aspx with autoplay=false -->
+                            <a class="details-link" href='<%# "Exhortations.aspx?exhortationId=" + Eval("ExhortationID") + "&autoplay=false" %>'>Details ></a>
+
+                            <!-- Play button: Navigate to Exhortations.aspx with autoplay=true -->
+                            <asp:Button ID="PlayButton" runat="server" Text="▶" CommandArgument='<%# Eval("ExhortationID") %>' CssClass="play-button"
+                                OnClick="PlayExhortation_Click" />
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
+
             </div>
         </div>
 

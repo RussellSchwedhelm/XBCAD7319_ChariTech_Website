@@ -164,7 +164,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
         }
 
-
         // Handle the click event for View Schedule button to generate PDF
         protected void ViewScheduleButton_Click(object sender, EventArgs e)
         {
@@ -252,49 +251,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             byte[] audioData = exhortationManager.GetExhortationAudio(exhortationId);
             return audioData;
         }
-        protected void PlayExhortation(object sender, EventArgs e)
-        {
-            var button = (Button)sender;
-            int exhortationId = int.Parse(button.CommandArgument);
 
-            // Retrieve audio data for the specified exhortation
-            byte[] audioData = exhortationManager.GetExhortationAudio(exhortationId);
-
-            if (audioData != null && audioData.Length > 0)
-            {
-                try
-                {
-                    // Define the file path for the temporary audio file
-                    string tempFileName = $"exhortation_{exhortationId}.mp3";
-                    string tempFilePath = Server.MapPath("~/TempAudio/" + tempFileName);
-
-                    // Ensure TempAudio folder exists
-                    string tempDirectory = Server.MapPath("~/TempAudio/");
-                    if (!Directory.Exists(tempDirectory))
-                    {
-                        Directory.CreateDirectory(tempDirectory);
-                    }
-
-                    // Save the audio file temporarily
-                    File.WriteAllBytes(tempFilePath, audioData);
-
-                    // Redirect to the temporary file so it can be played directly
-                    Response.Redirect("~/TempAudio/" + tempFileName, false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                }
-                catch (Exception ex)
-                {
-                    // Log the error if needed and show an error message
-                    System.Diagnostics.Debug.WriteLine("Error saving or redirecting to audio file: " + ex.Message);
-                    Response.Write("<script>alert('There was an issue playing the audio. Please try again.');</script>");
-                }
-            }
-            else
-            {
-                // Handle the case where audio data is null or empty
-                Response.Write("<script>alert('Audio file not found or is empty.');</script>");
-            }
-        }
         protected void btnExhortationSearch_Click(object sender, EventArgs e)
         {
             string searchQuery = txtExhortationSearch.Text.Trim();
@@ -313,7 +270,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 ExhortationListRepeater.DataBind();
             }
         }
-
 
         protected void btnNewsSearch_Click(object sender, EventArgs e)
         {
@@ -334,6 +290,14 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
         }
 
+        protected void PlayExhortation_Click(object sender, EventArgs e)
+        {
+            Button playButton = (Button)sender;
+            int exhortationId = int.Parse(playButton.CommandArgument);
+
+            // Redirect to Exhortations.aspx with autoplay=true
+            Response.Redirect($"Exhortations.aspx?exhortationId={exhortationId}&autoplay=true");
+        }
 
     }
 }

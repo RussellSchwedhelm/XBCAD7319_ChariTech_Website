@@ -25,8 +25,39 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     string email = Session["UserEmail"].ToString();
                     int userId = userManager.GetUserIdByEmail(email);
                     int userChurchId = userManager.GetChurchIdByUserId(userId);
-                    LoadExhortations(userChurchId);
+
+                    // Check for query parameters
+                    if (Request.QueryString["exhortationId"] != null && int.TryParse(Request.QueryString["exhortationId"], out int exhortationId))
+                    {
+                        // Set autoplay based on query parameter; default to false if not present or invalid
+                        bool autoplay = Request.QueryString["autoplay"] != null && bool.TryParse(Request.QueryString["autoplay"], out bool auto) && auto;
+
+                        // Load the specific exhortation with autoplay setting
+                        LoadExhortationById(exhortationId, autoplay);
+
+                        LoadExhortations(userChurchId);
+                    }
+                    else
+                    {
+                        // If no query parameters, load the list of exhortations for the church
+                        LoadExhortations(userChurchId);
+                    }
                 }
+            }
+        }
+        
+        private void LoadExhortationById(int exhortationId, bool autoplay)
+        {
+            // Load exhortation details
+            DisplayExhortationDetails(exhortationId);
+
+            // Load and set audio based on autoplay parameter
+            var audioData = exhortationManager.GetExhortationAudio(exhortationId);
+            if (audioData != null)
+            {
+                string base64Audio = "data:audio/mp3;base64," + Convert.ToBase64String(audioData);
+                ClientScript.RegisterStartupScript(this.GetType(), "playAudio",
+                    $"setAudioSource('{base64Audio}', {exhortationId}, {autoplay.ToString().ToLower()});", true);
             }
         }
 
@@ -77,7 +108,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
         }
 
-
         private void DisplayExhortationDetails(int exhortationId)
         {
             var exhortation = exhortationManager.GetExhortationById(exhortationId);
@@ -96,7 +126,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     : "No summary available.";
             }
         }
-
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
