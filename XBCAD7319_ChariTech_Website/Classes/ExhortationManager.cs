@@ -290,7 +290,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             return null;
         }
 
-        private void UpdateExhortationSummary(int exhortationId, string summaryText)
+        public void UpdateExhortationSummary(int exhortationId, string summaryText)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
@@ -332,7 +332,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
         }
 
         // Method to update transcription text in the database for a specific exhortation
-        private void UpdateExhortationTranscription(int exhortationId, string transcriptionText)
+        public void UpdateExhortationTranscription(int exhortationId, string transcriptionText)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
@@ -523,6 +523,78 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
 
             return speakerName; // Return the speaker's name or null if not found
+        }
+        // Method to delete an exhortation by ExhortationID
+        public bool DeleteExhortationById(int exhortationId)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+            bool isDeleted = false;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "DELETE FROM Exhortation WHERE ExhortationID = @ExhortationID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
+
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    isDeleted = rowsAffected > 0; // Returns true if at least one row was deleted
+                }
+            }
+
+            return isDeleted;
+        }
+
+        // Method to update the transcript of an exhortation by ExhortationID
+        public bool UpdateExhortationTranscript(int exhortationId, string transcriptionText)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+            bool isUpdated = false;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Exhortation SET AITranscriptionText = @TranscriptionText WHERE ExhortationID = @ExhortationID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@TranscriptionText", transcriptionText);
+                    cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
+
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    isUpdated = rowsAffected > 0; // Returns true if the update was successful
+                }
+            }
+
+            return isUpdated;
+        }
+
+        public void UpdateExhortationDetails(int exhortationId, string title, string speaker, DateTime date, string transcriptionText, string summaryText)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"UPDATE Exhortation 
+                         SET Title = @Title, Speaker = @Speaker, Date = @Date, 
+                             AITranscriptionText = @TranscriptionText, AISummaryText = @SummaryText 
+                         WHERE ExhortationID = @ExhortationID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Title", title);
+                    cmd.Parameters.AddWithValue("@Speaker", speaker);
+                    cmd.Parameters.AddWithValue("@Date", date);
+                    cmd.Parameters.AddWithValue("@TranscriptionText", transcriptionText);
+                    cmd.Parameters.AddWithValue("@SummaryText", summaryText);
+                    cmd.Parameters.AddWithValue("@ExhortationID", exhortationId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
     }

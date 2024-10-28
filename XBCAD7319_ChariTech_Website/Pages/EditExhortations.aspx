@@ -1,98 +1,152 @@
 ﻿<%@ Page Title="EditExhortations" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="EditExhortations.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.EditExhortations" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div class="main-container">
-    <!-- Exhortations Section -->
-    <div class="section exhortationSelect">
-        <div style="text-align: center;">
-            <h3 class="heading">Exhortations</h3>
-
-            <div class="search-container" >
-                <asp:TextBox ID="txtSearchQuery2" runat="server" CssClass="search-box" placeholder="Search..."></asp:TextBox>
-                <asp:Button ID="btnSearch" runat="server" CssClass="search-button" Text="Search" OnClick="btnSearch_Click" />
-            </div>
-        </div>
-
-        <div class="exhortations-list">
-            <!-- Repeat this block for each exhortation dynamically -->
-            <div class="exhortation-item">
-                <img src='<%= ResolveUrl("~/Images/Trash 13.png") %>' alt="Trash Bin" style="width: 20px; height: 20px; margin-right: 10px;" />
-
-                <div class="exhortation-info">
-                    <p class="title">Talk Title | 01-01-2024</p>
-                    <p class="description">Brief Talk Description</p>
-                </div>
-                <div class="exhortation-actions">
-                    <a href="#" class="exhortation-details-link">Details ></a>
-                    <button class="play-button">▶</button>
+    <div class="main-container" style="grid-template-columns: 1fr 1fr;">
+        <!-- Exhortations Section -->
+        <div class="section">
+            <div style="text-align: center;">
+                <h3 class="heading">Exhortations</h3>
+                <div class="search-container">
+                    <asp:TextBox ID="txtSearchQuery2" runat="server" CssClass="search-box" placeholder="Search..."></asp:TextBox>
+                    <asp:Button ID="btnSearch" runat="server" CssClass="search-button" Text="Search" OnClick="btnSearch_Click" />
                 </div>
             </div>
-        </div>
-    </div>
 
-
-
-        <div class="section exhortationDisplay" >
-            <div class="editExhortationContainer">
-                <div style="align-items: center; display: flex; width:100% !important; justify-content: center; margin:0 auto;">
-                <asp:TextBox ID="txtExhortationTitle" class="editExhortationTitle" ReadOnly="False" Text="*Talk Title*" runat="server" ></asp:TextBox>
-                <img src='<%= ResolveUrl("~/Images/Edit.png") %>' alt="Trash Bin" style="width: 20px; height: 20px; margin-left: 10px; margin-bottom: 10px" />
+            <!-- Dynamic Repeater for Exhortations List -->
+            <asp:Repeater ID="ExhortationListRepeater" runat="server" OnItemCommand="ExhortationListRepeater_ItemCommand">
+                <ItemTemplate>
+                    <div class="exhortation-item">
+                        <asp:LinkButton ID="DeleteLinkButton" runat="server" CommandName="DeleteExhortation" CommandArgument='<%# Eval("ExhortationID") %>' ToolTip="Delete">
+                            <asp:Image ID="DeleteButton" runat="server" ImageUrl='<%= ResolveUrl("~/Images/Trash13.png") %>' CssClass="delete-icon" />
+                        </asp:LinkButton>
+            
+                        <div class="exhortation-info">
+                            <asp:Label ID="TitleLabel" runat="server" Text='<%# Eval("Title") %>' CssClass="title" />
+                        </div>
+            
+                        <asp:LinkButton ID="DetailsLink" runat="server" CommandName="LoadDetails" CommandArgument='<%# Eval("ExhortationID") %>'
+                                        Text="Details >" CssClass="details-link" />
+                        <asp:Button ID="PlayButton1" runat="server" CommandName="PlayAudio" CommandArgument='<%# Eval("ExhortationID") %>'
+                                     Text="▶" CssClass="play-button" data-exhortationid='<%# Eval("ExhortationID") %>' />
                     </div>
+                </ItemTemplate>
+            </asp:Repeater>
+            </div>
+
+        <!-- Editable Fields for Exhortation Details -->
+        <div class="section exhortationDisplay">
+           <div class="section exhortationDisplay">
+                <div class="editExhortationContainer" style="text-align: center;">
+                    <h3>Title:
+                        <asp:TextBox ID="txtExhortationTitle" runat="server" Text="*Talk Title*" CssClass="title-textbox" />
+                    </h3>
+        
+                    <h5 class="section-heading">Speaker:
+                        <asp:TextBox ID="txtExhortationSpeaker" runat="server" CssClass="speaker-textbox" />
+                    </h5>
+        
+                    <h5 class="section-heading">Date:
+                        <asp:TextBox ID="txtExhortationDate" runat="server" CssClass="date-textbox" TextMode="Date" />
+                    </h5>
+
+                <div class="audio-player" style="display: flex; justify-content: center; align-items: center; margin-top: 20px; height: 50px;">
+                    <audio id="AudioPlayer" controls>
+                        <source id="AudioSource" type="audio/mpeg" src="null" />
+                    </audio>
+                </div>
+
+                <br />
+
+                <div style="text-align: center;">
+                    <h4 class="section-heading">Summary</h4>
+                    <asp:TextBox ID="txtExhortationSummary" runat="server" TextMode="MultiLine" CssClass="summary-textbox"
+                                 Text="Editable Summary..." style="max-height: 10rem; width: 80%; overflow-y: auto; padding: 0.5rem; border: 1px solid #ddd;">
+                    </asp:TextBox>
+                </div>
+
+                <div style="text-align: center; margin-top: 1rem;">
+                    <h4 class="section-heading">Transcription</h4>
+                    <asp:TextBox ID="txtExhortationTranscript" runat="server" TextMode="MultiLine" CssClass="transcript-textbox"
+                                 Text="Editable Transcript..." style="max-height: 15rem; width: 80%; overflow-y: auto; padding: 0.5rem; border: 1px solid #ddd;">
+                    </asp:TextBox>
+                </div>
+
+                <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" CssClass="btn btn-secondary"
+                            style="width: 50%; margin-top: 1rem;" OnClick="btnSaveChanges_Click" />
                 
-                <div style="align-items: center; display: flex; width:100% !important; justify-content: center; margin:0 auto;">
-                <asp:TextBox ID="txtExhortationSummary" class="editExhortationSummary" ReadOnly="False" Text="*A brief descriptive summary*" runat="server" ></asp:TextBox>
-                <img src='<%= ResolveUrl("~/Images/Edit.png") %>' alt="Trash Bin" style="width: 20px; height: 20px; margin-left: 10px; margin-bottom: 10px" />
-                    </div>
-            </div>
-
-            <br />
-            
-    <div class="audio-player" >
-        <div class="audio-header">
-            <span class="speaker">Marshal</span>
-            <span class="date">01-01-2024</span>
-        </div>
-        <div class="audio-controls">
-            <button class="play-button2" onclick="togglePlayPause()">▶</button>
-            <div class="progress-container">
-                <div class="exh-progress-bar">
-                    <div class="exh-progress"></div>
-                </div>
-                <div class="timestamps">
-                    <span class="current-time">10:11</span>
-                    <span class="total-time">20:39</span>
-                </div>
+                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" style="width: 50%; margin-top: 1rem;" OnClick="btnCancel_Click" />
             </div>
         </div>
-    </div>
-         
-            <br />
-
-            <h5 class="section-heading"> </h5>
-
-             <div style="align-items: center; display: flex; width:100% !important; justify-content: center; margin:0 auto;">
-                <asp:TextBox ID="txtExhortationTranscript" 
-                    class="editExhortationTranscript" 
-                    ReadOnly="False" 
-                    TextMode="MultiLine"
-                    Text="This is an Autogenerated transcript, that descripes the words and ideas that were covered in an exhortation..." 
-                    runat="server" 
-                    style="width:auto"></asp:TextBox>
-
-                    <img src='<%= ResolveUrl("~/Images/Edit.png") %>' alt="Trash Bin" style="width: 20px; height: 20px; margin-left: 10px; margin-bottom: 10px" />
-            </div>
-            <br />
-            
-
-            <asp:Button ID="btnSaveChanges" runat="server" style="width: 50% !important; margin: 0 auto;" Text="Save Changes" CssClass="btn btn-secondary" />
-            <br />
-            <asp:Button ID="btnCancel" runat="server" style="width: 50% !important; margin: 0 auto;" Text="Cancel" CssClass="btn btn-secondary" />
-            
-
         </div>
 
+    <!-- JavaScript for handling audio play/pause functionality -->
+    <script type="text/javascript">
+        var currentExhortationId = null;
 
-    </div>
+        function setAudioSource(base64Audio, exhortationId, autoplay = true) {
+            const audioPlayer = document.getElementById("AudioPlayer");
+            const audioSource = document.getElementById("AudioSource");
 
+            // Set loading spinner and log for debugging
+            togglePlayButtonSpinner(exhortationId, true);
+            console.log("Loading audio for Exhortation ID:", exhortationId);
 
+            // Set the audio source and reload when ready
+            audioSource.src = base64Audio;
+            audioPlayer.load();
+
+            // Set the currentExhortationId to the one being played
+            currentExhortationId = exhortationId;
+
+            audioPlayer.oncanplaythrough = () => {
+                // Remove loading spinner when audio is ready to play
+                togglePlayButtonSpinner(exhortationId, false);
+                updatePlayButton(autoplay ? "❚❚" : "▶", exhortationId); // Set to appropriate icon based on autoplay
+                if (autoplay) {
+                    audioPlayer.play(); // Start playback only if autoplay is true
+                }
+            };
+
+            // Update button icons during playback and pause events
+            audioPlayer.onplay = () => {
+                console.log("Playing audio for Exhortation ID:", exhortationId);
+                updatePlayButton("❚❚", exhortationId); // Show pause icon
+            };
+
+            audioPlayer.onpause = () => {
+                console.log("Paused audio for Exhortation ID:", exhortationId);
+                updatePlayButton("▶", exhortationId); // Show play icon
+            };
+
+            audioPlayer.onended = () => {
+                console.log("Audio ended for Exhortation ID:", exhortationId);
+                updatePlayButton("▶", exhortationId); // Reset to play icon
+            };
+        }
+
+        function updatePlayButton(icon, exhortationId) {
+            const playButton = document.querySelector(`button[data-exhortationid="${exhortationId}"]`);
+            if (playButton) {
+                playButton.innerHTML = icon; // Set icon as innerHTML
+                playButton.classList.remove("loading"); // Ensure loading state is removed
+                console.log("Updated play button to:", icon);
+            } else {
+                console.error("Play button not found for Exhortation ID:", exhortationId);
+            }
+        }
+
+        function togglePlayButtonSpinner(exhortationId, showSpinner) {
+            const playButton = document.querySelector(`button[data-exhortationid="${exhortationId}"]`);
+            if (playButton) {
+                if (showSpinner) {
+                    playButton.classList.add("loading"); // Add loading class to show overlay
+                    console.log("Showing loading spinner for Exhortation ID:", exhortationId);
+                } else {
+                    playButton.classList.remove("loading"); // Remove loading class
+                    console.log("Hiding loading spinner for Exhortation ID:", exhortationId);
+                }
+            } else {
+                console.error("Play button not found for Exhortation ID:", exhortationId);
+            }
+        }
+    </script>
 </asp:Content>

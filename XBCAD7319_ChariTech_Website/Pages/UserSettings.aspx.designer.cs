@@ -141,6 +141,24 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.HtmlControls.HtmlImage userProfilePic;
 
         /// <summary>
+        /// profilePictureUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload profilePictureUpload;
+
+        /// <summary>
+        /// btnUploadPicture control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadPicture;
+
+        /// <summary>
         /// lblEmail control.
         /// </summary>
         /// <remarks>

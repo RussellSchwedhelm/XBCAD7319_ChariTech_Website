@@ -1,29 +1,33 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.AdminDashboard" %>
+﻿<%@ Page Title="Admin Dashboard" Language="C#" MasterPageFile="~/Site Masters/Site.Master" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="XBCAD7319_ChariTech_Website.Pages.AdminDashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <!-- Main Container -->
     <div class="main-container">
         <!-- Ecclesial Newsletter Upload Section -->
-        <asp:Panel ID="newsletterPanel" runat="server" CssClass="dashboard-stack">
-            <div class="section item-wrap">
-                <h3 class="headings">Ecclesial Newsletter Upload</h3>
-                <div class="upload-form">
-                    <label for="newsletter-date">Date</label>
-                    <asp:TextBox ID="NewsletterDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                </div>
-
-                <div class="upload-form">
-                    <label for="newsletter-title">Title</label>
-                    <asp:TextBox ID="NewsletterTitle" runat="server" CssClass="form-control" placeholder="Enter the title"></asp:TextBox>
-                </div>
-
-                <div class="upload-form">
-                    <asp:FileUpload ID="NewsletterFileUpload" runat="server" CssClass="file-upload" />
-                </div>
-
-                <asp:Button ID="UploadNewsletterButton" runat="server" CssClass="btn" Text="Upload Newsletter" OnClick="UploadNewsletterButton_Click" />
+       <asp:Panel ID="newsletterPanel" runat="server" CssClass="dashboard-stack">
+    <div class="section item-wrap">
+        <h3 class="headings">Ecclesial Newsletter Upload</h3>
+        
+        <!-- Wrapper for Date and Title input fields with flex display -->
+        <div class="upload-form-row">
+            <div class="upload-form">
+                <label for="newsletter-date">Date</label>
+                <asp:TextBox ID="NewsletterDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
             </div>
-        </asp:Panel>
+
+            <div class="upload-form">
+                <label for="newsletter-title">Title</label>
+                <asp:TextBox ID="NewsletterTitle" runat="server" CssClass="form-control" placeholder="Enter the title"></asp:TextBox>
+            </div>
+        </div>
+
+        <div class="upload-form">
+            <asp:FileUpload ID="NewsletterFileUpload" runat="server" CssClass="file-upload" />
+        </div>
+
+        <asp:Button ID="UploadNewsletterButton" runat="server" CssClass="btn" Text="Upload Newsletter" OnClick="UploadNewsletterButton_Click" />
+    </div>
+</asp:Panel>
 
         <!-- Prayer Request Review Section -->
         <div class="section prayer-requests-review item-wrap">
@@ -175,7 +179,8 @@
             <!-- Upload Bible Course Section -->
             <div class="section bible-course-nav item-wrap">
                 <div class="buttons-group">
-                    <button>Upload Bible Course</button>
+                    <asp:Button ID="btnUploadBibleCourse" runat="server" Text="Upload Bible Course" PostBackUrl="~/Pages/BibleCourseUpload.aspx" />
+                    <asp:Button ID="Button1" runat="server" Text="Edit Exhortations" PostBackUrl="~/Pages/EditExhortations.aspx" />
                 </div>
             </div>
         </div>

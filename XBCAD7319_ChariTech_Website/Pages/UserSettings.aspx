@@ -69,7 +69,18 @@
                 <!-- Right Account Panel -->
                 <div class="settings-right">
                     <div class="account-info">
-                        <img id="userProfilePic" runat="server" alt="Profile Picture" class="profile-pic" src:null />
+                        <img id="userProfilePic" runat="server" alt="Profile Picture" class="profile-pic" src="" />
+
+                        <div class="profile-picture-container" onclick="document.getElementById('profilePictureUpload').click();">
+                            <asp:FileUpload ID="profilePictureUpload" class="hidden-upload" runat="server" accept="image/*" OnChange="previewProfilePicture();" />
+                            <div class="edit-icon">
+                                <i class="fas fa-pen"></i>
+                                <span>Edit</span>
+                            </div>
+                        </div>
+
+                        <asp:Button ID="btnUploadPicture" runat="server" Text="Upload Picture" CssClass="btn btn-primary" OnClick="btnUploadPicture_Click" />
+                    
 
                         <h3>My Account</h3>
                         <div class="account-fields">
@@ -102,5 +113,19 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <script>
+                function previewProfilePicture() {
+                    const fileInput = document.getElementById('profilePictureUpload');
+                    const profilePicture = document.getElementById('<%= userProfilePic.ClientID %>');
+
+                    if (fileInput.files && fileInput.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            profilePicture.src = e.target.result;
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                }
+            </script>
+
     </asp:Content>
