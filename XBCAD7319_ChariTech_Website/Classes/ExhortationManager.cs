@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Net.Http;
 
+
 namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class ExhortationManager

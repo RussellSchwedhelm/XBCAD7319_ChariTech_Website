@@ -169,7 +169,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         private void LoadUserProfilePicture()
         {
             string email = Session["UserEmail"].ToString();
-            DataTable userData = contactManager.GetUserDataByEmail(email);
+            DataTable userData = userManager.GetUserDataByEmail(email);
 
             if (userData.Rows.Count > 0)
             {
@@ -196,7 +196,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 {
                     byte[] profilePictureBytes = profilePictureUpload.FileBytes;
                     string email = Session["UserEmail"].ToString();
-                    bool updateSuccess = contactManager.UpdateUserProfilePicture(email, profilePictureBytes);
+                    bool updateSuccess = userManager.UpdateUserProfilePicture(email, profilePictureBytes);
 
                     if (updateSuccess)
                     {
