@@ -79,7 +79,6 @@
                                 <span>Upload Profile Picture</span>
                             </div>
                             <asp:FileUpload ID="profilePictureUpload" class="hidden-upload" runat="server" accept="image/*" OnChange="previewProfilePicture();" />
-                            
                         </div>
 
                         
