@@ -64,44 +64,41 @@
                         <asp:Button ID="btnSaveSettings" runat="server" Text="Save Settings" CssClass="btn btn-secondary" OnClick="btnSaveSettings_Click" />
                     </div>
                 </div>
-                <!-- ----------------------------------------------------------------------------- -->
+                <!-- ------------------------------------------------------------------------------------->
 
                 <!-- Right Account Panel -->
                 <div class="settings-right">
                     <div class="account-info">
-                        <img id="userProfilePic" runat="server" alt="Profile Picture" class="profile-pic" src="" />
 
-                        <div class="profile-picture-container" onclick="document.getElementById('profilePictureUpload').click();">
-                            <asp:FileUpload ID="profilePictureUpload" class="hidden-upload" runat="server" accept="image/*" OnChange="previewProfilePicture();" />
-                            <div class="edit-icon">
-                                <i class="fas fa-pen"></i>
-                                <span>Edit</span>
-                            </div>
+                        <div class="profile-picture-container" style="width: 80px; height: 80px;" onclick="document.getElementById('profilePictureUpload').click();">
+                            <img id="userProfilePic" runat="server" style="width: 80px; height: 80px;" alt="Profile Picture" class="profile-pic" src="" />
+
+                            
+                            <asp:FileUpload ID="profilePictureUpload" style="visibility: hidden" class="hidden-upload" runat="server" accept="image/*" OnChange="previewProfilePicture();" />
+                            
                         </div>
 
-                        <asp:Button ID="btnUploadPicture" runat="server" Text="Upload Picture" CssClass="btn btn-primary" OnClick="btnUploadPicture_Click" />
-                    
-
+                        <br />
                         <h3>My Account</h3>
                         <div class="account-fields">
                             <div style="display: flex; align-items: center;">
                                 <asp:Label ID="lblEmail" runat="server" Text="Email" style="padding:10px;"></asp:Label>
-                                <asp:TextBox ID="txtEmail" runat="server" ReadOnly="true" style="background-color: transparent; border: none; color: #BBBBBD; padding: 5px; border-bottom: 1px solid #BBBBBD;"></asp:TextBox>
+                                <asp:TextBox ID="txtEmail" runat="server" ReadOnly="true" style="background-color: transparent; border: none; color: #BBBBBD; padding: 5px; border-bottom: 1px solid #BBBBBD; width: 75%; margin-left: auto "></asp:TextBox>
                             </div>
 
                             <div style="display: flex; align-items: center;">
                                 <asp:Label ID="lblName" runat="server" Text="Name" style="padding:10px;"></asp:Label>
-                                <asp:TextBox ID="txtName" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px;"></asp:TextBox>
+                                <asp:TextBox ID="txtName" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px; width: 75%;  margin-left: auto; "></asp:TextBox>
                             </div>
 
                             <div style="display: flex; align-items: center;">
                                 <asp:Label ID="lblSurname" runat="server" Text="Surname" style="padding:10px;"></asp:Label>
-                                <asp:TextBox ID="txtSurname" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px;"></asp:TextBox>
+                                <asp:TextBox ID="txtSurname" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px;  width: 75%; margin-left: auto;  "></asp:TextBox>
                             </div>
 
                             <div style="display: flex; align-items: center;">
                                 <asp:Label ID="lblEcclesia" runat="server" Text="Ecclesia" style="padding:10px;"></asp:Label>
-                                <asp:DropDownList ID="ddlEcclesia" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px;">
+                                <asp:DropDownList ID="ddlEcclesia" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px;  width: 75%;  margin-left: auto ; ">
                                     <asp:ListItem Value="" Text="Select" />
                                 </asp:DropDownList>
                             </div>

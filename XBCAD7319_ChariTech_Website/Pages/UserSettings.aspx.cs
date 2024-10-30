@@ -75,7 +75,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
                 // Convert profile picture to Base64 string if it exists
                 if (profilePicBytes != null)
-                {
+                { 
                     string profilePicBase64 = "data:image/png;base64," + Convert.ToBase64String(profilePicBytes);
                     userProfilePic.Attributes["src"] = profilePicBase64;
                 }
@@ -155,6 +155,71 @@ namespace XBCAD7319_ChariTech_Website.Pages
         {
             Response.Redirect("ChangePassword.aspx");
         }
+
+
+
+
+
+
+
+
+        /*
+        // Method to load profile picture from the database
+        private void LoadUserProfilePicture()
+        {
+            string email = Session["UserEmail"].ToString();
+            DataTable userData = contactManager.GetUserDataByEmail(email);
+
+            if (userData.Rows.Count > 0)
+            {
+                DataRow row = userData.Rows[0];
+                byte[] profilePicBytes = row["ProfilePicture"] as byte[];
+
+                if (profilePicBytes != null)
+                {
+                    string profilePicBase64 = "data:image/png;base64," + Convert.ToBase64String(profilePicBytes);
+                    userProfilePic.Attributes["src"] = profilePicBase64;
+                }
+                else
+                {
+                    userProfilePic.Attributes["src"] = "~/Images/default_profile.png"; // Use default image if no picture
+                }
+            }
+        }*/
+
+        protected void btnUploadPicture_Click(object sender, EventArgs e)
+        {
+            if (profilePictureUpload.HasFile)
+            {
+                try
+                {
+                    byte[] profilePictureBytes = profilePictureUpload.FileBytes;
+                    string email = Session["UserEmail"].ToString();
+                    bool updateSuccess = contactManager.UpdateUserProfilePicture(email, profilePictureBytes);
+
+                    if (updateSuccess)
+                    {
+                        // Update the displayed image
+                        userProfilePic.Attributes["src"] = "data:image/png;base64," + Convert.ToBase64String(profilePictureBytes);
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Profile picture updated successfully!');", true);
+                    }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Failed to update profile picture.');", true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Error uploading profile picture: " + ex.Message + "');", true);
+                }
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please select a profile picture to upload.');", true);
+            }
+        }
+
+        /*
         protected void btnUploadPicture_Click(object sender, EventArgs e)
         {
             if (profilePictureUpload.HasFile)
@@ -190,7 +255,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Please select a profile picture to upload.');", true);
             }
-        }
+        }*/
 
     }
 }

@@ -213,15 +213,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.TextBox Drive2Goal;
 
         /// <summary>
-        /// CancelButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CancelButton;
-
-        /// <summary>
         /// PublishButton control.
         /// </summary>
         /// <remarks>
@@ -229,6 +220,15 @@ namespace XBCAD7319_ChariTech_Website.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button PublishButton;
+
+        /// <summary>
+        /// CancelButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelButton;
 
         /// <summary>
         /// NotificationDate control.
@@ -258,6 +258,15 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.TextBox NotificationMessage;
 
         /// <summary>
+        /// PublishNotificationButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button PublishNotificationButton;
+
+        /// <summary>
         /// CancelNotificationButton control.
         /// </summary>
         /// <remarks>
@@ -267,13 +276,22 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.WebControls.Button CancelNotificationButton;
 
         /// <summary>
-        /// PublishNotificationButton control.
+        /// btnUploadBibleCourse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button PublishNotificationButton;
+        protected global::System.Web.UI.WebControls.Button btnUploadBibleCourse;
+
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
         /// PresidingName control.
@@ -328,23 +346,5 @@ namespace XBCAD7319_ChariTech_Website.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ViewScheduleButton;
-
-        /// <summary>
-        /// btnUploadBibleCourse control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUploadBibleCourse;
-
-        /// <summary>
-        /// Button1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
     }
 }

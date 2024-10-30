@@ -36,12 +36,15 @@
                 <asp:Label ID="lblDateUploaded" runat="server" Text='<%# Eval("DateUploaded") %>' CssClass="course-date"></asp:Label>
                 <br />
                 <asp:Label ID="lblDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="course-description"></asp:Label>
+               
                 <asp:Button ID="btnOpen" 
                     runat="server" 
                     Text="Open" 
                     CssClass="course-open-btn" 
-                    CommandArgument='<%# Eval("PdfFileUrl") %>' 
-                    OnClientClick='<%# "openPdfInNewTab(\"" + ResolveUrl(Eval("PdfFileUrl").ToString()) + "\"); return false;" %>' />
+                    CommandArgument='<%# Container.ItemIndex %>' 
+                    OnClick="btnOpen_Click" />
+
+
 
 
     </div>
@@ -54,7 +57,8 @@
             <div class="courseFilterSelect">
                 <div class="filter-header">Filter</div> <!-- Added header to match the image -->
                 <asp:Panel ID="PanelScrollableList" runat="server" CssClass="scrollable-list">
-                    
+                    <asp:HiddenField ID="SelectedCategoryHiddenField" runat="server" />
+
                     <asp:Repeater ID="RepeaterOptions" runat="server">
                         <ItemTemplate>
                             <div class="filter-list-item">
@@ -89,15 +93,24 @@
     </script>
 
     <script type="text/javascript">
-        function handleCheckboxSelection(clickedCheckbox) {
+        function handleCheckboxSelection(clickedCheckbox, selectedCategory) {
+            // Deselect other checkboxes
             const checkboxes = document.querySelectorAll('.custom-checkbox');
             checkboxes.forEach((checkbox) => {
                 if (checkbox !== clickedCheckbox) {
                     checkbox.checked = false;
                 }
             });
+
+            // Update the hidden field with the selected category text
+            document.getElementById('<%= SelectedCategoryHiddenField.ClientID %>').value = selectedCategory;
+
+    // Trigger postback to filter items based on the selected category
+            __doPostBack('<%= RepeaterOptions.UniqueID %>', '');
         }
-</script>
+
+    </script>
+
 
 
 </asp:Content>

@@ -5,7 +5,7 @@
     <div class="main-container">
         <!-- Ecclesial Newsletter Upload Section -->
        <asp:Panel ID="newsletterPanel" runat="server" CssClass="dashboard-stack">
-    <div class="section item-wrap">
+    <div class="section item-wrap" style="height: 100%">
         <h3 class="headings">Ecclesial Newsletter Upload</h3>
         
         <!-- Wrapper for Date and Title input fields with flex display -->
@@ -25,12 +25,12 @@
             <asp:FileUpload ID="NewsletterFileUpload" runat="server" CssClass="file-upload" />
         </div>
 
-        <asp:Button ID="UploadNewsletterButton" runat="server" CssClass="btn" Text="Upload Newsletter" OnClick="UploadNewsletterButton_Click" />
+        <asp:Button ID="UploadNewsletterButton" style="margin: 0 auto; width: 30%" runat="server" CssClass="btn publish-btn" Text="Upload Newsletter" OnClick="UploadNewsletterButton_Click" />
     </div>
 </asp:Panel>
 
         <!-- Prayer Request Review Section -->
-        <div class="section prayer-requests-review item-wrap">
+        <div class="section prayer-requests-review item-wrap" style="height: 100%">
             <h3 class="headings">Prayer Request Review - <asp:Label ID="TodayDateLabel" runat="server"></asp:Label></h3>
             <asp:Repeater ID="PrayerRequestsRepeater" runat="server">
                 <ItemTemplate>
@@ -44,7 +44,7 @@
                 </ItemTemplate>
             </asp:Repeater>
             <div class="buttons-group">
-                <asp:Button ID="SavePrayerRequestChangesButton" runat="server" Text="Accept Changes" OnClick="SavePrayerRequestChangesButton_Click" />
+                <asp:Button ID="SavePrayerRequestChangesButton" style="margin: 0 auto; width: 100%" runat="server" CssClass="btn publish-btn" Text="Accept Changes" OnClick="SavePrayerRequestChangesButton_Click" />
             </div>
         </div>
 
@@ -72,7 +72,7 @@
                     <asp:FileUpload ID="ExhortationFileUpload" runat="server" CssClass="file-upload" />
                 </div>
 
-                <asp:Button ID="UploadExhortationButton" runat="server" CssClass="btn" Text="Upload Exhortation" OnClick="UploadExhortationButton_Click" />
+                <asp:Button ID="UploadExhortationButton" style="margin: 0 auto; width: 35%" runat="server" CssClass="btn publish-btn" Text="Upload Exhortation" OnClick="UploadExhortationButton_Click" />
             </div>
         </asp:Panel>
 
@@ -119,11 +119,12 @@
             </div>
 
             <div style="align-self: center">
-                <asp:Button ID="CancelButton" runat="server" CssClass="btn cancel-btn" Text="Cancel" OnClick="CancelButton_Click" />
                 <asp:Button ID="PublishButton" runat="server" CssClass="btn publish-btn" Text="Publish Changes" OnClick="PublishButton_Click" />
+                <asp:Button ID="CancelButton" runat="server" CssClass="btn cancel-btn" Text="Cancel" OnClick="CancelButton_Click" />
             </div>
         </div>
 
+        <div class="dashboard-stack">
             <!-- Notifications Section -->
             <div class="section item-wrap">
                 <h3 class="headings">Create Notification</h3>
@@ -138,16 +139,28 @@
                     </div>
                 </div>
                 <asp:TextBox ID="NotificationMessage" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="4" placeholder="Enter notification text"></asp:TextBox>
-                <div class="buttons-group">
-                    <asp:Button ID="CancelNotificationButton" runat="server" CssClass="btn cancel-btn" Text="Cancel" OnClick="CancelNotification_Click" />
+                <div style="align-self: center; align-items:center">
                     <asp:Button ID="PublishNotificationButton" runat="server" CssClass="btn publish-btn" Text="Publish Notification" OnClick="PublishNotificationButton_Click" />
+                    <asp:Button ID="CancelNotificationButton" runat="server" CssClass="btn cancel-btn" Text="Cancel" OnClick="CancelNotification_Click" />                
                 </div>
             </div>
 
+             <!-- Upload Bible Course Section -->
+            <div class="section bible-course-nav item-wrap" style="height: 100%;">
+                <h3 class="headings" id="CourseExhortationsTitle">Bible Course and Exhortations</h3>
+                <div style="align-self: center; align-items:center">
+                <br />    
+                
+
+                    <asp:Button ID="btnUploadBibleCourse" runat="server" CssClass="btn publish-btn" Text="Upload Bible Course" PostBackUrl="~/Pages/BibleCourseUpload.aspx" />
+                    <asp:Button ID="Button1" runat="server" CssClass="btn publish-btn" Text="Edit Exhortations" PostBackUrl="~/Pages/EditExhortations.aspx" />
+                </div>
+            </div>
+        </div>
+
             <!-- Next Sunday Section with Dynamic Title Date -->
-            <div class="dashboard-stack">
-                <div class="section bible-course-nav item-wrap">
-                    <h3 class="headings" id="nextSundayTitle">Next Sunday</h3>
+            <div class="section bible-course-nav item-wrap" style="height:100%">
+                <h3 class="headings" id="nextSundayTitle">Next Sunday</h3>
 
                     <div class="upload-form">
                         <label for="presiding">Presiding</label>
@@ -169,20 +182,11 @@
                         <asp:TextBox ID="NextSundayDate" runat="server" CssClass="form-control" TextMode="Date" placeholder="Select Date" onchange="onDateChange()" />
                     </div>
 
-                    <div class="buttons-group">
-                        <asp:Button ID="SaveSundayInfoButton" runat="server" Text="Save Sunday Information" OnClick="SaveSundayInfoButton_Click" />
-                        <asp:Button ID="ViewScheduleButton" runat="server" CssClass="btn" Text="View Schedule" OnClick="ViewScheduleButton_Click" />
+                    <div style="align-self: center; align-items:center">
+                        <asp:Button ID="SaveSundayInfoButton" runat="server" CssClass="btn publish-btn" Text="Save Sunday Information" OnClick="SaveSundayInfoButton_Click" />
+                        <asp:Button ID="ViewScheduleButton" runat="server" CssClass="btn publish-btn" Text="View Schedule" OnClick="ViewScheduleButton_Click" />
                     </div>
-                 </div>
-
-
-            <!-- Upload Bible Course Section -->
-            <div class="section bible-course-nav item-wrap">
-                <div class="buttons-group">
-                    <asp:Button ID="btnUploadBibleCourse" runat="server" Text="Upload Bible Course" PostBackUrl="~/Pages/BibleCourseUpload.aspx" />
-                    <asp:Button ID="Button1" runat="server" Text="Edit Exhortations" PostBackUrl="~/Pages/EditExhortations.aspx" />
-                </div>
-            </div>
+                 
         </div>
     </div>
 
