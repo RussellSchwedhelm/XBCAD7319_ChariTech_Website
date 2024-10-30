@@ -69,6 +69,14 @@ namespace XBCAD7319_ChariTech_Website.Pages
                         pdfBytes = binaryReader.ReadBytes(FileUpload1.PostedFile.ContentLength);
                     }
 
+                    UserManager userManager= new UserManager();
+
+
+                    var email = Session["UserEmail"].ToString();
+                    var userID = userManager.GetUserIdByEmail(email);
+                    var churchID = userManager.GetChurchIdByUserId(userID);
+
+
                     // Create a CourseClass object
                     CourseClass newCourse = new CourseClass
                     {
@@ -78,11 +86,15 @@ namespace XBCAD7319_ChariTech_Website.Pages
                         DateUploaded = DateTime.Now.ToString("yyyy-MM-dd"), // Or use a DateTime property if necessary
                         Description = description,
                         //PdfFileUrl = null
-                        PdfFileContent = pdfBytes 
+                        PdfFileContent = pdfBytes,
+                        ChurchID = churchID
                     };
 
                     // Save the course to the database
                     CourseManager courseManagerHere = new CourseManager();
+
+
+
                     bool isSuccess = courseManagerHere.SaveCourse(newCourse);
 
                     if (isSuccess)

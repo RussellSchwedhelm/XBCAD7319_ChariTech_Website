@@ -220,10 +220,7 @@
             <div class="social-login">
                 <asp:Button ID="registerBtn" runat="server" CssClass="btn register-btn" Text="Register" OnClick="RegisterButton_Click" />
                 <asp:Button ID="loginBtn" runat="server" CssClass="btn register-btn" Text="Login" OnClick="LoginButton_Click" />
-                <!-- Add provider parameter to specify Google or Facebook login -->
-                <button type="button" class="btn google-btn" onclick="location.href='/Pages/LoginExternal.aspx?provider=google'">
-                    <i class="fab fa-google"></i> Sign up with Google
-                </button>
+
             </div>
         </div>
     </form>

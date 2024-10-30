@@ -64,65 +64,70 @@
                         <asp:Button ID="btnSaveSettings" runat="server" Text="Save Settings" CssClass="btn btn-secondary" OnClick="btnSaveSettings_Click" />
                     </div>
                 </div>
-                <!-- ------------------------------------------------------------------------------------->
+                <!-- ----------------------------------------------------------------------------- -->
 
                 <!-- Right Account Panel -->
                 <div class="settings-right">
                     <div class="account-info">
+                        <img id="userProfilePic" runat="server" alt="Profile Picture" class="profile-pic" src="" />
+                        
+                        <br/>
 
-                        <div class="profile-picture-container" style="width: 80px; height: 80px;" onclick="document.getElementById('profilePictureUpload').click();">
-                            <img id="userProfilePic" runat="server" style="width: 80px; height: 80px;" alt="Profile Picture" class="profile-pic" src="" />
-
-                            
-                            <asp:FileUpload ID="profilePictureUpload" style="visibility: hidden" class="hidden-upload" runat="server" accept="image/*" OnChange="previewProfilePicture();" />
+                        <div class="profile-picture-container" onclick="document.getElementById('profilePictureUpload').click();">
+                            <div class="edit-icon">
+                                <i class="fas fa-pen"></i>
+                                <span>Upload Profile Picture</span>
+                            </div>
+                            <asp:FileUpload ID="profilePictureUpload" class="hidden-upload" runat="server" accept="image/*" OnChange="previewProfilePicture();" />
                             
                         </div>
 
-                        <br />
-                        <h3>My Account</h3>
-                        <div class="account-fields">
-                            <div style="display: flex; align-items: center;">
-                                <asp:Label ID="lblEmail" runat="server" Text="Email" style="padding:10px;"></asp:Label>
-                                <asp:TextBox ID="txtEmail" runat="server" ReadOnly="true" style="background-color: transparent; border: none; color: #BBBBBD; padding: 5px; border-bottom: 1px solid #BBBBBD; width: 75%; margin-left: auto "></asp:TextBox>
-                            </div>
+                        
 
-                            <div style="display: flex; align-items: center;">
-                                <asp:Label ID="lblName" runat="server" Text="Name" style="padding:10px;"></asp:Label>
-                                <asp:TextBox ID="txtName" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px; width: 75%;  margin-left: auto; "></asp:TextBox>
-                            </div>
-
-                            <div style="display: flex; align-items: center;">
-                                <asp:Label ID="lblSurname" runat="server" Text="Surname" style="padding:10px;"></asp:Label>
-                                <asp:TextBox ID="txtSurname" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px;  width: 75%; margin-left: auto;  "></asp:TextBox>
-                            </div>
-
-                            <div style="display: flex; align-items: center;">
-                                <asp:Label ID="lblEcclesia" runat="server" Text="Ecclesia" style="padding:10px;"></asp:Label>
-                                <asp:DropDownList ID="ddlEcclesia" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px;  width: 75%;  margin-left: auto ; ">
-                                    <asp:ListItem Value="" Text="Select" />
-                                </asp:DropDownList>
-                            </div>
+                    <h3>My Account</h3>
+                    <div class="account-fields">
+                        <div style="display: flex; align-items: center;">
+                            <asp:Label ID="lblEmail" runat="server" Text="Email" style="padding:10px;"></asp:Label>
+                            <asp:TextBox ID="txtEmail" runat="server" ReadOnly="true" style="background-color: transparent; border: none; color: #BBBBBD; padding: 5px; border-bottom: 1px solid #BBBBBD; width: 75%; margin-left: auto "></asp:TextBox>
                         </div>
 
-                        <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" CssClass="btn btn-secondary" OnClick="btnSaveChanges_Click" />
-                        <asp:Button ID="btnLogout" runat="server" Text="Log Out" CssClass="btn btn-primary" OnClick="btnLogout_Click" />
-                        <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" CssClass="btn btn-secondary" OnClick="btnChangePassword_Click" />
+                        <div style="display: flex; align-items: center;">
+                            <asp:Label ID="lblName" runat="server" Text="Name" style="padding:10px;"></asp:Label>
+                            <asp:TextBox ID="txtName" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px; width: 75%;  margin-left: auto; "></asp:TextBox>
+                        </div>
+
+                        <div style="display: flex; align-items: center;">
+                            <asp:Label ID="lblSurname" runat="server" Text="Surname" style="padding:10px;"></asp:Label>
+                            <asp:TextBox ID="txtSurname" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px;  width: 75%; margin-left: auto;  "></asp:TextBox>
+                        </div>
+
+                        <div style="display: flex; align-items: center;">
+                            <asp:Label ID="lblEcclesia" runat="server" Text="Ecclesia" style="padding:10px;"></asp:Label>
+                            <asp:DropDownList ID="ddlEcclesia" runat="server" style="background-color: white; border: 1px solid #BBBBBD; color: #000; padding: 5px;  width: 75%;  margin-left: auto ; ">
+                                <asp:ListItem Value="" Text="Select" />
+                            </asp:DropDownList>
+                        </div>
                     </div>
+
+                    <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" CssClass="btn btn-secondary" OnClick="btnSaveChanges_Click" />
+                    <asp:Button ID="btnLogout" runat="server" Text="Log Out" CssClass="btn btn-primary" OnClick="btnLogout_Click" />
+                    <asp:Button ID="btnChangePassword" runat="server" Text="Change Password" CssClass="btn btn-secondary" OnClick="btnChangePassword_Click" />
                 </div>
             </div>
-            <script>
-                function previewProfilePicture() {
-                    const fileInput = document.getElementById('profilePictureUpload');
-                    const profilePicture = document.getElementById('<%= userProfilePic.ClientID %>');
+        </div>
+        <script>
+            function previewProfilePicture() {
+                const fileInput = document.getElementById('profilePictureUpload');
+                const profilePicture = document.getElementById('<%= userProfilePic.ClientID %>');
 
-                    if (fileInput.files && fileInput.files[0]) {
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            profilePicture.src = e.target.result;
-                        };
-                        reader.readAsDataURL(fileInput.files[0]);
-                    }
+                if (fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        profilePicture.src = e.target.result;
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
                 }
-            </script>
+            }
+        </script>
 
-    </asp:Content>
+</asp:Content>

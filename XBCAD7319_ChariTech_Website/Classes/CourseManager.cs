@@ -12,15 +12,17 @@ namespace XBCAD7319_ChariTech_Website.Classes
     {
         // Get the connection string from Web.config
         private string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
+        private UserManager userManager = new UserManager();
 
 
         public bool SaveCourse(CourseClass course)
         {
+           
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"
-            INSERT INTO dbo.Courses (CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent)
-            VALUES (@CourseTitle, @Theme, @Duration, @DateUploaded, @Description, @PdfFileContent)";
+            INSERT INTO dbo.Courses (CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent, ChurchID)
+            VALUES (@CourseTitle, @Theme, @Duration, @DateUploaded, @Description, @PdfFileContent, @ChurchID)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -30,6 +32,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                     command.Parameters.AddWithValue("@DateUploaded", DateTime.Now); 
                     command.Parameters.AddWithValue("@Description", course.Description);
                     command.Parameters.AddWithValue("@PdfFileContent", (object)course.PdfFileContent ?? DBNull.Value); // Save PDF bytes
+                    command.Parameters.AddWithValue("@ChurchID", course.ChurchID);
 
                     connection.Open();
                     int result = command.ExecuteNonQuery();
@@ -47,7 +50,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent FROM Courses"; 
+                string query = "SELECT CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent, ChurchID FROM Courses"; 
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -64,7 +67,8 @@ namespace XBCAD7319_ChariTech_Website.Classes
                                 Duration = reader["Duration"].ToString(),
                                 DateUploaded = reader["DateUploaded"].ToString(),
                                 Description = reader["Description"].ToString(),
-                                PdfFileContent = reader["PdfFileContent"] as byte[] // Cast to byte[] for PdfFileContent
+                                PdfFileContent = reader["PdfFileContent"] as byte[], // Cast to byte[] for PdfFileContent
+                                ChurchID = Convert.ToInt32(reader["ChurchID"])
                             };
 
                             // Add the course to the list

@@ -146,10 +146,6 @@
                     <!-- Register button -->
                     <button type="button" class="btn register-btn" onclick="window.location.href='/Pages/Register.aspx'; return false;">Register</button>
 
-                    <!-- Google login -->
-                    <button type="button" class="btn google-btn" onclick="location.href='/GoogleLogin'">
-                        <i class="fab fa-google"></i>Login with Google
-                    </button>
                 </div>
             </div>
         </div>
