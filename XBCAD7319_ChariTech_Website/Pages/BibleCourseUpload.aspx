@@ -23,7 +23,7 @@
             
             <asp:DropDownList ID="ddlTheme" runat="server" CssClass="form-input">
                 <asp:ListItem Value="New Believers">New Believers</asp:ListItem>
-                <asp:ListItem Value="Old Testiment">Old Testiment</asp:ListItem>
+                <asp:ListItem Value="Old Testiment">Old Testament</asp:ListItem>
                 <asp:ListItem Value="New Testament">New Testament</asp:ListItem>
                 <asp:ListItem Value="Biblical Theology">Biblical Theology</asp:ListItem>
                 <asp:ListItem Value="Christian Living">Christian Living</asp:ListItem>
