@@ -15,7 +15,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the user session contains a valid UserEmail (indicating the user is logged in)
-            /*if (Session["UserEmail"] == null)
+            if (Session["UserEmail"] == null)
             {
                 // Redirect the user to the Login page if no UserEmail session exists
                 Response.Redirect("Login.aspx");
@@ -24,7 +24,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             if (!IsPostBack)
             {
                 // This block is empty and reserved for any actions needed only on initial load
-            }*/
+            }
         }
 
         // Event handler for Cancel button click; redirects user to UserSettings page
