@@ -9,6 +9,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
     public partial class UserSettings : System.Web.UI.Page
     {
         private ContactManager contactManager = new ContactManager(); // Assuming ContactManager fetches user data
+        private UserManager userManager = new UserManager();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -66,7 +67,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             string email = Session["UserEmail"].ToString();
 
             // Fetch user data by email
-            DataTable userData = contactManager.GetUserDataByEmail(email); // Assume this method exists
+            DataTable userData = userManager.GetUserDataByEmail(email); // Assume this method exists
 
             if (userData.Rows.Count > 0)
             {
@@ -91,7 +92,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         private void LoadUserAccountDetails()
         {
             string email = Session["UserEmail"].ToString();
-            DataTable userData = contactManager.GetUserDataByEmail(email);
+            DataTable userData = userManager.GetUserDataByEmail(email);
 
             if (userData.Rows.Count > 0)
             {
@@ -138,7 +139,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             string newName = txtName.Text.Trim();
             string newSurname = txtSurname.Text.Trim();
 
-            contactManager.UpdateUserDetails(email, newName, newSurname);
+            userManager.UpdateUserDetails(email, newName, newSurname);
             // Optionally, display a message to the user indicating the changes were saved
             ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Changes saved successfully!');", true);
         }
@@ -168,7 +169,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     string email = Session["UserEmail"].ToString();
 
                     // Update the profile picture in the database
-                    bool updateSuccess = contactManager.UpdateUserProfilePicture(email, profilePictureBytes);
+                    bool updateSuccess = userManager.UpdateUserProfilePicture(email, profilePictureBytes);
 
                     if (updateSuccess)
                     {

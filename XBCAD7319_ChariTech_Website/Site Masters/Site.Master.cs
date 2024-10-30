@@ -51,7 +51,7 @@ namespace XBCAD7319_ChariTech_Website
             string email = Session["UserEmail"].ToString();
 
             // Fetch the profile picture as a byte array using ContactManager
-            byte[] profilePicBytes = contactManager.GetProfilePictureByEmail(email);
+            byte[] profilePicBytes = userManager.GetProfilePictureByEmail(email);
 
             // If a profile picture exists, convert it to Base64 string
             if (profilePicBytes != null)
