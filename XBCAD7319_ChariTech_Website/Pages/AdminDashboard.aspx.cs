@@ -18,82 +18,86 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class AdminDashboard : Page
     {
+        // Instance of NextSundayManager to handle Sunday-related data
         private NextSundayManager nextSundayManager = new NextSundayManager();
+        // Readonly instance of PrayerRequestManager to manage prayer requests
         private readonly PrayerRequestManager prayerRequestManager = new PrayerRequestManager();
 
+        // Called when the page loads; executes only on the first load
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!IsPostBack) // Ensures actions are taken only on the first load, not on postbacks
             {
-                // Ensure user is logged in and has correct role
+                // Check if the user is logged in and has the proper role (UserRoleID == 2)
                 if (Session["UserEmail"] == null || (int)Session["UserRoleID"] != 2)
                 {
-                    Response.Redirect("Login.aspx");
+                    Response.Redirect("Login.aspx"); // Redirects unauthorized users to login
                 }
-                LoadDonations();
-                TodayDateLabel.Text = DateTime.Now.ToString("MM-dd-yyyy");
-                LoadPrayerRequests();
+                LoadDonations(); // Loads donation data into page fields
+                TodayDateLabel.Text = DateTime.Now.ToString("MM-dd-yyyy"); // Sets today's date label
+                LoadPrayerRequests(); // Loads all prayer requests for display
 
-                // Calculate the upcoming Sunday
+                // Determine the next upcoming Sunday based on today's date
                 DateTime today = DateTime.Today;
                 DateTime nextSunday = today.DayOfWeek == DayOfWeek.Sunday
-                    ? today.AddDays(7) // If today is Sunday, get the next Sunday (7 days later)
-                    : today.AddDays(7 - (int)today.DayOfWeek); // Otherwise, calculate the upcoming Sunday
+                    ? today.AddDays(7) // If today is Sunday, the next Sunday is 7 days away
+                    : today.AddDays(7 - (int)today.DayOfWeek); // Otherwise, calculates the nearest upcoming Sunday
 
-                // Load next Sunday information
+                // Loads data associated with the next Sunday into page fields
                 LoadNextSundayInfo(nextSunday);
             }
         }
 
-        // Event handler for uploading newsletter
+        // Event handler triggered when uploading a newsletter
         protected void UploadNewsletterButton_Click(object sender, EventArgs e)
         {
+            // Retrieve the user’s email from the session
             string email = Session["UserEmail"].ToString();
             ExhortationManager exhortationManager = new ExhortationManager();
-            int churchId = exhortationManager.GetChurchIdByEmail(email); // Get ChurchID by email
+            int churchId = exhortationManager.GetChurchIdByEmail(email); // Get ChurchID associated with email
 
-            if (churchId != -1) // Ensure ChurchID was retrieved successfully
+            if (churchId != -1) // Check if ChurchID retrieval was successful
             {
-                string title = NewsletterTitle.Text;
+                string title = NewsletterTitle.Text; // Get title input
                 DateTime date;
 
+                // Validate date format and ensure a file has been uploaded
                 if (DateTime.TryParse(NewsletterDate.Text, out date) && NewsletterFileUpload.HasFile)
                 {
                     HttpPostedFile newsletterFile = NewsletterFileUpload.PostedFile;
 
+                    // Check if the file is not null and has a valid length
                     if (newsletterFile != null && newsletterFile.ContentLength > 0)
                     {
                         NewsletterManager newsletterManager = new NewsletterManager();
                         bool uploadSuccess = newsletterManager.UploadNewsletter(email, churchId, title, date, newsletterFile);
 
-                        if (uploadSuccess)
+                        if (uploadSuccess) // If upload succeeds
                         {
-                            // Clear fields after successful upload
+                            // Clear input fields
                             NewsletterTitle.Text = string.Empty;
                             NewsletterDate.Text = string.Empty;
-                            NewsletterFileUpload.Attributes.Clear(); // Clears the file input
-
-                            // Provide a clear message that the fields have been cleared
+                            NewsletterFileUpload.Attributes.Clear(); // Clears file input control
                             Response.Write("<script>alert('Newsletter uploaded successfully!');</script>");
                         }
-                        else
+                        else // If upload fails
                         {
                             Response.Write("<script>alert('Failed to upload the newsletter.');</script>");
                         }
                     }
                 }
-                else
+                else // Alert user if fields are incomplete or file is missing
                 {
                     Response.Write("<script>alert('Please fill all fields and upload a valid file.');</script>");
                 }
             }
-            else
+            else // Alert if Church ID could not be retrieved
             {
                 Response.Write("<script>alert('Unable to retrieve Church ID.');</script>");
             }
         }
 
-        // Event handler for uploading exhortation
+        // Event handler triggered when uploading an exhortation
         protected void UploadExhortationButton_Click(object sender, EventArgs e)
         {
             string email = Session["UserEmail"].ToString();
@@ -102,47 +106,50 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             if (churchId != -1)
             {
-                string title = ExhortationTitle.Text;
-                string speaker = ExhortationSpeaker.Text;
+                string title = ExhortationTitle.Text; // Get title
+                string speaker = ExhortationSpeaker.Text; // Get speaker name
                 DateTime date;
+
+                // Check if date format is valid and file is uploaded
                 if (DateTime.TryParse(ExhortationDate.Text, out date) && ExhortationFileUpload.HasFile)
                 {
                     HttpPostedFile exhortationFile = ExhortationFileUpload.PostedFile;
 
+                    // Ensure file is valid, has content, and is in MP3 format
                     if (exhortationFile != null && exhortationFile.ContentLength > 0 && exhortationFile.FileName.EndsWith(".mp3"))
                     {
                         bool uploadSuccess = exhortationManager.UploadExhortation(email, churchId, title, speaker, date, exhortationFile);
 
-                        if (uploadSuccess)
+                        if (uploadSuccess) // If upload is successful, clear fields and notify user
                         {
-                            // Clear fields after successful upload
                             ExhortationTitle.Text = string.Empty;
                             ExhortationSpeaker.Text = string.Empty;
                             ExhortationDate.Text = string.Empty;
-                            ExhortationFileUpload.Attributes.Clear(); // Clears the file input
+                            ExhortationFileUpload.Attributes.Clear(); // Clears file input control
                             Response.Write("<script>alert('Exhortation uploaded successfully!');</script>");
                         }
-                        else
+                        else // Display error message on upload failure
                         {
                             Response.Write("<script>alert('Failed to upload the exhortation.');</script>");
                         }
                     }
-                    else
+                    else // Alert if file is invalid or in the wrong format
                     {
                         Response.Write("<script>alert('Please upload a valid MP3 file.');</script>");
                     }
                 }
-                else
+                else // Prompt user to complete all fields
                 {
                     Response.Write("<script>alert('Please fill all fields.');</script>");
                 }
             }
-            else
+            else // Notify if Church ID is not found
             {
                 Response.Write("<script>alert('Unable to retrieve Church ID.');</script>");
             }
         }
-        // Load donations from the database and dynamically display them in the appropriate fields
+
+        // Loads donation data and dynamically populates donation-related fields
         private void LoadDonations()
         {
             int churchId = new ExhortationManager().GetChurchIdByEmail(Session["UserEmail"].ToString());
@@ -158,7 +165,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             Drive2Goal.Text = string.Empty;
             int cnt = 1;
 
-            // Dynamically assign values based on titles from the database
+            // Populate fields dynamically with donation data
             foreach (DataRow row in donations.Rows)
             {
                 string title = row["Title"].ToString();
@@ -170,11 +177,11 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     case 1:
                         cnt++;
                         BlueBagCause.Text = title;
-                    break;
+                        break;
                     case 2:
                         cnt++;
                         RedBagCause.Text = title;
-                    break;
+                        break;
                     case 3:
                         cnt++;
                         Drive1Name.Text = title;
@@ -188,20 +195,21 @@ namespace XBCAD7319_ChariTech_Website.Pages
                         Drive2Goal.Text = goalAmount.ToString("0.##");
                         break;
                     default:
-                    break;
+                        break;
                 }
             }
         }
 
-        // Handle the Publish Changes button click to update donation names and amounts
+        // Event handler for the Publish Changes button
         protected void PublishButton_Click(object sender, EventArgs e)
         {
+            // Define DataTable to hold updated donation data
             DataTable updatedDonationData = new DataTable();
             updatedDonationData.Columns.Add("Title", typeof(string));
             updatedDonationData.Columns.Add("DonatedAmount", typeof(decimal));
             updatedDonationData.Columns.Add("DonationGoal", typeof(decimal));
 
-            // Add rows for each donation drive with the updated names and amounts
+            // Add donation rows based on current input
             AddDonationRow(updatedDonationData, BlueBagCause.Text, "", "");
             AddDonationRow(updatedDonationData, RedBagCause.Text, "", "");
             AddDonationRow(updatedDonationData, Drive1Name.Text, Drive1Amount.Text, Drive1Goal.Text);
@@ -211,6 +219,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             DonationManager donationManager = new DonationManager();
             bool success = donationManager.ReplaceDonationCampaigns(churchId, updatedDonationData);
 
+            // Notify user of the result and reload donations
             if (success)
             {
                 Response.Write("<script>alert('Donations updated successfully!');</script>");
@@ -223,18 +232,20 @@ namespace XBCAD7319_ChariTech_Website.Pages
             LoadDonations();
         }
 
-        // Helper method to add a donation row to the DataTable
+        // Helper function to add a donation row to the DataTable
         private void AddDonationRow(DataTable table, string title, string currentAmountText, string goalAmountText)
         {
             decimal currentAmount = 0;
             decimal goalAmount = 0;
 
+            // Parse current and goal amounts from input
             if (!string.IsNullOrWhiteSpace(currentAmountText))
                 decimal.TryParse(currentAmountText, out currentAmount);
 
             if (!string.IsNullOrWhiteSpace(goalAmountText))
                 decimal.TryParse(goalAmountText, out goalAmount);
 
+            // Add new row to the table with donation data
             DataRow row = table.NewRow();
             row["Title"] = title;
             row["DonatedAmount"] = currentAmount;
@@ -242,17 +253,20 @@ namespace XBCAD7319_ChariTech_Website.Pages
             table.Rows.Add(row);
         }
 
+        // Event handler for the Cancel button to reload donation data
         protected void CancelButton_Click(object sender, EventArgs e)
         {
             LoadDonations();
         }
 
+        // Event handler for publishing a notification
         protected void PublishNotificationButton_Click(object sender, EventArgs e)
         {
             string title = NotificationTitle.Text;
             string message = NotificationMessage.Text;
             DateTime sentAt;
 
+            // Validate date and ensure required fields are populated
             if (DateTime.TryParse(NotificationDate.Text, out sentAt) && !string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(message))
             {
                 int churchId = new ExhortationManager().GetChurchIdByEmail(Session["UserEmail"].ToString());
@@ -260,7 +274,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 NotificationManager notificationManager = new NotificationManager();
                 bool success = notificationManager.SaveNotification(title, message, sentAt, churchId);
 
-                if (success)
+                if (success) // Clear fields and notify success
                 {
                     NotificationTitle.Text = string.Empty;
                     NotificationMessage.Text = string.Empty;
@@ -272,12 +286,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     Response.Write("<script>alert('Failed to post notification.');</script>");
                 }
             }
-            else
+            else // Alert user to complete all fields
             {
                 Response.Write("<script>alert('Please fill all fields correctly.');</script>");
             }
         }
 
+        // Event handler for the Cancel Notification button to clear input fields
         protected void CancelNotification_Click(object sender, EventArgs e)
         {
             NotificationTitle.Text = string.Empty;
@@ -285,14 +300,15 @@ namespace XBCAD7319_ChariTech_Website.Pages
             NotificationDate.Text = string.Empty;
         }
 
+        // Event handler for saving Next Sunday info
         protected void SaveSundayInfoButton_Click(object sender, EventArgs e)
         {
             DateTime selectedDate;
 
-            // Try parsing the selected date from the NextSundayDate TextBox
+            // Try parsing selected date and save it if valid
             if (DateTime.TryParse(NextSundayDate.Text, out selectedDate))
             {
-                // Save the information for the calculated Sunday
+                // Save Next Sunday information with presiding, exhortation, and on-the-door info
                 nextSundayManager.SaveNextSundayInfo(
                     churchId: new ExhortationManager().GetChurchIdByEmail(Session["UserEmail"].ToString()),
                     nextSundayDate: selectedDate,
@@ -301,52 +317,44 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     onTheDoor: OnTheDoorName.Text
                 );
 
-                // Provide user feedback
+                // Notify user of successful save
                 Response.Write("<script>alert('Sunday information saved successfully.');</script>");
             }
             else
             {
-                // Handle case where the date is invalid
                 Response.Write("<script>alert('Please select a valid Sunday date.');</script>");
             }
         }
 
-
+        // Event handler to view future Sundays schedule
         protected void ViewScheduleButton_Click(object sender, EventArgs e)
         {
-            // Get future Sundays with data
+            // Retrieve list of future Sundays with associated data
             List<(DateTime Date, string Presiding, string Exhortation, string OnTheDoor)> futureSundays = nextSundayManager.GetFutureSundays();
 
-            // Create a MemoryStream for the PDF
+            // MemoryStream for creating the PDF file
             using (MemoryStream ms = new MemoryStream())
             {
-                // Initialize the PDF document
+                // Initialize PDF writer, document, and add title
                 using (PdfWriter writer = new PdfWriter(ms))
                 using (PdfDocument pdf = new PdfDocument(writer))
                 using (Document document = new Document(pdf))
                 {
-                    // Add title to the PDF
                     document.Add(new Paragraph("Future Sundays Schedule")
                         .SetTextAlignment(TextAlignment.CENTER)
                         .SetFontSize(16)
                         .SetBold());
 
-                    // Create a table with headers
+                    // Define table structure and header cells
                     iText.Layout.Element.Table table = new iText.Layout.Element.Table(UnitValue.CreatePercentArray(new float[] { 1, 2, 2, 2 })).UseAllAvailableWidth();
 
-                    // Define header cells and style
-                    Cell headerCell1 = new Cell().Add(new Paragraph("Date")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold();
-                    Cell headerCell2 = new Cell().Add(new Paragraph("Presiding")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold();
-                    Cell headerCell3 = new Cell().Add(new Paragraph("Exhortation")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold();
-                    Cell headerCell4 = new Cell().Add(new Paragraph("On The Door")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold();
+                    // Define and add header cells to the table
+                    table.AddCell(new Cell().Add(new Paragraph("Date")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold());
+                    table.AddCell(new Cell().Add(new Paragraph("Presiding")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold());
+                    table.AddCell(new Cell().Add(new Paragraph("Exhortation")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold());
+                    table.AddCell(new Cell().Add(new Paragraph("On The Door")).SetBackgroundColor(ColorConstants.LIGHT_GRAY).SetBold());
 
-                    // Add headers to the table
-                    table.AddCell(headerCell1);
-                    table.AddCell(headerCell2);
-                    table.AddCell(headerCell3);
-                    table.AddCell(headerCell4);
-
-                    // Add each future Sunday’s data to the table
+                    // Add data rows for each future Sunday
                     foreach (var sunday in futureSundays)
                     {
                         table.AddCell(sunday.Date.ToString("yyyy-MM-dd"));
@@ -359,7 +367,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     document.Add(table);
                 }
 
-                // Send the PDF to the client
+                // Send the created PDF to the client
                 byte[] pdfBytes = ms.ToArray();
                 Response.ContentType = "application/pdf";
                 Response.AddHeader("content-disposition", "inline; filename=Future_Sundays_Schedule.pdf");
@@ -367,9 +375,9 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Flush();
                 Response.End();
             }
-
         }
 
+        // WebMethod to get information for a specific Sunday based on the selected date
         [WebMethod]
         public static SundayInfo GetSundayInfo(string selectedDate)
         {
@@ -378,12 +386,12 @@ namespace XBCAD7319_ChariTech_Website.Pages
             {
                 var manager = new NextSundayManager();
                 var sundayInfo = manager.GetSundayInfoByDate(date);
-                return sundayInfo ?? new SundayInfo(); // Return empty if no data
+                return sundayInfo ?? new SundayInfo(); // Return empty if no data found
             }
             return new SundayInfo();
         }
 
-        // Loads data for a specific Sunday (used by the date picker and initial load)
+        // Method to load data for the selected Sunday into page fields
         private void LoadNextSundayInfo(DateTime selectedDate)
         {
             var sundayInfo = nextSundayManager.GetSundayInfoByDate(selectedDate);
@@ -392,7 +400,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             OnTheDoorName.Text = sundayInfo?.OnTheDoor ?? "";
         }
 
-        // Load prayer requests with approval status
+        // Load all prayer requests into repeater for display
         private void LoadPrayerRequests()
         {
             var prayerRequests = prayerRequestManager.GetAllPrayerRequests();
@@ -400,7 +408,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             PrayerRequestsRepeater.DataBind();
         }
 
-        // Save changes to prayer request approval status
+        // Event handler to save prayer request changes for approval status
         protected void SavePrayerRequestChangesButton_Click(object sender, EventArgs e)
         {
             foreach (RepeaterItem item in PrayerRequestsRepeater.Items)
@@ -416,11 +424,12 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 prayerRequestManager.UpdatePrayerRequestApprovalStatus(prayerRequestId, isApproved);
             }
 
-            // Refresh the list to reflect changes
+            // Reload updated prayer requests
             LoadPrayerRequests();
         }
-
     }
+
+    // Simple data structure to hold Sunday information
     public class SundayInfo
     {
         public string Presiding { get; set; }
