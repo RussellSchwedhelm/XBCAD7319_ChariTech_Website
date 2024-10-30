@@ -17,6 +17,9 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
         public string PdfFileUrl { get; set; }
 
+        //For tracking which church it belongs to
+        public int ChurchID { get; set; }
+
 
 
     }

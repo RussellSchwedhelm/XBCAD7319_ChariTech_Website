@@ -21,7 +21,5 @@ namespace XBCAD7319_ChariTech_Website.Classes
         {
             
         }
-
-
     }
 }
