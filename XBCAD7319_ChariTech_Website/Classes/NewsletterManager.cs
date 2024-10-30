@@ -101,26 +101,36 @@ namespace XBCAD7319_ChariTech_Website.Classes
         }
 
         // Method to retrieve a list of newsletters, returning a DataTable
-        public DataTable GetNewsletters()
+        public DataTable GetNewsletters(int churchID)
         {
             DataTable newslettersTable = new DataTable(); // Initialize DataTable to hold newsletter data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 // SQL query to retrieve the newsletter ID, title, and issue date
-                string query = "SELECT NewsletterID, Title, IssueDate FROM dbo.Newsletter";
+                string query = "SELECT NewsletterID, Title, IssueDate FROM dbo.Newsletter WHERE ChurchID = @ChurchID";
 
                 // Create a SQL command for the query
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.Add("@ChurchID", SqlDbType.Int).Value = churchID; // Specify the type for the parameter
                     connection.Open(); // Open the SQL connection
 
                     // Adapter to fill the DataTable with the result of the SQL command
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    adapter.Fill(newslettersTable); // Populate the DataTable
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        try
+                        {
+                            adapter.Fill(newslettersTable); // Populate the DataTable
+                        }
+                        catch (SqlException ex)
+                        {
+                            // Handle SQL exceptions here (e.g., logging)
+                            throw new Exception("Error retrieving newsletters from the database.", ex);
+                        }
+                    }
                 }
             }
-
             return newslettersTable; // Return the populated DataTable
         }
 

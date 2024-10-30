@@ -100,7 +100,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         // Load newsletters from the database and bind to the repeater
         private void LoadNewsletters()
         {
-            DataTable newsletters = newsletterManager.GetNewsletters();
+            DataTable newsletters = newsletterManager.GetNewsletters(exhortationManager.GetChurchIdByEmail(Session["UserEmail"].ToString()));
             if (newsletters.Rows.Count > 0)
             {
                 newsListRepeater.DataSource = newsletters;
