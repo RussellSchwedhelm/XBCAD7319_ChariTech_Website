@@ -9,6 +9,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class RegistrationManager
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to check if the email is already registered
         public bool IsEmailRegistered(string email)
         {
@@ -34,7 +35,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return false; // In case of error, assume the email is not registered
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to register a new user
         public bool RegisterUser(string firstName, string surname, string email, int churchID, string password, byte[] profilePicture)
         {
@@ -75,7 +76,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return false;
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Function to hash the password using SHA256
         private string HashPassword(string password)
         {
@@ -90,7 +91,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return builder.ToString();
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to fetch and return the list of churches sorted by ChurchID
         public DataTable GetSortedChurches()
         {
@@ -108,5 +109,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

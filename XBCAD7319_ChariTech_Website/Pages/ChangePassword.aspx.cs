@@ -11,6 +11,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         // Read-only instance of UserPreferenceDAL for database access, initialized only once
         private readonly UserPreferenceDAL userPreferenceDAL = new UserPreferenceDAL();
 
+        //---------------------------------------------------------------------------------------------------------------------//
         // Page_Load method is called when the page is initially loaded or on postbacks
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,13 +27,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // This block is empty and reserved for any actions needed only on initial load
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler for Cancel button click; redirects user to UserSettings page
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect("UserSettings.aspx");
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler for Change Password button click
         protected void btnChangePassword_Click(object sender, EventArgs e)
         {
@@ -70,7 +71,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 passwordError.Visible = true;
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Private method for hashing the password using SHA256 for security
         private string HashPassword(string password)
         {
@@ -92,5 +93,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 return builder.ToString();
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

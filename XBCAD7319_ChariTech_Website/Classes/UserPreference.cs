@@ -9,6 +9,6 @@
         public bool ButtonClicksSound { get; set; }
         public bool BibleBasicsNotifications { get; set; }
         public bool ResponsibilityUpdates { get; set; }
-
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

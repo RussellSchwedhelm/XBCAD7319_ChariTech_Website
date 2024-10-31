@@ -1,24 +1,24 @@
-﻿// Required namespaces for Azure Speech and SQL functionalities
-using Microsoft.CognitiveServices.Speech;       // Provides access to Azure Speech services
-using Microsoft.CognitiveServices.Speech.Audio; // Handles audio input for speech recognition
+﻿using Microsoft.CognitiveServices.Speech;       
+using Microsoft.CognitiveServices.Speech.Audio; 
 using NAudio.Wave;
 using Newtonsoft.Json;
-using System;                                   // Provides basic system functions
-using System.Configuration;                     // Allows access to configuration settings
-using System.Data;                              // Supports ADO.NET and data handling
-using System.Data.SqlClient;                    // Provides SQL Server data provider
-using System.IO;                                // Provides I/O capabilities for file handling
+using System;                                 
+using System.Configuration;                   
+using System.Data;                          
+using System.Data.SqlClient;              
+using System.IO;                              
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;                   // Enables asynchronous programming
-using System.Web;                               // Supports web applications
-using System.Web.Configuration;                 // Allows access to web configuration
+using System.Threading.Tasks;                  
+using System.Web;                              
+using System.Web.Configuration;              
 
 
 namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class ExhortationManager
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve ChurchID using Email from the Users table
         public int GetChurchIdByEmail(string email)
         {
@@ -47,7 +47,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return churchId; // Return retrieved ChurchID or -1 if not found
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve exhortations for a given ChurchID
         public DataTable GetExhortationsByChurchID(int churchID)
         {
@@ -79,7 +79,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to search exhortations by church ID and search term with prioritization
         public DataTable SearchExhortations(int churchID, string searchTerm)
         {
@@ -122,7 +122,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to upload an exhortation with details and audio file
         public bool UploadExhortation(string email, int churchId, string title, string speaker, DateTime issueDate, HttpPostedFile uploadedFile)
         {
@@ -165,7 +165,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return exhortationId > 0;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         private async Task StartTranscriptionAsync(int exhortationId, byte[] mp3FileData)
         {
             try
@@ -223,7 +223,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 System.Diagnostics.Debug.WriteLine("Exception in StartTranscriptionAsync: " + ex.Message);
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         private async Task<string> GenerateSummaryWithRetryAsync(string transcriptionText, string speakerName)
         {
             string summaryPrompt = $"Based on the following transcription by {speakerName}, create a summary of no more than 2 paragraphs. The summary should capture what the exhortation was all about: {transcriptionText}";
@@ -289,7 +289,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return null;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         public void UpdateExhortationSummary(int exhortationId, string summaryText)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
@@ -308,7 +308,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Custom class to enable reading from a MemoryStream
         public class BinaryAudioStreamReader : PullAudioInputStreamCallback
         {
@@ -330,7 +330,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 base.Dispose(disposing);
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to update transcription text in the database for a specific exhortation
         public void UpdateExhortationTranscription(int exhortationId, string transcriptionText)
         {
@@ -350,7 +350,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve audio data for a given ExhortationID
         public byte[] GetExhortationAudio(int exhortationId)
         {
@@ -383,7 +383,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return audioBytes;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve an exhortation by ExhortationID
         public Exhortation GetExhortationById(int exhortationId)
         {
@@ -422,7 +422,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return exhortation;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve AI transcription details by AITranscriptionID
         public AITranscription GetAITranscriptionById(int transcriptionId)
         {
@@ -460,7 +460,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return transcription; // Return populated AITranscription object
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve AI summary details by AISummaryID
         public AISummary GetAISummaryById(int summaryId)
         {
@@ -498,6 +498,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return summary; // Return populated AISummary object
         }
+        //---------------------------------------------------------------------------------------------------------------------//
         public string GetSpeakerNameByExhortationId(int exhortationId)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
@@ -524,6 +525,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return speakerName; // Return the speaker's name or null if not found
         }
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to delete an exhortation by ExhortationID
         public bool DeleteExhortationById(int exhortationId)
         {
@@ -546,7 +548,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return isDeleted;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to update the transcript of an exhortation by ExhortationID
         public bool UpdateExhortationTranscript(int exhortationId, string transcriptionText)
         {
@@ -570,6 +572,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return isUpdated;
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         public void UpdateExhortationDetails(int exhortationId, string title, string speaker, DateTime date, string transcriptionText, string summaryText)
         {
@@ -596,6 +599,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

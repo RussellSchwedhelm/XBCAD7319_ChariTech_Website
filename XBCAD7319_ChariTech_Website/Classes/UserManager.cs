@@ -10,6 +10,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
         // Get the connection string from Web.config
         private string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to get the UserID based on session email
         public int GetUserIdByEmail(string email)
         {
@@ -33,7 +34,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return -1; // Return -1 in case of an error
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to get the ChurchID based on UserID
         public int GetChurchIdByUserId(int userId)
         {
@@ -57,6 +58,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return -1; // Return -1 in case of an error
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         public string GetFirstNameByEmail(string email)
         {
@@ -81,6 +83,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
         }
 
+        //---------------------------------------------------------------------------------------------------------------------//
         public void UpdateUserDetails(string email, string newName, string newSurname)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -99,6 +102,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
         }
 
+        //---------------------------------------------------------------------------------------------------------------------//
         public DataTable GetUserDataByEmail(string email)
         {
             DataTable dt = new DataTable();
@@ -119,6 +123,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             return dt;
         }
 
+        //---------------------------------------------------------------------------------------------------------------------//
         public bool UpdateUserProfilePicture(string email, byte[] profilePicture)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
@@ -145,7 +150,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return false;
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
 
         public byte[] GetProfilePictureByEmail(string email)
         {
@@ -162,6 +167,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return profilePicture;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

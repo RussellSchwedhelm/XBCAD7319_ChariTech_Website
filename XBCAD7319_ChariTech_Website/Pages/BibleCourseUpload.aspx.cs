@@ -6,6 +6,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class BibleCourseUpload : System.Web.UI.Page
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the session exists
@@ -21,7 +22,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // Use the email for further logic if needed
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void ButtonReset_Click(object sender, EventArgs e)
         {
@@ -32,6 +33,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             TextBoxCompletionTime.Text = string.Empty;
             FileUpload1.Attributes.Clear();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void ButtonConfirm_Click(object sender, EventArgs e)
         {
@@ -114,5 +116,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

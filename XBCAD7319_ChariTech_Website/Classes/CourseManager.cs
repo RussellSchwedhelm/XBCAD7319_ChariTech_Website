@@ -11,9 +11,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
     {
         // Get the connection string from Web.config
         private string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
-        private UserManager userManager = new UserManager();
-
-
+        //---------------------------------------------------------------------------------------------------------------------//
         public bool SaveCourse(CourseClass course)
         {
 
@@ -39,9 +37,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
-
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve a list of courses from the database
         public List<CourseClass> GetAllCourses()
         {
@@ -79,8 +75,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return courses; // Return the list of courses
         }
-
-
+        //---------------------------------------------------------------------------------------------------------------------//
         public string SavePdfFromByteArray(byte[] pdfContent, string fileName)
         {
             if (pdfContent == null || pdfContent.Length == 0)
@@ -100,16 +95,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             // Return the relative URL to the PDF file for client access
             return $"~/Content/CoursePdfs/{fileName}.pdf";
         }
-
-
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
-
-
-
-
-
-
-
-
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

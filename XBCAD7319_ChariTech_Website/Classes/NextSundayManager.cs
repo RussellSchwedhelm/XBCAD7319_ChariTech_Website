@@ -10,6 +10,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
     {
         string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to get next Sunday information from the database
         public SundayInfo GetSundayInfoByDate(DateTime sundayDate)
         {
@@ -39,7 +40,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return null; // No entry found for the selected date
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to save or update next Sunday information in the database
         public void SaveNextSundayInfo(int churchId, DateTime nextSundayDate, string presiding, string exhortation, string onTheDoor)
         {
@@ -71,6 +72,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         public List<(DateTime Date, string Presiding, string Exhortation, string OnTheDoor)> GetFutureSundays()
         {
@@ -104,5 +106,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             return futureSundays;
 
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

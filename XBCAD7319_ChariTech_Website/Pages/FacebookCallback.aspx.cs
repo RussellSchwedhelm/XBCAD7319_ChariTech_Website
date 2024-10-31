@@ -7,6 +7,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class FacebookCallback : System.Web.UI.Page
     {
+        //---------------------------------------------------------------------------------------------------------------------//
+
         protected void Page_Load(object sender, EventArgs e)
         {
             var user = HttpContext.Current.GetOwinContext().Authentication.User;
@@ -49,5 +51,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Redirect("Login.aspx");
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

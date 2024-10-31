@@ -1,5 +1,5 @@
-﻿using System.Configuration;  // Add this for ConfigurationManager
-using System.Data.SqlClient;  // Add this for SQL Server interactions
+﻿using System.Configuration;
+using System.Data.SqlClient; 
 
 namespace XBCAD7319_ChariTech_Website.Classes
 {
@@ -7,6 +7,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
+        //---------------------------------------------------------------------------------------------------------------------//
         // Get user preferences by UserID
         public UserPreference GetUserPreferences(int userID)
         {
@@ -40,7 +41,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return userPreference;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Retrieve stored password hash by user email
         public string GetPasswordHashByEmail(string email)
         {
@@ -60,7 +61,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return passwordHash;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Update password hash for a given user email
         public bool UpdatePasswordHash(string email, string newHashedPassword)
         {
@@ -76,7 +77,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return rowsAffected > 0; // Returns true if the update was successful
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Update user preferences
         public void UpdateUserPreferences(UserPreference userPreference)
         {
@@ -100,5 +101,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 cmd.ExecuteNonQuery();
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

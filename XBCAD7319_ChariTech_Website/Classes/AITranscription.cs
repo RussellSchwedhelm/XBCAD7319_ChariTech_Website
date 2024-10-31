@@ -4,7 +4,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class AITranscription
     {
-
         public int AITranscriptionID { get; set; }
         public int ExhortationID { get; set; }
         public string TranscriptionText { get; set; }
@@ -20,3 +19,4 @@ namespace XBCAD7319_ChariTech_Website.Classes
         }
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

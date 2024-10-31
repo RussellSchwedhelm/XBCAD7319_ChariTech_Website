@@ -12,6 +12,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
         // Retrieve the database connection string from the Web.config file
         private string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to get the unique UserID for a given email address
         public int GetUserIdByEmail(string email)
         {
@@ -45,7 +46,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return -1; // Return -1 if an error occurs
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to handle the upload of a newsletter PDF file
         public bool UploadNewsletter(string email, int churchId, string title, DateTime issueDate, HttpPostedFile uploadedFile)
         {
@@ -99,7 +100,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve a list of newsletters, returning a DataTable
         public DataTable GetNewsletters(int churchID)
         {
@@ -133,7 +134,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return newslettersTable; // Return the populated DataTable
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve the PDF content for a specific newsletter by ID
         public byte[] GetNewsletterPdf(int newsletterId)
         {
@@ -158,7 +159,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return pdfBytes; // Return the byte array containing the PDF content
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to search for newsletters by church ID and search term in the title
         public DataTable SearchNewsletters(int churchId, string searchTerm)
         {
@@ -189,5 +190,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return newslettersTable; // Return the populated DataTable with search results
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

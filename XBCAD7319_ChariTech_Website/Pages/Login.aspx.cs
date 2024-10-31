@@ -7,6 +7,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class Login : System.Web.UI.Page
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserEmail"] != null)
@@ -33,6 +34,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
@@ -61,6 +63,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('Invalid email or password. Please try again.');</script>");
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

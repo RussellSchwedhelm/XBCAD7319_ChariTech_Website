@@ -7,6 +7,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
         private NewsletterManager newsletterManager = new NewsletterManager();
 
+        //---------------------------------------------------------------------------------------------------------------------//
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -29,5 +31,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

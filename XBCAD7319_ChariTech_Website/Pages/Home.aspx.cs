@@ -22,6 +22,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         private readonly NextSundayManager nextSundayManager = new NextSundayManager();
         private readonly PrayerRequestManager prayerRequestManager = new PrayerRequestManager();
 
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
             // Redirect to login if user is not authenticated
@@ -41,7 +42,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 TodayDateLabel.Text = DateTime.Now.ToString("MM-dd-yyyy");
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Load donation campaigns from the database and dynamically set display values
         private void LoadDonations()
         {
@@ -87,7 +88,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Set progress bar width based on donation and goal amount
         private void SetProgress(string progressBarId, decimal donatedAmount, decimal goalAmount)
         {
@@ -95,7 +96,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             string script = $"document.getElementById('{progressBarId}').style.width='{progress}%';";
             ClientScript.RegisterStartupScript(this.GetType(), progressBarId, script, true);
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Load newsletters from the database and bind to the repeater
         private void LoadNewsletters()
         {
@@ -106,7 +107,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 newsListRepeater.DataBind();
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Load exhortations by church ID from the database and bind to the repeater
         private void LoadExhortations()
         {
@@ -119,7 +120,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 ExhortationListRepeater.DataBind();
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Handle the download of a newsletter PDF when clicked
         protected void DownloadNewsletter(object sender, EventArgs e)
         {
@@ -137,6 +138,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
         }
         // Load details for the upcoming Sunday or current Sunday if today is Sunday
+        //---------------------------------------------------------------------------------------------------------------------//
+
         private void LoadNextSundayDetails()
         {
             DateTime today = DateTime.Today;
@@ -162,7 +165,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 nextSundayTitle.Text = $"Next Sunday - {nextSunday:yyyy-MM-dd}";
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Handle the click event for View Schedule button to generate PDF
         protected void ViewScheduleButton_Click(object sender, EventArgs e)
         {
@@ -218,7 +221,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.End();
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to load prayer requests using PrayerRequestManager
         private void LoadPrayerRequests()
         {
@@ -226,7 +229,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             PrayerRequestsRepeater.DataSource = prayerRequests;
             PrayerRequestsRepeater.DataBind();
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to handle submission of a new prayer request
         protected void SubmitPrayerRequestButton_Click(object sender, EventArgs e)
         {
@@ -240,7 +243,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             // Refresh the prayer request list
             LoadPrayerRequests();
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Web method to fetch exhortation audio in memory
         [WebMethod]
         [ScriptMethod(UseHttpGet = true)]
@@ -250,6 +253,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             byte[] audioData = exhortationManager.GetExhortationAudio(exhortationId);
             return audioData;
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnExhortationSearch_Click(object sender, EventArgs e)
         {
@@ -269,6 +273,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 ExhortationListRepeater.DataBind();
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnNewsSearch_Click(object sender, EventArgs e)
         {
@@ -288,6 +293,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 newsListRepeater.DataBind();
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void PlayExhortation_Click(object sender, EventArgs e)
         {
@@ -297,6 +303,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             // Redirect to Exhortations.aspx with autoplay=true
             Response.Redirect($"Exhortations.aspx?exhortationId={exhortationId}&autoplay=true");
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

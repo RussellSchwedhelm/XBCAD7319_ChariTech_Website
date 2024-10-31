@@ -11,6 +11,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
         private ExhortationManager exhortationManager = new ExhortationManager();
         private UserManager userManager = new UserManager();
 
+        //---------------------------------------------------------------------------------------------------------------------//
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserEmail"] == null)
@@ -44,6 +46,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         private void LoadExhortationById(int exhortationId, bool autoplay)
         {
@@ -59,6 +62,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     $"setAudioSource('{base64Audio}', {exhortationId}, {autoplay.ToString().ToLower()});", true);
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         private void LoadExhortations(int churchId)
         {
@@ -70,6 +74,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 ExhortationListRepeater.DataBind();
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void ExhortationListRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -89,6 +94,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 PlayExhortation(exhortationId, autoplay: false); // Load but do not autoplay
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         private void PlayExhortation(int exhortationId, bool autoplay)
         {
@@ -106,6 +112,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     $"setAudioSource('{base64Audio}', {exhortationId}, {autoplay.ToString().ToLower()});", true);
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         private void DisplayExhortationDetails(int exhortationId)
         {
@@ -125,6 +132,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     : "No summary available.";
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -147,6 +155,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
             ExhortationListRepeater.DataBind();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         private void PerformSearch(DataTable exhortationsTable, string searchTerm)
         {
@@ -166,5 +175,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 ExhortationListRepeater.DataBind();
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

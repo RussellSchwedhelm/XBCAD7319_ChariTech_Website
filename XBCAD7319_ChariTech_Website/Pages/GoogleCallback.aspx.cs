@@ -8,6 +8,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class GoogleCallback : System.Web.UI.Page
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -81,7 +82,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
 
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Error logging method
         private void LogError(Exception ex)
         {
@@ -104,6 +105,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 writer.WriteLine("----------------------------------------");
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

@@ -22,6 +22,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         // Readonly instance of PrayerRequestManager to manage prayer requests
         private readonly PrayerRequestManager prayerRequestManager = new PrayerRequestManager();
 
+        //---------------------------------------------------------------------------------------------------------------------//
         // Called when the page loads; executes only on the first load
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -46,7 +47,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 LoadNextSundayInfo(nextSunday);
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler triggered when uploading a newsletter
         protected void UploadNewsletterButton_Click(object sender, EventArgs e)
         {
@@ -95,7 +96,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('Unable to retrieve Church ID.');</script>");
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler triggered when uploading an exhortation
         protected void UploadExhortationButton_Click(object sender, EventArgs e)
         {
@@ -147,7 +148,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('Unable to retrieve Church ID.');</script>");
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Loads donation data and dynamically populates donation-related fields
         private void LoadDonations()
         {
@@ -198,7 +199,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler for the Publish Changes button
         protected void PublishButton_Click(object sender, EventArgs e)
         {
@@ -230,7 +231,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             LoadDonations();
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Helper function to add a donation row to the DataTable
         private void AddDonationRow(DataTable table, string title, string currentAmountText, string goalAmountText)
         {
@@ -251,13 +252,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
             row["DonationGoal"] = goalAmount;
             table.Rows.Add(row);
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler for the Cancel button to reload donation data
         protected void CancelButton_Click(object sender, EventArgs e)
         {
             LoadDonations();
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler for publishing a notification
         protected void PublishNotificationButton_Click(object sender, EventArgs e)
         {
@@ -290,7 +291,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('Please fill all fields correctly.');</script>");
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler for the Cancel Notification button to clear input fields
         protected void CancelNotification_Click(object sender, EventArgs e)
         {
@@ -298,7 +299,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             NotificationMessage.Text = string.Empty;
             NotificationDate.Text = string.Empty;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler for saving Next Sunday info
         protected void SaveSundayInfoButton_Click(object sender, EventArgs e)
         {
@@ -324,7 +325,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('Please select a valid Sunday date.');</script>");
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler to view future Sundays schedule
         protected void ViewScheduleButton_Click(object sender, EventArgs e)
         {
@@ -375,7 +376,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.End();
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // WebMethod to get information for a specific Sunday based on the selected date
         [WebMethod]
         public static SundayInfo GetSundayInfo(string selectedDate)
@@ -389,7 +390,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
             return new SundayInfo();
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to load data for the selected Sunday into page fields
         private void LoadNextSundayInfo(DateTime selectedDate)
         {
@@ -398,7 +399,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             ExhortationName.Text = sundayInfo?.Exhortation ?? "";
             OnTheDoorName.Text = sundayInfo?.OnTheDoor ?? "";
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Load all prayer requests into repeater for display
         private void LoadPrayerRequests()
         {
@@ -406,7 +407,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             PrayerRequestsRepeater.DataSource = prayerRequests;
             PrayerRequestsRepeater.DataBind();
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Event handler to save prayer request changes for approval status
         protected void SavePrayerRequestChangesButton_Click(object sender, EventArgs e)
         {
@@ -426,8 +427,9 @@ namespace XBCAD7319_ChariTech_Website.Pages
             // Reload updated prayer requests
             LoadPrayerRequests();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
-
+    //---------------------------------------------------------------------------------------------------------------------//
     // Simple data structure to hold Sunday information
     public class SundayInfo
     {
@@ -435,4 +437,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
         public string Exhortation { get; set; }
         public string OnTheDoor { get; set; }
     }
+    //---------------------------------------------------------------------------------------------------------------------//
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

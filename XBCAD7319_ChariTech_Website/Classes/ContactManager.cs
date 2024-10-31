@@ -8,7 +8,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
     {
         private string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to fetch ChurchID of the current logged-in user by their email
         public int GetChurchIDByEmail(string email)
         {
@@ -25,7 +25,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return churchID;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to fetch users with RoleID = 2 and the same ChurchID as the current user
         public DataTable GetUsersByChurchID(int churchID)
         {
@@ -43,6 +43,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return usersTable;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//
