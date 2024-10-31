@@ -114,7 +114,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
             {
                 chkDarkModeCustom.Checked = userPreference.ThemePreferenceDark;
                 chkBibleBasicsCustom.Checked = userPreference.BibleBasicsNotifications;
-                chkResponsibiltyUpdatesCustom.Checked = userPreference.ResponsibilityUpdates;
             }
         }
 
@@ -126,7 +125,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 UserID = 123,
                 ThemePreferenceDark = chkDarkModeCustom.Checked,
                 BibleBasicsNotifications = chkBibleBasicsCustom.Checked,
-                ResponsibilityUpdates = chkResponsibiltyUpdatesCustom.Checked
             };
 
             UserPreferenceDAL userPreferenceDAL = new UserPreferenceDAL();

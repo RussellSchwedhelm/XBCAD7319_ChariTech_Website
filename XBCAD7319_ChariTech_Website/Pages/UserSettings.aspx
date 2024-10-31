@@ -28,9 +28,9 @@
                     </div>
 
                     <!-- Bible Basics -->
-                    <asp:Label ID="Label1" runat="server" Text="Bible Basics" style="color: #888;"></asp:Label>
+                    <asp:Label ID="Label1" runat="server" Text="Bible Course" style="color: #888;"></asp:Label>
                     <div class="setting-option" style="display: flex; align-items: center;">
-                        <small style="color: #888;">Switch on/off Bible Basic Notifications</small>
+                        <small style="color: #888;">Switch on/off Bible Course Notifications</small>
                         <asp:HiddenField ID="chkBibleBasicsHidden" runat="server" />
                         <label class="switch" style="margin-left:auto">
                             <input type="checkbox" id="chkBibleBasicsCustom" runat="server" disabled />
@@ -38,16 +38,6 @@
                         </label>
                     </div>
 
-                    <!-- Responsibility Updates -->
-                    <asp:Label ID="lblResponsibilityUpdates" runat="server" Text="Responsibility Updates" style="color: #888;"></asp:Label>
-                    <div class="setting-option" style="display: flex; align-items: center;">
-                        <small style="color: #888;">Switch on/off Responsibility Update Notifications</small>
-                        <asp:HiddenField ID="chkResponsibilityHidden" runat="server" />
-                        <label class="switch" style="margin-left:auto">
-                            <input type="checkbox" id="chkResponsibiltyUpdatesCustom" runat="server" disabled />
-                            <span class="slider" style="background-color: #ccc;"></span>
-                        </label>
-                    </div>
 
                     <!-- Email Updates -->
                     <asp:Label ID="lblEmailUpdates" runat="server" Text="Email Updates" style="color: #888;"></asp:Label>
