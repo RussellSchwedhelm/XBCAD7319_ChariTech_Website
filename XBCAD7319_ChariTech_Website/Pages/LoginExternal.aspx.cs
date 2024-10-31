@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Owin.Security;
+﻿using Microsoft.Owin.Security;
+using System;
 using System.Web;
 
 namespace XBCAD7319_ChariTech_Website.Pages

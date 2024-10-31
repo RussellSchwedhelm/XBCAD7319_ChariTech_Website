@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
-using System.Text; 
+using System.Text;
 using System.Web.UI;
 using XBCAD7319_ChariTech_Website.Classes;
 

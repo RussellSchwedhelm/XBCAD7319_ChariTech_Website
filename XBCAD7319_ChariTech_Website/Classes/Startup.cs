@@ -1,8 +1,7 @@
 ﻿using Microsoft.Owin;
-using Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
-using System.Threading.Tasks;
+using Owin;
 using System.Configuration;
 using System.Diagnostics;
 

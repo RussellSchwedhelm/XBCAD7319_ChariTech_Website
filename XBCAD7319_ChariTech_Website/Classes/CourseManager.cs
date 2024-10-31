@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 
@@ -17,7 +16,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
         public bool SaveCourse(CourseClass course)
         {
-           
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"
@@ -29,7 +28,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                     command.Parameters.AddWithValue("@CourseTitle", course.CourseTitle);
                     command.Parameters.AddWithValue("@Theme", course.Theme);
                     command.Parameters.AddWithValue("@Duration", course.Duration);
-                    command.Parameters.AddWithValue("@DateUploaded", DateTime.Now); 
+                    command.Parameters.AddWithValue("@DateUploaded", DateTime.Now);
                     command.Parameters.AddWithValue("@Description", course.Description);
                     command.Parameters.AddWithValue("@PdfFileContent", (object)course.PdfFileContent ?? DBNull.Value); // Save PDF bytes
                     command.Parameters.AddWithValue("@ChurchID", course.ChurchID);
@@ -50,7 +49,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent, ChurchID FROM Courses"; 
+                string query = "SELECT CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent, ChurchID FROM Courses";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

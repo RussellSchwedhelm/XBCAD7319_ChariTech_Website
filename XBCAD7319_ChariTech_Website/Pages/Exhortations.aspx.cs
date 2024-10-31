@@ -3,7 +3,6 @@ using System.Data;
 using System.Linq;
 using System.Web.UI.WebControls;
 using XBCAD7319_ChariTech_Website.Classes;
-using System.Text;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
@@ -45,7 +44,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 }
             }
         }
-        
+
         private void LoadExhortationById(int exhortationId, bool autoplay)
         {
             // Load exhortation details

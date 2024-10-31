@@ -6,7 +6,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+
             // Check if the session exists
             if (Session["UserEmail"] == null)
             {

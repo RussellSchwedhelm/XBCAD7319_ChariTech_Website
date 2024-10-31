@@ -110,9 +110,9 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
 
         protected void btnOpen_Click(object sender, EventArgs e)
-         {
-             try
-             {
+        {
+            try
+            {
                 Button btn = (Button)sender;
 
                 // Get the index from the CommandArgument
@@ -128,16 +128,16 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // Save PDF and get the URL
                 string pdfUrl = new CourseManager().SavePdfFromByteArray(selectedCourse.PdfFileContent, "CoursePDF");
 
-                 // Open the PDF URL in a new tab
-                 string script = $"window.open('{ResolveUrl(pdfUrl)}', '_blank');";
-                 ScriptManager.RegisterStartupScript(this, GetType(), "OpenPdf", script, true);
-             }
-             catch
-             {
-                 // Alert if no PDF is available
-                 ScriptManager.RegisterStartupScript(this, GetType(), "Alert", "alert('PDF not available');", true);
-             }
-         }
+                // Open the PDF URL in a new tab
+                string script = $"window.open('{ResolveUrl(pdfUrl)}', '_blank');";
+                ScriptManager.RegisterStartupScript(this, GetType(), "OpenPdf", script, true);
+            }
+            catch
+            {
+                // Alert if no PDF is available
+                ScriptManager.RegisterStartupScript(this, GetType(), "Alert", "alert('PDF not available');", true);
+            }
+        }
 
 
         /*protected void btnOpen_Click(object sender, EventArgs e)

@@ -12,7 +12,6 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using XBCAD7319_ChariTech_Website.Classes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 
 namespace XBCAD7319_ChariTech_Website.Classes
 {
-     public class DonationManager
+    public class DonationManager
     {
         private readonly string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 

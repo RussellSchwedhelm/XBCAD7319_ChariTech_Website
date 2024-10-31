@@ -1,10 +1,6 @@
-﻿using Microsoft.CognitiveServices.Speech.Transcription;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Configuration;
 
 namespace XBCAD7319_ChariTech_Website.Classes

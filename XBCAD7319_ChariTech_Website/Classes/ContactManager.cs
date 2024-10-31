@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 
@@ -9,7 +8,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
     {
         private string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
-       
+
         // Method to fetch ChurchID of the current logged-in user by their email
         public int GetChurchIDByEmail(string email)
         {

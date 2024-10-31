@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Configuration;  // Add this for ConfigurationManager
 using System.Data.SqlClient;  // Add this for SQL Server interactions
-using System.Configuration;  // Add this for ConfigurationManager
 
 namespace XBCAD7319_ChariTech_Website.Classes
 {
@@ -101,7 +97,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 cmd.Parameters.AddWithValue("@ResponsibilityUpdates", userPreference.ResponsibilityUpdates);
 
                 con.Open();
-                cmd.ExecuteNonQuery(); 
+                cmd.ExecuteNonQuery();
             }
         }
     }

@@ -27,8 +27,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
         {
             TextBoxCourseTitle.Text = string.Empty;
             TextBoxDescription.Text = string.Empty;
-            
-            ddlTheme.SelectedValue= string.Empty;
+
+            ddlTheme.SelectedValue = string.Empty;
             TextBoxCompletionTime.Text = string.Empty;
             FileUpload1.Attributes.Clear();
         }
@@ -69,7 +69,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                         pdfBytes = binaryReader.ReadBytes(FileUpload1.PostedFile.ContentLength);
                     }
 
-                    UserManager userManager= new UserManager();
+                    UserManager userManager = new UserManager();
 
 
                     var email = Session["UserEmail"].ToString();
@@ -112,7 +112,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 {
                     Response.Write("Please upload a valid PDF file.");
                 }
-            }          
+            }
         }
     }
 }

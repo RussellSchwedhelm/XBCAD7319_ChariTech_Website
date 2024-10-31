@@ -1,9 +1,8 @@
 ﻿using System;
+using System.IO; // For logging
 using System.Linq;
 using System.Web;
-using Microsoft.Owin.Security;
 using XBCAD7319_ChariTech_Website.Classes;
-using System.IO; // For logging
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {

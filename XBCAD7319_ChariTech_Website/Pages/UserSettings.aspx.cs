@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using XBCAD7319_ChariTech_Website.Classes;
 using System.Web.UI.WebControls;
+using XBCAD7319_ChariTech_Website.Classes;
 
 
 namespace XBCAD7319_ChariTech_Website.Pages
@@ -66,7 +66,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             string email = Session["UserEmail"].ToString();
 
             // Fetch user data by email
-            DataTable userData =  userManager.GetUserDataByEmail(email); // Assume this method exists
+            DataTable userData = userManager.GetUserDataByEmail(email); // Assume this method exists
 
             if (userData.Rows.Count > 0)
             {

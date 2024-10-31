@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
-using Microsoft.Owin.Security;
 using XBCAD7319_ChariTech_Website.Classes;
 
 namespace XBCAD7319_ChariTech_Website.Pages

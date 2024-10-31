@@ -1,19 +1,18 @@
 ﻿// Required namespaces for Azure Speech and SQL functionalities
-using Microsoft.CognitiveServices.Speech.Audio; // Handles audio input for speech recognition
 using Microsoft.CognitiveServices.Speech;       // Provides access to Azure Speech services
+using Microsoft.CognitiveServices.Speech.Audio; // Handles audio input for speech recognition
+using NAudio.Wave;
+using Newtonsoft.Json;
 using System;                                   // Provides basic system functions
 using System.Configuration;                     // Allows access to configuration settings
 using System.Data;                              // Supports ADO.NET and data handling
 using System.Data.SqlClient;                    // Provides SQL Server data provider
 using System.IO;                                // Provides I/O capabilities for file handling
-using System.Linq;                              // Supports LINQ queries
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;                   // Enables asynchronous programming
 using System.Web;                               // Supports web applications
 using System.Web.Configuration;                 // Allows access to web configuration
-using NAudio.Wave;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Net.Http;
 
 
 namespace XBCAD7319_ChariTech_Website.Classes
