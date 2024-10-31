@@ -6,6 +6,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class BibleCourseUpload : System.Web.UI.Page
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the session exists
@@ -21,17 +22,18 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // Use the email for further logic if needed
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void ButtonReset_Click(object sender, EventArgs e)
         {
             TextBoxCourseTitle.Text = string.Empty;
             TextBoxDescription.Text = string.Empty;
-            
-            ddlTheme.SelectedValue= string.Empty;
+
+            ddlTheme.SelectedValue = string.Empty;
             TextBoxCompletionTime.Text = string.Empty;
             FileUpload1.Attributes.Clear();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void ButtonConfirm_Click(object sender, EventArgs e)
         {
@@ -69,7 +71,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                         pdfBytes = binaryReader.ReadBytes(FileUpload1.PostedFile.ContentLength);
                     }
 
-                    UserManager userManager= new UserManager();
+                    UserManager userManager = new UserManager();
 
                     //For retrieving the users ChurchID based on their session ID
                     var email = Session["UserEmail"].ToString();
@@ -112,7 +114,9 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 {
                     Response.Write("Please upload a valid PDF file.");
                 }
-            }          
+            }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

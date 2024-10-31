@@ -9,11 +9,12 @@ namespace XBCAD7319_ChariTech_Website.Classes
     {
         private readonly string connectionString;
 
+        //---------------------------------------------------------------------------------------------------------------------//
         public PrayerRequestManager()
         {
             connectionString = ConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to fetch approved prayer requests only
         public List<PrayerRequest> GetApprovedPrayerRequests()
         {
@@ -46,7 +47,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return prayerRequests;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to fetch all prayer requests with approval status
         public List<PrayerRequest> GetAllPrayerRequests()
         {
@@ -75,7 +76,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 
             return prayerRequests;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to submit a new prayer request
         public void SubmitPrayerRequest(int userId, string prayerTarget)
         {
@@ -91,7 +92,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to update the approval status of a prayer request
         public void UpdatePrayerRequestApprovalStatus(int requestId, bool isApproved)
         {
@@ -107,5 +108,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

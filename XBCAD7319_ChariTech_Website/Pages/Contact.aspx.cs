@@ -8,6 +8,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
         private ContactManager contactManager = new ContactManager(); // Instantiate ContactManager
 
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the session exists
@@ -29,7 +30,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 GenerateContactCards(users);
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to generate contact cards dynamically
         private void GenerateContactCards(DataTable users)
         {
@@ -75,5 +76,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 contactSection.InnerHtml += contactCardHtml;
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

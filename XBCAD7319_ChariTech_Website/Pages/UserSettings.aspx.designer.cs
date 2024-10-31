@@ -69,33 +69,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkBibleBasicsCustom;
 
         /// <summary>
-        /// lblResponsibilityUpdates control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblResponsibilityUpdates;
-
-        /// <summary>
-        /// chkResponsibilityHidden control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField chkResponsibilityHidden;
-
-        /// <summary>
-        /// chkResponsibiltyUpdatesCustom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkResponsibiltyUpdatesCustom;
-
-        /// <summary>
         /// lblEmailUpdates control.
         /// </summary>
         /// <remarks>

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Web;
 using System.Web.Routing;
-using System.Web.Security;
 
 namespace XBCAD7319_ChariTech_Website
-{ 
+{
     public class Global : HttpApplication
     {
         protected void Application_Start(object sender, EventArgs e)

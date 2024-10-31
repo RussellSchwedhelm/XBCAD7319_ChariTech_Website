@@ -1,11 +1,12 @@
-﻿using System;
-using Microsoft.Owin.Security;
+﻿using Microsoft.Owin.Security;
+using System;
 using System.Web;
 
 namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class LoginExternal : System.Web.UI.Page
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
             // Get the provider from the query string
@@ -45,4 +46,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
         }
     }
+    //---------------------------------------------------------------------------------------------------------------------//
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

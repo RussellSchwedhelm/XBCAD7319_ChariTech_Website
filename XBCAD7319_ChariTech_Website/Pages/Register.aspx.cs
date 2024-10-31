@@ -9,6 +9,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class Register : System.Web.UI.Page
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -36,7 +37,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 PopulateEcclesiaDropdown();
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to populate the ecclesia drop-down list
         private void PopulateEcclesiaDropdown()
         {
@@ -55,6 +56,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 ecclesia.Items.Add(new ListItem(row["ChurchName"].ToString(), row["ChurchID"].ToString()));
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void RegisterButton_Click(object sender, EventArgs e)
         {
@@ -147,22 +149,21 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('Registration failed. Please try again later.');</script>");
             }
         }
-
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Define the LoginButton_Click method
         protected void LoginButton_Click(object sender, EventArgs e)
         {
             // Redirect to login page when the login button is clicked
             Response.Redirect("Login.aspx");
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Helper method to validate email format using regular expressions
         private bool IsValidEmail(string email)
         {
             string emailRegex = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, emailRegex);
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Helper method to validate password
         private bool IsValidPassword(string password)
         {
@@ -170,5 +171,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             string passwordRegex = @"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
             return Regex.IsMatch(password, passwordRegex);
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

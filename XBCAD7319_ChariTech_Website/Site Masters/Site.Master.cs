@@ -7,7 +7,7 @@ namespace XBCAD7319_ChariTech_Website
     public partial class SiteMaster : MasterPage
     {
         private ContactManager contactManager = new ContactManager();
-        private UserManager userManager = new UserManager();    
+        private UserManager userManager = new UserManager();
 
         protected void Page_Load(object sender, EventArgs e)
         {

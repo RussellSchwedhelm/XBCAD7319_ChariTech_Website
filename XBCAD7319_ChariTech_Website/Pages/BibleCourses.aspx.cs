@@ -38,12 +38,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         private void BindRepeater()
         {
             RepeaterOptions.DataSource = GetItemOptions();
             RepeaterOptions.DataBind();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         public List<ItemOption> GetItemOptions()
         {
@@ -61,6 +62,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 new ItemOption { IconUrl = imagePath, Text = "Special Topics" }
             };
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         private void BindCourses()
         {
@@ -76,6 +78,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             dlCourses.DataSource = courses;
             dlCourses.DataBind();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -112,16 +115,12 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('An error occurred while filtering courses.');</script>");
             }
         }
-
-
-
-
-
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnOpen_Click(object sender, EventArgs e)
-         {
-             try
-             {
+        {
+            try
+            {
                 Button btn = (Button)sender;
 
                 // Get the index from the CommandArgument
@@ -163,12 +162,14 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
             return string.Empty;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
-
+    //---------------------------------------------------------------------------------------------------------------------//
     public class ItemOption
     {
         public string IconUrl { get; set; }
         public string Text { get; set; }
     }
+    //---------------------------------------------------------------------------------------------------------------------//
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

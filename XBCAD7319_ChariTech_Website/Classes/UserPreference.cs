@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace XBCAD7319_ChariTech_Website.Classes
+﻿namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class UserPreference
     {
@@ -14,6 +9,6 @@ namespace XBCAD7319_ChariTech_Website.Classes
         public bool ButtonClicksSound { get; set; }
         public bool BibleBasicsNotifications { get; set; }
         public bool ResponsibilityUpdates { get; set; }
-
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

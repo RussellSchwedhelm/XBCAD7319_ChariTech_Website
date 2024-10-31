@@ -9,6 +9,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
         private ExhortationManager exhortationManager = new ExhortationManager();
 
+        //---------------------------------------------------------------------------------------------------------------------//
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the user session exists
@@ -25,6 +27,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 LoadExhortations(churchId);
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void LoadExhortations(int churchId)
         {
@@ -33,6 +36,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             ExhortationListRepeater.DataSource = exhortations;
             ExhortationListRepeater.DataBind();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void ExhortationListRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -53,6 +57,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                     break;
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         private void ReloadExhortations()
         {
@@ -60,6 +65,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             int churchId = exhortationManager.GetChurchIdByEmail(Session["UserEmail"].ToString());
             LoadExhortations(churchId);
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void DisplayExhortationDetails(int exhortationId)
         {
@@ -73,7 +79,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 txtExhortationSummary.Text = exhortation.AISummaryText;
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
@@ -90,7 +96,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 ReloadExhortations();
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
@@ -102,6 +108,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             txtExhortationDate.Text = "";
             ViewState["CurrentExhortationId"] = null;
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -121,5 +128,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
             ExhortationListRepeater.DataBind();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

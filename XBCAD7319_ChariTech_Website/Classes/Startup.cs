@@ -1,8 +1,7 @@
 ﻿using Microsoft.Owin;
-using Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
-using System.Threading.Tasks;
+using Owin;
 using System.Configuration;
 using System.Diagnostics;
 
@@ -12,6 +11,7 @@ namespace XBCAD7319_ChariTech_Website
 {
     public class Startup
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         public void Configuration(IAppBuilder app)
         {
             // Enable Cookie Authentication
@@ -47,5 +47,7 @@ namespace XBCAD7319_ChariTech_Website
                 }
             });
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

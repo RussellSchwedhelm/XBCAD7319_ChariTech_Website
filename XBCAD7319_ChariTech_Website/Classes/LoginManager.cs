@@ -9,6 +9,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class LoginManager
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         // This method will authenticate the user by checking credentials in the database.
         public bool AuthenticateUser(string email, string password)
         {
@@ -55,8 +56,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return false;
         }
-
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Hash the password using SHA256
         private string HashPassword(string password)
         {
@@ -71,5 +71,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return builder.ToString();
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

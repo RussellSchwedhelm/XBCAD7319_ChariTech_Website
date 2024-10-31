@@ -1,14 +1,14 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 
 namespace XBCAD7319_ChariTech_Website.Classes
 {
-     public class DonationManager
+    public class DonationManager
     {
         private readonly string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
 
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to clear existing campaigns and insert new ones
         public bool ReplaceDonationCampaigns(int churchId, DataTable newDonationData)
         {
@@ -56,7 +56,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         // Method to get donation campaigns for a specific church
         public DataTable GetDonationCampaigns(int churchId)
         {
@@ -73,5 +73,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

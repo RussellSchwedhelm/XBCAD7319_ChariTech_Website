@@ -4,9 +4,9 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class About : System.Web.UI.Page
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
-          
             // Check if the session exists
             if (Session["UserEmail"] == null)
             {
@@ -20,5 +20,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // Use the email for further logic if needed
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//
