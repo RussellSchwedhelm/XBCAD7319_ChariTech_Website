@@ -398,6 +398,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             PresidingName.Text = sundayInfo?.Presiding ?? "";
             ExhortationName.Text = sundayInfo?.Exhortation ?? "";
             OnTheDoorName.Text = sundayInfo?.OnTheDoor ?? "";
+            NextSundayDate.Text = selectedDate.ToString("yyyy-MM-dd");
         }
         //---------------------------------------------------------------------------------------------------------------------//
         // Load all prayer requests into repeater for display

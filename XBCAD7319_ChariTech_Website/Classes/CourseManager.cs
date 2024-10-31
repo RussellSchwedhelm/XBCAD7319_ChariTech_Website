@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 
@@ -39,16 +40,37 @@ namespace XBCAD7319_ChariTech_Website.Classes
         }
         //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve a list of courses from the database
-        public List<CourseClass> GetAllCourses()
+        public List<CourseClass> GetAllCourses(int churchId, List<string> themes = null)
         {
             List<CourseClass> courses = new List<CourseClass>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent, ChurchID FROM Courses";
+                // Start building the query
+                string query = "SELECT CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent, ChurchID FROM Courses WHERE ChurchID = @ChurchID";
+
+                // Check if there are themes selected and update the query
+                if (themes != null && themes.Count > 0)
+                {
+                    // Use IN clause to filter by multiple themes
+                    string themesParam = string.Join(",", themes.Select((_, index) => $"@Theme{index}"));
+                    query += $" AND Theme IN ({themesParam})";
+                }
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    // Add the ChurchID parameter
+                    command.Parameters.AddWithValue("@ChurchID", churchId);
+
+                    // Add parameters for each theme in the list
+                    if (themes != null && themes.Count > 0)
+                    {
+                        for (int i = 0; i < themes.Count; i++)
+                        {
+                            command.Parameters.AddWithValue($"@Theme{i}", themes[i]);
+                        }
+                    }
+
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -73,8 +95,10 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
 
-            return courses; // Return the list of courses
+            return courses; // Return the filtered list of courses
         }
+
+
         //---------------------------------------------------------------------------------------------------------------------//
         public string SavePdfFromByteArray(byte[] pdfContent, string fileName)
         {

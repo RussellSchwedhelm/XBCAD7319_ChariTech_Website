@@ -1069,6 +1069,24 @@ input:checked + .slider {
 }
 
 
+.scrollable-list {
+    overflow-y: auto; /* Allow vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    padding: 0;
+    border: none;
+    height: calc(100% - 20px); /* Adjust to fill the container */
+    box-sizing: border-box;
+}
+
+
+.courseFilterSelect {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Adjust the height of the main container */
+}
+
+
+
 .filter-list-item {
     display: flex;
     align-items: center;
@@ -1099,6 +1117,10 @@ input:checked + .slider {
     align-items: center;
     margin-right: 12px;
 }
+    .icon-wrapper i {
+        font-size: 6px; /* Adjust to your preferred size */
+    }
+
 
 .icon-letter {
     width: 24px; /* Set width and height as needed */
@@ -1136,6 +1158,10 @@ input:checked + .slider {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+}
+
+.course-body{
+    align-self: center;
 }
 
 .course-card {
@@ -1236,7 +1262,8 @@ input:checked + .slider {
     background-color: #f6f6f6;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    height: 100vh;
+    height: auto;
+    align-items: center;
 }
 
 /* Style for image placeholder */
@@ -1245,7 +1272,6 @@ input:checked + .slider {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e9e9e9;
     margin-right: 20px;
     border-radius: 8px;
     min-width:200px;

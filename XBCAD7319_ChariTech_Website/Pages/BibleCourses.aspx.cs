@@ -9,6 +9,10 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class BibleCourses : System.Web.UI.Page
     {
+
+        public ExhortationManager exhortationManager = new ExhortationManager();
+
+
         //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -56,46 +60,58 @@ namespace XBCAD7319_ChariTech_Website.Pages
         }
         //---------------------------------------------------------------------------------------------------------------------//
 
-        private void BindCourses()
+        private void BindCourses(List<string> themes = null)
         {
             CourseManager courseManager = new CourseManager();
-            List<CourseClass> courses = courseManager.GetAllCourses();
+            int churchId = exhortationManager.GetChurchIdByEmail(Session["UserEmail"].ToString());
 
-            foreach (var course in courses)
+            // If no themes are provided, check session (used for initial load)
+            if (themes == null)
+            {
+                themes = Session["SelectedThemes"] as List<string> ?? new List<string>();
+            }
+
+            // Fetch all courses for the given church, filtering by selected themes
+            List<CourseClass> allCourses = courseManager.GetAllCourses(churchId);
+            var filteredCourses = allCourses
+                .Where(course => themes.Count == 0 || themes.Contains(course.Theme, StringComparer.OrdinalIgnoreCase))
+                .ToList();
+
+            foreach (var course in filteredCourses)
             {
                 // Save PDF and get URL
                 course.PdfFileUrl = courseManager.SavePdfFromByteArray(course.PdfFileContent, course.CourseTitle.Replace(" ", "_"));
             }
 
-            dlCourses.DataSource = courses;
+            dlCourses.DataSource = filteredCourses;
             dlCourses.DataBind();
         }
+
+
         //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             CourseManager courseManager = new CourseManager();
-            string selectedCategory = GetSelectedTheme();
+            int churchId = exhortationManager.GetChurchIdByEmail(Session["UserEmail"].ToString());
             string searchQuery = txtSearchQuery2.Text?.ToLower() ?? string.Empty;
 
             try
             {
-                List<CourseClass> allCourses = courseManager.GetAllCourses();
+                // Retrieve selected themes from session
+                List<string> themes = Session["SelectedThemes"] as List<string> ?? new List<string>();
 
-                // Filter courses based on search query and selected category
+                // Fetch all courses for the given church
+                List<CourseClass> allCourses = courseManager.GetAllCourses(churchId);
+
+                // Filter courses by search query and selected themes
                 var filteredCourses = allCourses
                     .Where(course =>
                         (course.CourseTitle?.ToLower().Contains(searchQuery) ?? false) ||
                         (course.Description?.ToLower().Contains(searchQuery) ?? false))
+                    .Where(course =>
+                        themes.Count == 0 || themes.Contains(course.Theme, StringComparer.OrdinalIgnoreCase))
                     .ToList();
-
-                // Apply category filter if a category is selected
-                if (!string.IsNullOrWhiteSpace(selectedCategory))
-                {
-                    filteredCourses = filteredCourses
-                        .Where(course => course.Theme?.Equals(selectedCategory, StringComparison.OrdinalIgnoreCase) ?? false)
-                        .ToList();
-                }
 
                 // Bind the filtered list to dlCourses
                 dlCourses.DataSource = filteredCourses;
@@ -103,14 +119,19 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
             catch (Exception ex)
             {
-                // Display error message
+                // Display error message if any exception occurs
                 Response.Write("<script>alert('An error occurred while filtering courses.');</script>");
             }
         }
+
+
+
+
         //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnOpen_Click(object sender, EventArgs e)
         {
+            int churchId = exhortationManager.GetChurchIdByEmail(Session["UserEmail"].ToString());
             try
             {
                 Button btn = (Button)sender;
@@ -120,7 +141,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
                 // Retrieve the list (filtered or total) of courses
                 CourseManager courseManager = new CourseManager();
-                List<CourseClass> courses = courseManager.GetAllCourses();
+                List<CourseClass> courses = courseManager.GetAllCourses(churchId);
 
                 // Retrieve the specific course using the index
                 CourseClass selectedCourse = courses[index];
@@ -138,30 +159,54 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 ScriptManager.RegisterStartupScript(this, GetType(), "Alert", "alert('PDF not available');", true);
             }
         }
-        //---------------------------------------------------------------------------------------------------------------------//
-        
-        private string GetSelectedTheme()
-        {
-            foreach (RepeaterItem item in RepeaterOptions.Items)
-            {
-                var checkBox = item.FindControl("CheckBoxItem") as CheckBox;
-                var themeText = item.FindControl("item-text") as Label;
 
-                if (checkBox != null && checkBox.Checked && themeText != null)
+        //---------------------------------------------------------------------------------------------------------------------//
+
+
+        protected void ThemeCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            var checkbox = (CheckBox)sender;
+            var repeaterItem = (RepeaterItem)checkbox.NamingContainer; // Get the parent RepeaterItem
+            var hiddenField = (HiddenField)repeaterItem.FindControl("ThemeHiddenField"); // Find the HiddenField with theme text
+
+            string theme = hiddenField.Value; // Retrieve the theme from the HiddenField
+
+            // Initialize selected themes list in session if it doesn't exist
+            List<string> selectedThemes = Session["SelectedThemes"] as List<string> ?? new List<string>();
+
+            if (checkbox.Checked)
+            {
+                // Add theme if not already in the list
+                if (!selectedThemes.Contains(theme))
                 {
-                    return themeText.Text;
+                    selectedThemes.Add(theme);
                 }
             }
-            return string.Empty;
+            else
+            {
+                // Remove theme if it is in the list
+                selectedThemes.Remove(theme);
+            }
+
+            // Update session variable
+            Session["SelectedThemes"] = selectedThemes;
+
+            // Bind filtered courses based on the updated list of selected themes
+            BindCourses(selectedThemes);
+        }
+
+
+        //---------------------------------------------------------------------------------------------------------------------//
+        public class ItemOption
+        {
+            public string IconUrl { get; set; }
+            public string Text { get; set; }
         }
         //---------------------------------------------------------------------------------------------------------------------//
+
+
+
+
     }
-    //---------------------------------------------------------------------------------------------------------------------//
-    public class ItemOption
-    {
-        public string IconUrl { get; set; }
-        public string Text { get; set; }
-    }
-    //---------------------------------------------------------------------------------------------------------------------//
 }
 //END OF PAGE---------------------------------------------------------------------------------------------------------------------//

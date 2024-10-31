@@ -5,7 +5,7 @@
         <!-- Image Upload Section -->
         <div class="image-placeholder">
             <asp:FileUpload ID="FileUploadCourse" runat="server" CssClass="upload-input" />
-            <img style="margin: 0 auto;width: 200px; height: 200px;" src='<%= ResolveUrl("~/Images/Image.png") %>' alt="Icon" class="item-icon" />
+            <img style="margin: 0 auto;width: 150px; height: 150px;" src='<%= ResolveUrl("~/Images/ChurchLogo.png") %>' alt="Icon" class="item-icon" />
             
         </div>
 
