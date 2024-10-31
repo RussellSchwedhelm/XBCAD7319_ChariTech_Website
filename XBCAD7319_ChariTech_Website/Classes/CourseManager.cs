@@ -39,16 +39,20 @@ namespace XBCAD7319_ChariTech_Website.Classes
         }
         //---------------------------------------------------------------------------------------------------------------------//
         // Method to retrieve a list of courses from the database
-        public List<CourseClass> GetAllCourses()
+        public List<CourseClass> GetAllCourses(int parsedID)
         {
             List<CourseClass> courses = new List<CourseClass>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent, ChurchID FROM Courses";
+                string query = "SELECT CourseTitle, Theme, Duration, DateUploaded, Description, PdfFileContent, ChurchID FROM Courses WHERE ChurchID = @ChurchID"; 
+
+
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@ChurchID", parsedID);
+
                     connection.Open();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
