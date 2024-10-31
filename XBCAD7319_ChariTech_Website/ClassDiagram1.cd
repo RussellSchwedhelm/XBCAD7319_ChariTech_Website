@@ -1,2 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.About" Collapsed="true">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Pages\About.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.AdminDashboard" Collapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BJAQAAQESyJBAAAlMAJGAAgDwAIADAAKAAgZTAYECQE=</HashCode>
+      <FileName>Pages\AdminDashboard.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.SundayInfo" Collapsed="true">
+    <Position X="12" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAIAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\AdminDashboard.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.BibleCourses" Collapsed="true">
+    <Position X="8.5" Y="1.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAQAAAAAAIAAAAAAAAAAABIECAgEAAAgYIAAII=</HashCode>
+      <FileName>Pages\BibleCourses.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.ItemOption" Collapsed="true">
+    <Position X="13.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Pages\BibleCourses.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.BibleCourseUpload" Collapsed="true">
+    <Position X="9.75" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAQQAAEAAAAgAAAAAAAgAAAAAAgAABAAKAAAA=</HashCode>
+      <FileName>Pages\BibleCourseUpload.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.ChangePassword" Collapsed="true">
+    <Position X="16.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAEAAUAAAAIAEAgCAAAAIAAQAAAAAMAAAA=</HashCode>
+      <FileName>Pages\ChangePassword.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.Contact" Collapsed="true">
+    <Position X="7.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAABAAAAIAAAA=</HashCode>
+      <FileName>Pages\Contact.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.Default" Collapsed="true">
+    <Position X="14" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Pages\Default.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.DownloadExhortation" Collapsed="true">
+    <Position X="16" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.DownloadNewsletter">
+    <Position X="13.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAIAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Pages\DownloadNewsletter.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.EditExhortations" Collapsed="true">
+    <Position X="2.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAkAAAAgAAAAAIEAAAAAAAAIgAAAAAAIAACA=</HashCode>
+      <FileName>Pages\EditExhortations.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.Exhor" Collapsed="true">
+    <Position X="10.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACEAAgAAAEAAAAAACAAAABAAAABAAAAAACAQAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.Exhortations" Collapsed="true">
+    <Position X="12.75" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AIBAAAAEACQAAAgAQAAAIoAAAAFAAAIgAIAAAAIAACI=</HashCode>
+      <FileName>Pages\Exhortations.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.FacebookCallback" Collapsed="true">
+    <Position X="19.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Pages\FacebookCallback.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.GoogleCallback" Collapsed="true">
+    <Position X="10.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Pages\GoogleCallback.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.Home" Collapsed="true">
+    <Position X="6" Y="6" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AQAQgBCEgQMBIAAAACACI4AAAEAAigJAkAgBEAYACQA=</HashCode>
+      <FileName>Pages\Home.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.Login" Collapsed="true">
+    <Position X="13.5" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAgAAAAAAAAIAAAAAAAAACAAgIAAAA=</HashCode>
+      <FileName>Pages\Login.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.LoginExternal" Collapsed="true">
+    <Position X="18.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Pages\LoginExternal.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.Register" Collapsed="true">
+    <Position X="20.25" Y="1.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAKAAAADAAAAAAAAAAAQIEAgAAQEgAAAAEDCAAIIgAA=</HashCode>
+      <FileName>Pages\Register.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Pages.UserSettings" Collapsed="true">
+    <Position X="16.5" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>C4EQCAIA0UgAAIwUEAAAIggAAAAAAIIQAKhAACIAgAQ=</HashCode>
+      <FileName>Pages\UserSettings.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XBCAD7319_ChariTech_Website.Default" Collapsed="true">
+    <Position X="12.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAQA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DownloadExhortation" Collapsed="true">
+    <Position X="19.25" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Pages\DownloadExhortation.aspx.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

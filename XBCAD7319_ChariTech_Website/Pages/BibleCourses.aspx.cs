@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
@@ -25,6 +26,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
             else
             {
                 string email = Session["UserEmail"].ToString();
+                var userID = userMHere.GetUserIdByEmail(email);
+                churchID = userMHere.GetChurchIdByUserId(userID);
             }
 
             if (!IsPostBack)
