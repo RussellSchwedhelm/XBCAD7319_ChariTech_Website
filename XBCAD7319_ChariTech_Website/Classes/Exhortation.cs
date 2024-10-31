@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace XBCAD7319_ChariTech_Website.Classes
 {
@@ -18,10 +15,12 @@ namespace XBCAD7319_ChariTech_Website.Classes
         public byte[] AudioFile { get; set; }            // Nullable byte array for audio data
         public string AITranscriptionText { get; set; }  // Nullable string for transcription text
         public string AISummaryText { get; set; }        // Nullable string for summary text
-
+        //---------------------------------------------------------------------------------------------------------------------//
         public Exhortation()
         {
             // Constructor logic if any additional setup is required
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

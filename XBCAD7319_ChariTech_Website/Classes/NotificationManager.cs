@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 
@@ -8,6 +7,8 @@ namespace XBCAD7319_ChariTech_Website.Classes
 {
     public class NotificationManager
     {
+        //---------------------------------------------------------------------------------------------------------------------//
+
         public bool SaveNotification(string title, string message, DateTime sentAt, int churchId)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["AzureSqlConnection"].ConnectionString;
@@ -49,6 +50,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 return notificationId > 0;
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         public bool HasUnreadNotifications(int userId)
         {
@@ -75,6 +77,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         public List<Notification> GetUnreadNotifications(int userId)
         {
@@ -115,6 +118,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
             }
             return notifications;
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         public bool MarkNotificationAsRead(int userId, int notificationId)
         {
@@ -146,6 +150,7 @@ namespace XBCAD7319_ChariTech_Website.Classes
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

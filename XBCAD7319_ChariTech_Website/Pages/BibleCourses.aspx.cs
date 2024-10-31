@@ -9,6 +9,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class BibleCourses : System.Web.UI.Page
     {
+        //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the session exists
@@ -29,12 +30,13 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             }
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
         private void BindRepeater()
         {
             RepeaterOptions.DataSource = GetItemOptions();
             RepeaterOptions.DataBind();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         public List<ItemOption> GetItemOptions()
         {
@@ -52,6 +54,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 new ItemOption { IconUrl = imagePath, Text = "Special Topics" }
             };
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         private void BindCourses()
         {
@@ -67,6 +70,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
             dlCourses.DataSource = courses;
             dlCourses.DataBind();
         }
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -103,16 +107,12 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 Response.Write("<script>alert('An error occurred while filtering courses.');</script>");
             }
         }
-
-
-
-
-
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void btnOpen_Click(object sender, EventArgs e)
-         {
-             try
-             {
+        {
+            try
+            {
                 Button btn = (Button)sender;
 
                 // Get the index from the CommandArgument
@@ -128,51 +128,18 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 // Save PDF and get the URL
                 string pdfUrl = new CourseManager().SavePdfFromByteArray(selectedCourse.PdfFileContent, "CoursePDF");
 
-                 // Open the PDF URL in a new tab
-                 string script = $"window.open('{ResolveUrl(pdfUrl)}', '_blank');";
-                 ScriptManager.RegisterStartupScript(this, GetType(), "OpenPdf", script, true);
-             }
-             catch
-             {
-                 // Alert if no PDF is available
-                 ScriptManager.RegisterStartupScript(this, GetType(), "Alert", "alert('PDF not available');", true);
-             }
-         }
-
-
-        /*protected void btnOpen_Click(object sender, EventArgs e)
-        {
-            // Get the button that triggered the event
-            Button btn = (Button)sender;
-
-            // Get the index from the CommandArgument
-            int index = Convert.ToInt32(btn.CommandArgument);
-
-            // Retrieve the list (filtered or total) of courses
-            CourseManager courseManager = new CourseManager();
-            List<CourseClass> courses = courseManager.GetAllCourses();
-
-            // Retrieve the specific course using the index
-            CourseClass selectedCourse = courses[index];
-
-            // You can now access the PdfFileContent
-            byte[] pdfContent = selectedCourse.PdfFileContent;
-            //                course.PdfFileUrl = courseManager.SavePdfFromByteArray(course.PdfFileContent, course.CourseTitle.Replace(" ", "_"));
-
-
-
-            // Example: You can save the PDF or return it in the response
-            // To open it in a new tab, you may convert it to a base64 string or save it on the server
-            string pdfBase64 = Convert.ToBase64String(pdfContent);
-            string pdfUrl = "data:application/pdf;base64," + pdfBase64;
-
-            // Redirect or send to JavaScript
-            ClientScript.RegisterStartupScript(this.GetType(), "OpenPdf", $"openPdfInNewTab('{pdfUrl}');", true);
+                // Open the PDF URL in a new tab
+                string script = $"window.open('{ResolveUrl(pdfUrl)}', '_blank');";
+                ScriptManager.RegisterStartupScript(this, GetType(), "OpenPdf", script, true);
+            }
+            catch
+            {
+                // Alert if no PDF is available
+                ScriptManager.RegisterStartupScript(this, GetType(), "Alert", "alert('PDF not available');", true);
+            }
         }
-
-        */
-
-
+        //---------------------------------------------------------------------------------------------------------------------//
+        
         private string GetSelectedTheme()
         {
             foreach (RepeaterItem item in RepeaterOptions.Items)
@@ -187,12 +154,14 @@ namespace XBCAD7319_ChariTech_Website.Pages
             }
             return string.Empty;
         }
-
+        //---------------------------------------------------------------------------------------------------------------------//
     }
-
+    //---------------------------------------------------------------------------------------------------------------------//
     public class ItemOption
     {
         public string IconUrl { get; set; }
         public string Text { get; set; }
     }
+    //---------------------------------------------------------------------------------------------------------------------//
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

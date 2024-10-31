@@ -4,6 +4,7 @@ using System.Web;
 
 public partial class DownloadExhortation : System.Web.UI.Page
 {
+    //---------------------------------------------------------------------------------------------------------------------//
     protected void Page_Load(object sender, EventArgs e)
     {
         int exhortationId;
@@ -49,6 +50,7 @@ public partial class DownloadExhortation : System.Web.UI.Page
             Response.End();
         }
     }
+    //---------------------------------------------------------------------------------------------------------------------//
 
     private byte[] GetExhortationAudio(int exhortationId)
     {
@@ -88,4 +90,6 @@ public partial class DownloadExhortation : System.Web.UI.Page
 
         return audioBytes;
     }
+    //---------------------------------------------------------------------------------------------------------------------//
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using XBCAD7319_ChariTech_Website.Classes;
 
 namespace XBCAD7319_ChariTech_Website.Pages
@@ -7,6 +6,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
     public partial class DownloadNewsletter : System.Web.UI.Page
     {
         private NewsletterManager newsletterManager = new NewsletterManager();
+
+        //---------------------------------------------------------------------------------------------------------------------//
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,5 +31,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------------------//
     }
 }
+//END OF PAGE---------------------------------------------------------------------------------------------------------------------//
