@@ -77,7 +77,7 @@
                         <strong>On The Door:</strong>
                         <asp:Label ID="OnTheDoorLabel" runat="server" Text="TBD"></asp:Label>
                     </p>
-                    <asp:Button ID="ViewScheduleButton" runat="server" Text="View Schedule" OnClick="ViewScheduleButton_Click" />
+                    <asp:Button ID="ViewScheduleButton" style="width: 80%" class="course-open-btn" runat="server" Text="View Schedule" OnClick="ViewScheduleButton_Click" />
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
-                <button id="submitPrayerRequestBtn" type="button" onclick="togglePrayerRequestPopup()">Submit Prayer Request</button>
+                <button id="submitPrayerRequestBtn" style="width: 73%; margin: 0 auto" class="course-open-btn" type="button" onclick="togglePrayerRequestPopup()">Submit Prayer Request</button>
             </div>
 
             <!-- Online Donations Section -->

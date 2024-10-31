@@ -71,7 +71,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
                     UserManager userManager = new UserManager();
 
-
+                    //For retrieving the users ChurchID based on their session ID
                     var email = Session["UserEmail"].ToString();
                     var userID = userManager.GetUserIdByEmail(email);
                     var churchID = userManager.GetChurchIdByUserId(userID);
