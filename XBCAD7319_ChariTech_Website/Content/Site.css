@@ -1,92 +1,1546 @@
-﻿/* Body content padding to avoid edges */
+﻿/* Root variables for easy scalability */
+@import url('site.css');
+:root {
+    /* Base sizes based on 1920px width */
+    --base-font-size: 16px;
+    --scale-factor: calc(100vw / 1920);
+    --navbar-height: 4rem;
+}
+
+/* Global Styles */
+html, body {
+    height: 100%; /* Ensure body and HTML take full height */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: var(--base-font-size);
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--navbar-height)); /* Full height minus navbar */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+/* Body Content Padding */
 .body-content {
-    margin-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+    margin-top: 1rem; /* 16px */
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-/* Max-width on form inputs for better layout */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
-/* Responsive adjustment for body content on larger screens */
 @media screen and (min-width: 768px) {
     .body-content {
         padding: 0;
+        margin-top: 1rem;
     }
 }
 
-/* Light background and bottom border for navbar */
+/* Form Inputs */
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.625rem; /* 10px */
+    margin-bottom: 0.625rem; /* 10px */
+    border: 1px solid #ccc;
+    border-radius: 0.3125rem; /* 5px */
+}
+
+textarea {
+    height: 6.25rem; /* 100px */
+    resize: vertical;
+}
+
+/* Navbar Styles */
 nav.navbar {
     background-color: #f8f9fa;
     border-bottom: 1px solid #ccc;
+    height: var(--navbar-height); /* Fixed navbar height */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Make sure the items are distributed between left and right */
+    white-space: nowrap; /* Prevent wrapping of navbar items */
+    position: relative; /* Ensure z-index works properly */
+    width: 100vw; /* Make the navbar take full width of the viewport */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    height: 4rem;
 }
 
-/* Center-align the navbar items */
 .navbar-nav {
-    text-align: center;
+    display: flex;
     flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-    /* Add margin between navbar items */
     .navbar-nav .nav-item {
-        margin-left: 20px;
+        margin-left: 1.25rem; /* 20px spacing between items */
+        flex-shrink: 0; /* Prevent items from shrinking */
     }
 
-    /* Navbar link styles */
     .navbar-nav .nav-link {
         color: #000;
         font-weight: 500;
-        padding: 10px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        white-space: nowrap; /* Ensure text stays on one line */
     }
 
-        /* Navbar link hover effect */
         .navbar-nav .nav-link:hover {
             color: #0056b3;
         }
 
-/* Right-aligned elements in the navbar */
+/* Default behavior: right-aligned content */
 .navbar-right {
     display: flex;
-    align-items: center;
-    margin-left: auto; /* Pushes the right section to the far right */
+    align-items: center; /* Center elements vertically */
+    justify-content: center; /* Ensure content is horizontally aligned within the .navbar-right */
+    position: absolute; /* Position absolutely */
+    right: 1rem; /* Adjust right aligned content */
+    top: 50%; /* Position it in the middle vertically */
+    transform: translateY(-50%); /* Vertically center within the navbar */
+    padding-right: 1rem; /* Optional padding to add some space from the edge */
 }
 
-    /* Style for profile image in navbar */
-    .navbar-right .profile-picture {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        margin-left: 10px;
+/* Stop right-aligned elements from moving with the right side at 1132px */
+@media screen and (max-width: 1132px) {
+    .navbar-right {
+        position: static; /* Remove absolute positioning */
+        transform: none; /* Remove translation */
+        margin-left: auto; /* Align the right-hand group on the left side */
+        padding-right: 0;
     }
-
-    /* Username display style in navbar */
-    .navbar-right .username {
-        margin-left: 10px;
-        font-weight: 500;
-    }
-
-/* Global body font style */
-body {
-    font-family: Arial, sans-serif;
 }
 
-/* Footer styles */
+/* Snap back to the right side at 576px */
+@media screen and (max-width: 576px) {
+    .navbar-right {
+        position: absolute; /* Re-enable absolute positioning */
+        right: 1rem; /* Align to the right */
+        top: 50%; /* Vertically center */
+        transform: translateY(-50%); /* Center vertically */
+    }
+}
+
+
+/* Media query for smaller screens */
+@media (max-width: 576px) {
+    .navbar-nav {
+        display: none; /* Hide navbar links initially */
+    }
+
+    .navbar-collapse {
+        flex-grow: 1;
+        justify-content: center;
+        background-color: #fff; /* Set dropdown menu background to white */
+        z-index: 999; /* Ensure the dropdown is in front of other content */
+        position: absolute; /* Make the dropdown position absolute */
+        top: var(--navbar-height); /* Position right below the navbar */
+        left: 0;
+        right: 0;
+        border-top: 1px solid #ccc; /* Optional: Add a border on the top */
+    }
+
+    .navbar-right {
+        right: 1rem; /* Adjust right aligned content for smaller screens */
+    }
+
+    .navbar-toggler {
+        display: inline-block;
+    }
+
+    .navbar-collapse.show .navbar-nav {
+        display: flex; /* Show navbar links when the hamburger is clicked */
+        flex-direction: column;
+        width: 100%;
+        background-color: #fff; /* Ensure dropdown has a white background */
+        z-index: 999; /* Ensure the dropdown stays above all other elements */
+        position: relative; /* Allow the dropdown items to align properly */
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 0;
+        padding: 0.5rem 1rem;
+    }
+
+    /* Hide the "|" separators on small screens */
+    .navbar-nav .separator {
+        display: none;
+    }
+}
+
+/* Footer Styles */
 footer {
-    padding: 10px 0;
-    text-align: center;
     border-top: 1px solid #ccc;
+    width: 100%;
+    height: 0rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    flex-shrink: 0; /* Keep footer fixed at the bottom */
+}
+
+/* Separator */
+.nav-item.separator {
+    padding: 0 0.625rem; /* 10px */
+    color: #000;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Main container */
+.main-container {
+    flex-grow: 1; /* Grow to fill remaining space below the navbar */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+    gap: 1.25rem; /* 20px gap between columns */
+    padding: 1.25rem; /* 20px padding around the container */
+    box-sizing: border-box;
+    min-height: fit-content;
+    min-width: 100%;
+}
+
+/* Responsive Grid for smaller screens */
+@media (max-width: 992px) {
+    .main-container {
+        grid-template-columns: 1fr; /* Stack columns on top of each other */
+        grid-template-rows: auto; /* Allow rows to be determined by content height */
+        height: auto; /* Remove fixed height for better stacking */
+    }
+}
+
+/* Sections */
+.section {
+    background-color: #f4f4f4;
+    padding: 1.25rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    min-width: 30rem;
+    height: 100%;
+}
+
+.exhortationDisplay {
+    grid-column: 2 / 4;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+/*Exhortation Page Start */
+.exhortationSelect {
+    grid-column: 1 / 1;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Left Section: Exhortations */
+.exhortation-item, .news-item {
+    position: relative; /* Add this to make the container a positioned element */
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: #f7f7f7;
+    margin-bottom: 0.3rem;
+    border-radius: 0.375rem;
+    border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.editExhortationContainer {
+    display: flex;
+    flex-direction: column;
+    align-content:center;
+}
+
+.editExhortationTitle {
+    background-color: #fff;
+    border: 1px solid #BBBBBD;
+    color: #000;
+    padding: 10px;
+    font-weight: bold;
+    width: 50% !important;
+
+    font-size: 1.75rem;
+}
+
+.editExhortationSummary {
+    background-color: #fff;
+    border: 1px solid #BBBBBD;
+    color: #000;
+    padding: 10px;
+    width: 70% !important;
+    font-size: 1.5rem;
+}
+
+.editExhortationTranscript {
+    background-color: #fff;
+    border: 1px solid #BBBBBD;
+    color: #000;
+    padding: 5px;
+    width: 70% !important;
+    font-size: 1rem;
+    box-sizing: border-box; /* Ensures padding is considered within width */
+    word-wrap: break-word; /* Break long words to fit within the container */
+    white-space: pre-wrap; /* Preserve spaces, wrap text, and break lines as needed */
+    overflow-wrap: break-word; /* Ensure that text wraps within the width */
+    min-height: 100px; /* Optional minimum height */
+}
+
+
+
+
+.audio-player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
 }
 
-/* Style for the separator */
-.nav-item.separator {
-    padding-left: 10px;
-    padding-right: 10px;
-    color: #000;
-    pointer-events: none; /* Prevent selection or interaction */
-    user-select: none; /* Prevent text selection */
+.details-link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
 }
+
+
+
+
+
+
+/* Remove vertical scrollbar and make items fit */
+.exhortations-list {
+    max-height: auto; /* Remove height restriction */
+    overflow-y: hidden; /* Remove vertical scroll */
+}
+
+/*Exhortation page(s) search bar styles*/
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.search-box {
+    width: 60%;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.search-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 20%
+}
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px 0;
+}
+
+
+
+
+.audio-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: calc(10px * var(--scale-factor));
+}
+
+.audio-controls {
+    width: calc(70% * var(--scale-factor));
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+}
+
+.exhortation-heading {
+    align-items: center;
+    width: 100%;
+    text-align: center; /* Center the headings horizontally */
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+
+.progress-container {
+    flex-grow:1;
+    justify-content: space-between; /* Space between items */
+    
+    width: 100%; /* Ensure it takes full width */
+    margin-top: 10px; /* Optional: Add some space above */
+}
+
+.exh-progress-bar {
+    flex: 1; /* Allow progress bar to take remaining space */
+    background: #e0e0e0; /* Light background for progress bar */
+    height: 5px; /* Height of the progress bar */
+    border-radius: 2.5px; /* Rounded corners for the progress bar */
+    margin: 0 10px; /* Optional: Add some horizontal margin */
+}
+
+.exh-progress {
+    background-color: #555;
+    width: 50%; /* Example width for progress (you can change this dynamically) */
+    height: 100%; /* Full height of the bar */
+    border-radius: 2.5px; /* Rounded corners */
+}
+
+
+
+
+.timestamps {
+    display: flex; /* Use flexbox for timestamps */
+    justify-content: space-between; /* Space between timestamps */
+    width: 100%; /* Make it take full width of the container */
+}
+
+.current-time,
+.total-time {
+    font-size: 0.875rem; /* Adjust the font size as needed */
+    color: #333; /* Text color */
+}
+
+
+
+
+
+
+
+
+/* Text Section */
+.news-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.news-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.news-summary {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Play Button - Positioned on the far right within the item */
+.play-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #008000;
+    color: white;
+    border: 0px;
+    height: 100%; /* Make the height 100% of the parent container */
+    width: 3.6rem;
+    border-radius: 0 0.375rem 0.375rem 0; /* Apply radius only to the top-right and bottom-right */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute; /* Keep it inside the container */
+    right: 0px; /* Align the button to the right edge */
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust centering vertically */
+}
+
+    .play-button:hover {
+        background-color: #0f4d0f;
+    }
+
+
+
+
+.play-button2 {
+    background-color: #BFBFBF;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* Space between button and progress bar */
+}
+
+.play-button:hover {
+    background-color: #45a049;
+}
+
+
+/* Play Button - Positioned on the far right within the item */
+.news-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FF8C00;
+    color: white;
+    border: 0px;
+    height: 100%; /* Make the height 100% of the parent container */
+    aspect-ratio: 1 / 1; /* This ensures the width equals the height */
+    border-radius: 0 0.375rem 0.375rem 0; /* Apply radius only to the top-right and bottom-right */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute; /* Keep it inside the container */
+    right: 0px; /* Align the button to the right edge */
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust centering vertically */
+}
+
+    .news-button:hover {
+        background-color: #CC5500;
+    }
+
+/* Style for the details link positioned to the left of the play button */
+.details-link {
+    display: inline-block;
+    cursor: pointer;
+    position: absolute; /* Positioning it relative to the parent */
+    right: 4rem; /* Position it to the left of the play button */
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust vertical centering */
+}
+
+.exhortation-details-link {
+    display: inline-block;
+    cursor: pointer;
+    position: absolute; /* Positioning it relative to the parent */
+    right: 4rem; /* Position it to the left of the play button */
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust vertical centering */
+    /* New styles for color and removing underline */
+    color: grey; /* Set the link color to grey */
+    text-decoration: none; /* Remove the underline */
+}
+
+    .exhortation-details-link:hover {
+        color: darkgrey; /* Change color on hover, optional */
+    }
+
+.news-info, .exhortation-info {
+    padding-right: 1rem;
+}
+
+    .news-info p, .exhortation-info p {
+        margin: 0;
+        font-size: 0.875rem; /* 14px */
+    }
+
+/* Right Section: Next Sunday, Prayer Requests, and Donations */
+.right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* Gap between sections */
+}
+
+.headings {
+    width: 100%;
+    text-align: center; /* Center the headings horizontally */
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+.next-sunday, .prayer-requests, .donations {
+    padding: 1.25rem; /* Add padding inside the containers */
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    text-align: center; /* Center text inside each item */
+    width: 100%; /* Ensure it takes full width of the parent */
+    height: 100%; /* Ensure it takes full height of the parent or container */
+    box-sizing: border-box; /* Ensure padding is included in the width and height */
+}
+
+
+.content {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Ensure text is centered within each item */
+    width: 100%; /* Make the container take full width */
+    height: 100%; /* Ensure the container takes full height */
+}
+
+
+.next-sunday button, .next-sunday-modi button, .buttons-group button, .prayer-requests button, .donations button {
+    background-color: #333;
+    color: white;
+    padding: calc(0.6rem); /* Increased scalable padding */
+    width: calc(10rem * var(--scale-factor)); /* Set explicit width for the button */
+    height: calc(3rem * var(--scale-factor)); /* Set explicit height for the button */
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    font-size: calc(1rem * var(--scale-factor)); /* Scalable font size */
+    text-align: center; /* Ensure text is centered */
+    transition: background-color 0.3s ease;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+    .next-sunday-modi button:hover, .next-sunday button:hover, .buttons-group button:hover, .prayer-requests button:hover, .donations button:hover {
+        background-color: #555;
+    }
+
+
+/* Donation Grid */
+.donation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns for donations */
+    gap: 0.625rem;
+}
+
+.progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 0.3125rem;
+    height: 0.625rem; /* 10px */
+    position: relative;
+}
+
+.progress {
+    background-color: #555;
+    border-radius: 0.3125rem;
+    height: 100%;
+}
+
+/* Responsive Typography */
+@media (max-width: 1200px) {
+    :root {
+        --base-font-size: 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    :root {
+        --base-font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --base-font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --base-font-size: 12px;
+    }
+}
+
+/* Forms */
+.upload-form input,
+.notification-form input,
+.notification-form textarea,
+.dropdown select {
+    width: 100%;
+    padding: 0.625rem;
+    margin-bottom: 0.625rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3125rem;
+}
+
+.file-upload {
+    border: 0.125rem dashed #ccc;
+    padding: 1.25rem;
+    text-align: center;
+    align-self: center;
+    border-radius: 0.625rem;
+    cursor: pointer;
+    height: 5rem;
+}
+
+    .file-upload i {
+        font-size: 1.5rem; /* 24px */
+        display: block;
+        margin-bottom: 0.625rem;
+    }
+
+.donation-editable {
+    display: flow;
+    gap: 0.625rem;
+    text-align: center;
+    height: 100%;
+}
+
+.buttons-group {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn {
+    padding: 0.625rem 0.9375rem; /* 10px 15px */
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+    color: #fff;
+}
+
+.publish-btn {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.accept-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.deny-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Prayer Requests List */
+.prayer-requests-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+    .prayer-requests-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.625rem 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+.fa-check-circle {
+    color: #28a745;
+}
+
+.fa-times-circle {
+    color: #dc3545;
+}
+
+/* Style for prayer requests home */
+.prayer-requests-home {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+}
+
+.container {
+    margin: 0 auto; /* Center the container horizontally */
+    box-sizing: border-box; /* Include padding and border in element's total width */
+    align-items: center;
+    min-width: 576px;
+}
+
+.page-content {
+    margin: 0 auto; /* Centers content horizontally */
+    box-sizing: border-box; /* Include padding and border in element's total width */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Stack child elements vertically */
+    justify-content: center; /* Center the content vertically */
+    align-items: center; /* Center the content horizontally */
+    min-height: calc(100vh - 6rem); /* Assuming the footer is 50px tall */
+    min-width: 100vw;
+    padding-left: 2rem; /* Padding on the left */
+    padding-right: 2rem; /* Padding on the right */
+}
+
+.home {
+    padding-left: 13rem;
+    padding-right: 13rem;
+}
+
+.dashboard-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* Gap between sections */
+}
+
+.exhoration-upload-input-layout {
+    display: flex;
+    gap: 10px; /* Adds spacing between the date and title input */
+}
+
+.upload-form {
+    flex: 1; /* This makes each input take up equal width */
+}
+
+input[type="date"], input[type="text"] {
+    width: 100%; /* Ensures inputs fill their container */
+}
+
+.fa-edit {
+    cursor: pointer
+}
+
+/* General layout for settings page */
+.settings-page {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    width: 100%
+}
+
+.settings-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px;
+    border: 2px solid #d8d8d8;
+    border-radius: 12px;
+}
+
+/* Left Panel Styling */
+.settings-left {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #b9b9b9;
+    padding-right: 40px;
+}
+
+    .settings-left h3 {
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+.setting-option {
+    margin-bottom: 20px;
+}
+
+    .setting-option label {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .setting-option input[type="range"] {
+        width: 100%;
+        height: 8px;
+        border-radius: 5px;
+        background: #ddd;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+        .setting-option input[type="range"]::-webkit-slider-thumb {
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+/* Right Panel Styling */
+.settings-right {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 2px solid #b9b9b9;
+}
+
+.account-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.profile-pic {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}
+
+.settings-right h3 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.account-fields {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+    .account-fields label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Buttons */
+.btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .settings-container {
+        flex-direction: column;
+    }
+}
+
+.item-wrap {
+    height: max-content;
+    align-items: center;
+    width: 100%
+}
+
+.next-sunday-calendar {
+    margin-bottom: 20px; /* Adjust the value for more or less padding */
+}
+
+
+
+
+/*Experimental area*/
+/* The switch container */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+
+/* Hide the checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider (background) */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc; /* Default background color */
+    transition: .4s;
+    border-radius: 25px; /* Rounded background */
+}
+
+    /* The circle inside the slider */
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 5px;
+        bottom: 2.5px;
+        background-color: white; /* Circle color */
+        transition: .4s;
+        border-radius: 50%; /* Circle */
+    }
+
+/* When the checkbox is checked */
+input:checked + .slider {
+    background-color: #444; /* Dark background color when active */
+}
+
+    /* Move the circle when checked */
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
+
+
+
+
+
+
+/* Bible Course related components */
+
+.courseSearchDisplay {
+    grid-column: 1 / 4;
+    grid-row: 1 / 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.courseDisplay {
+    grid-column: 2 / 4;
+    grid-row: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 70vh;
+}
+
+
+.courseFilterSelect {
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f6f6; /* Light background */
+    padding: 15px;
+
+    grid-column: 1 / 1;
+    grid-row: 2 / 4;
+
+
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 30vw;
+    max-width: 30vw;
+    height: 70vh;
+}
+
+.scrollable-list {
+    overflow-y: auto;
+    border: none; /* No border */
+    padding: 0;
+    flex: 1;
+    max-height: 400px; /* Adjust for scrolling */
+}
+
+
+.scrollable-list {
+    overflow-y: auto; /* Allow vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    padding: 0;
+    border: none;
+    height: calc(100% - 20px); /* Adjust to fill the container */
+    box-sizing: border-box;
+}
+
+
+.courseFilterSelect {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Adjust the height of the main container */
+}
+
+
+
+.filter-list-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0; /* Divider line */
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 10px; /* Add some spacing between items */
+}
+
+.filter-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: #d9d9d9; /* Light gray header background */
+    padding: 10px;
+    border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+
+.icon-wrapper {
+    background-color: #e3d8ff; /* Light purple background for icons */
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+}
+    .icon-wrapper i {
+        font-size: 6px; /* Adjust to your preferred size */
+    }
+
+
+.icon-letter {
+    width: 24px; /* Set width and height as needed */
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #21005D; /* Text color (white) */
+    font-size: 20px; /* Adjust font size as needed */
+    font-weight: bold;
+    border-radius: 5px; /* Rounded corners, if desired */
+}
+
+
+
+.item-text {
+    flex-grow: 1;
+    font-size: 16px;
+    color: #333; /* Dark text */
+}
+
+.custom-checkbox {
+    margin-left: auto;
+}
+
+    .custom-checkbox input[type=checkbox] {
+        transform: scale(1.2); /* Make the checkbox slightly larger */
+        cursor: pointer;
+    }
+
+/*Items for the BibleCourse Datagrid*/
+
+/* Main container for the DataList */
+.course-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.course-body{
+    align-self: center;
+}
+
+.course-card {
+    min-width: 150px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.course-description {
+    display: block;
+    max-width: 140px; /* Keeps text within card boundaries */
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Hides overflow text */
+    text-overflow: ellipsis; /* Adds "..." for overflow text */
+}
+
+
+.course-title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.course-theme {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.course-image {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: cover;
+}
+
+.course-duration,
+.course-date/*,
+.course-description*/ {
+    margin: 5px 0;
+    font-size: 0.85em;
+    color: #333;
+}
+
+.course-open-btn {
+    margin-top: 10px;
+    padding: 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .course-open-btn:hover {
+        background-color: #0056b3;
+    }
+
+/* Additional styling */
+.donation-input {
+    width: 60px;
+    padding: 0.2rem;
+    border-radius: 5px;
+}
+
+.btn.update-btn {
+    margin-left: 10px;
+}
+
+/* Notification Dropdown Style */
+.notification-dropdown {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
+}
+
+
+/* Course Upload Components*/
+
+/* Container for the form and image placeholder */
+.add-course-container {
+    display: flex;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f6f6f6;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
+    align-items: center;
+}
+
+/* Style for image placeholder */
+.image-placeholder {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    border-radius: 8px;
+    min-width:200px;
+    height: 100%;
+
+}
+
+.upload-input {
+    display: none; /* Hidden file input */
+}
+
+.upload-text {
+    font-size: 16px;
+    color: #888;
+}
+
+/* Style for the course form */
+.course-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
+    height: 100%;
+}
+
+    .course-form h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+        border-bottom: 2px solid #8a2be2;
+    }
+
+    /* Style for labels and text inputs */
+    .course-form label {
+        font-size: 14px;
+        color: #555;
+    }
+
+.form-input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Button group styling */
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-reset, .btn-confirm {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-reset {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.btn-confirm {
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-reset:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-confirm:hover {
+    background-color: #555;
+}
+
+/* Dark mode */
+.dark-mode body {
+    background-color: #333;
+    color: #f5f5f5;
+}
+
+.dark-mode .settings-page, .dark-mode .settings-container, .dark-mode .settings-left, .dark-mode .settings-right {
+    background-color: #444;
+    color: #f5f5f5;
+}
+
+/* Adjust button and text colors in dark mode */
+.dark-mode .btn {
+    background-color: #555;
+    color: #f5f5f5;
+}
+
+.dark-mode h3 {
+    color: #f5f5f5;
+}
+
+
+.audio-controls {
+    display: block;
+    width: 100%; /* Ensure it doesn't expand beyond the section */
+    max-width: 300px; /* Set a max-width to prevent taking the full width */
+    margin: 0 auto; /* Center align within the section */
+}
+
+audio {
+    width: 100%; /* Make the audio element fit its container */
+    max-width: 100%;
+}
+
+.spinner {
+    font-size: 20px;
+    color: gray;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Dark mode for body */
+body.dark-mode {
+    background-color: #333;
+    color: #f5f5f5;
+}
+
+    /* Dark mode for settings containers */
+    body.dark-mode .settings-page,
+    body.dark-mode .settings-container,
+    body.dark-mode .settings-left,
+    body.dark-mode .settings-right {
+        background-color: #444;
+        color: #f5f5f5;
+    }
+
+    /* Dark mode for buttons */
+    body.dark-mode .btn {
+        background-color: #555;
+        color: #f5f5f5;
+    }
+
+    body.dark-mode h3 {
+        color: #f5f5f5;
+    }
+/* -----------------End of Dark Mode---------------------------*/
+
+/* CHANGE PASSWORD BUTTON */
+.btn-change-password {
+    background-color: #333; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .btn-change-password:hover {
+        background-color: #555; /* Darker blue for hover */
+    }
+
+
+/* Fixed size with scrollable content for Exhortations and Ecclesial News */
+.exhortation-list, .news-list {
+    max-height: 300px; /* Set fixed height */
+    overflow-y: auto; /* Enables vertical scrolling */
+}
+
+@media (min-width: 768px) {
+    .exhortation-list, .news-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+}
+
+/* Page Layout */
+.change-password-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+
+/* Card Style */
+.change-password-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    /* Title */
+    .change-password-card h2 {
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Input Fields */
+    .change-password-card input[type="password"] {
+        width: 100%;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+/* Error Message */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    display: none; /* Hide initially */
+}
+
+/* Button */
+.change-password-card button {
+    background-color: #333;
+    color: white;
+    padding: 0.8rem;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .change-password-card button:hover {
+        background-color: #555;
+    }
+
+.stack-horizontal{
+    display: flex;
+    flex-direction:row; 
+}
+
+
+.cancel2-btn {
+    margin-top: 10px;
+    padding: 8px;
+    background-color: #ccc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .cancel2-btn:hover {
+        background-color: #b3b3b3;
+    }
+
+
+ca
+
