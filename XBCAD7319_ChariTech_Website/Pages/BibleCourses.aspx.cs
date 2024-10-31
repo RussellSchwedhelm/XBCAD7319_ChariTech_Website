@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
@@ -9,6 +10,12 @@ namespace XBCAD7319_ChariTech_Website.Pages
 {
     public partial class BibleCourses : System.Web.UI.Page
     {
+
+        private UserManager userMHere= new UserManager();
+        private int churchID;
+        
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Check if the session exists
@@ -20,6 +27,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
             else
             {
                 string email = Session["UserEmail"].ToString();
+                var userID = userMHere.GetUserIdByEmail(email);
+                churchID = userMHere.GetChurchIdByUserId(userID);
             }
 
             if (!IsPostBack)
@@ -56,7 +65,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
         private void BindCourses()
         {
             CourseManager courseManager = new CourseManager();
-            List<CourseClass> courses = courseManager.GetAllCourses();
+            List<CourseClass> courses = courseManager.GetAllCourses(churchID);
 
             foreach (var course in courses)
             {
@@ -76,7 +85,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
             try
             {
-                List<CourseClass> allCourses = courseManager.GetAllCourses();
+                List<CourseClass> allCourses = courseManager.GetAllCourses(churchID);
 
                 // Filter courses based on search query and selected category
                 var filteredCourses = allCourses
@@ -120,7 +129,7 @@ namespace XBCAD7319_ChariTech_Website.Pages
 
                 // Retrieve the list (filtered or total) of courses
                 CourseManager courseManager = new CourseManager();
-                List<CourseClass> courses = courseManager.GetAllCourses();
+                List<CourseClass> courses = courseManager.GetAllCourses(churchID);
 
                 // Retrieve the specific course using the index
                 CourseClass selectedCourse = courses[index];
@@ -138,39 +147,6 @@ namespace XBCAD7319_ChariTech_Website.Pages
                  ScriptManager.RegisterStartupScript(this, GetType(), "Alert", "alert('PDF not available');", true);
              }
          }
-
-
-        /*protected void btnOpen_Click(object sender, EventArgs e)
-        {
-            // Get the button that triggered the event
-            Button btn = (Button)sender;
-
-            // Get the index from the CommandArgument
-            int index = Convert.ToInt32(btn.CommandArgument);
-
-            // Retrieve the list (filtered or total) of courses
-            CourseManager courseManager = new CourseManager();
-            List<CourseClass> courses = courseManager.GetAllCourses();
-
-            // Retrieve the specific course using the index
-            CourseClass selectedCourse = courses[index];
-
-            // You can now access the PdfFileContent
-            byte[] pdfContent = selectedCourse.PdfFileContent;
-            //                course.PdfFileUrl = courseManager.SavePdfFromByteArray(course.PdfFileContent, course.CourseTitle.Replace(" ", "_"));
-
-
-
-            // Example: You can save the PDF or return it in the response
-            // To open it in a new tab, you may convert it to a base64 string or save it on the server
-            string pdfBase64 = Convert.ToBase64String(pdfContent);
-            string pdfUrl = "data:application/pdf;base64," + pdfBase64;
-
-            // Redirect or send to JavaScript
-            ClientScript.RegisterStartupScript(this.GetType(), "OpenPdf", $"openPdfInNewTab('{pdfUrl}');", true);
-        }
-
-        */
 
 
         private string GetSelectedTheme()

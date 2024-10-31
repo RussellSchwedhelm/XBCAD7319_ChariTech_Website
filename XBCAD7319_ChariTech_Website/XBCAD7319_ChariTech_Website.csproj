@@ -458,6 +458,7 @@
     <Content Include="Handlers\MarkNotificationsAsRead.ashx" />
     <Content Include="Content\CoursePdfs\FinanceTextbook.pdf" />
     <Content Include="Handlers\GetExhortationAudio.ashx" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
