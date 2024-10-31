@@ -12,7 +12,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
     {
 
         public ExhortationManager exhortationManager = new ExhortationManager();
-
+        public UserManager userManager = new UserManager();
+        public int churchID;
 
         //---------------------------------------------------------------------------------------------------------------------//
         protected void Page_Load(object sender, EventArgs e)
@@ -26,8 +27,8 @@ namespace XBCAD7319_ChariTech_Website.Pages
             else
             {
                 string email = Session["UserEmail"].ToString();
-                var userID = userMHere.GetUserIdByEmail(email);
-                churchID = userMHere.GetChurchIdByUserId(userID);
+                var userID = userManager.GetUserIdByEmail(email);
+                churchID = userManager.GetChurchIdByUserId(userID);
             }
 
             if (!IsPostBack)
