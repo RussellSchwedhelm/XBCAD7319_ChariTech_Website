@@ -77,6 +77,7 @@
             </div>
         </div>
         </div>
+        </div>
 
     <!-- JavaScript for handling audio play/pause functionality -->
     <script type="text/javascript">
